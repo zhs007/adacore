@@ -6,7 +6,7 @@
 # adarenderservaddr - Ada render service address
 adarenderservaddr: 127.0.0.1:7052
 # adarendertoken - This is a valid adarenderserv token
-adarendertoken: RVhVrt13P6i5xCrL5Fc3GcuHC03kaunA
+#adarendertoken: RVhVrt13P6i5xCrL5Fc3GcuHC03kaunA
 
 #----------------------------------------------------------------
 # adanode service configuration

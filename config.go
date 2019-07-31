@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"go.uber.org/zap/zapcore"
-	yaml "gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v2"
 
 	adacoredef "github.com/zhs007/adacore/basedef"
 )
@@ -14,10 +14,18 @@ import (
 type Config struct {
 
 	//------------------------------------------------------------------
-	// base configuration
+	// adarender configuration
 
+	// AdaRenderServAddr - Ada render service address
 	AdaRenderServAddr string
-	AdaRenderToken    string
+	// AdaRenderToken - This is a valid adarenderserv token
+	AdaRenderToken string
+
+	//------------------------------------------------------------------
+	// adanode service configuration
+
+	// ClientTokens - There are the valid clienttokens for this node
+	ClientTokens []string
 }
 
 func getLogLevel(str string) zapcore.Level {
@@ -36,6 +44,14 @@ func getLogLevel(str string) zapcore.Level {
 func checkConfig(cfg *Config) error {
 	if cfg.AdaRenderServAddr == "" {
 		return adacoredef.ErrConfigNoAdaRenderServAddr
+	}
+
+	if cfg.AdaRenderToken == "" {
+		return adacoredef.ErrConfigNoAdaRenderToken
+	}
+
+	if len(cfg.ClientTokens) == 0 {
+		return adacoredef.ErrConfigNoClientTokens
 	}
 
 	return nil

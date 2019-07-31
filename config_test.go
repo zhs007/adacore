@@ -21,5 +21,15 @@ func TestLoadConfig(t *testing.T) {
 		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoAdaRenderServAddr", "./unittest/config002.yaml")
 	}
 
+	cfg, err = LoadConfig("./unittest/config003.yaml")
+	if err != adacoredef.ErrConfigNoClientTokens {
+		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoClientTokens", "./unittest/config003.yaml")
+	}
+
+	cfg, err = LoadConfig("./unittest/config004.yaml")
+	if err != adacoredef.ErrConfigNoAdaRenderToken {
+		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoAdaRenderToken", "./unittest/config004.yaml")
+	}
+
 	t.Logf("TestLoadConfig OK")
 }

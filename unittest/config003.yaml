@@ -12,5 +12,5 @@ adarendertoken: RVhVrt13P6i5xCrL5Fc3GcuHC03kaunA
 # adanode service configuration
 
 # clienttokens - There are the valid clienttokens for this node
-clienttokens:
-  - x7sSGGHgmKwUMoa5S4VZlr9bUF2lCCzF
+#clienttokens:
+#  - x7sSGGHgmKwUMoa5S4VZlr9bUF2lCCzF
