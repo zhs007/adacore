@@ -9,4 +9,9 @@ var (
 	ErrConfigNoClientTokens = errors.New("There is no ClientTokens in the configuration file")
 	// ErrConfigNoAdaRenderToken - There is no AdaRenderToken in the configuration file
 	ErrConfigNoAdaRenderToken = errors.New("There is no AdaRenderToken in the configuration file")
+
+	// ErrAdaRenderClientNoServAddr - There is no ServAddr in AdaRenderClient
+	ErrAdaRenderClientNoServAddr = errors.New("There is no ServAddr in AdaRenderClient")
+	// ErrAdaRenderClientNoToken - There is no Token in AdaRenderClient
+	ErrAdaRenderClientNoToken = errors.New("There is no Token in AdaRenderClient")
 )
