@@ -38,6 +38,16 @@ func (client *Client) isValid() error {
 	return nil
 }
 
+// reset - reset
+func (client *Client) reset() {
+	if client.conn != nil {
+		client.conn.Close()
+	}
+
+	client.conn = nil
+	client.client = nil
+}
+
 // Render - MarkdownData => HTMLData
 func (client *Client) Render(ctx context.Context, mddata *adarender.MarkdownData) (*adarender.HTMLData, error) {
 	err := client.isValid()
@@ -52,51 +62,79 @@ func (client *Client) Render(ctx context.Context, mddata *adarender.MarkdownData
 		}
 
 		client.conn = conn
-
 		client.client = adarender.NewAdaRenderServiceClient(conn)
 	}
 
 	stream, err := client.client.Render(ctx)
 	if err != nil {
+		// if error, reset
+		client.reset()
+
 		return nil, err
 	}
 
 	var recverr error
+	var lstrect []*adarender.HTMLStream
 	waitc := make(chan struct{})
+
 	go func() {
 		for {
-			// in, err := stream.Recv()
-			_, err := stream.Recv()
+			in, err := stream.Recv()
 			if err == io.EOF {
 				// read done.
 				close(waitc)
+
 				return
 			}
+
 			if err != nil {
 				recverr = err
 			}
+
+			lstrect = append(lstrect, in)
 		}
 	}()
 
-	// for _, note := range notes {
-	// 	if err := stream.Send(note); err != nil {
-	// 		log.Fatalf("Failed to send a note: %v", err)
-	// 	}
-	// }
+	lst, err := BuildMarkdownStream(mddata)
+	if err != nil {
+		// if error, close
+		stream.CloseSend()
+
+		// if error, reset
+		client.reset()
+
+		return nil, err
+	}
+
+	for _, cn := range lst {
+		curerr := stream.Send(cn)
+		if curerr != nil {
+			// if error, close
+			stream.CloseSend()
+
+			// if error, reset
+			client.reset()
+
+			return nil, curerr
+		}
+	}
+
 	stream.CloseSend()
 	<-waitc
 
 	if recverr != nil {
-		// jarvisbase.Warn("crawlerClient.getArticles:GetArticles", zap.Error(err))
 
-		// if error, close connect
-		client.conn.Close()
-
-		client.conn = nil
-		client.client = nil
+		// if error, reset
+		client.reset()
 
 		return nil, recverr
 	}
 
-	return nil, nil
+	htmldata, htmlerr := BuildHTMLData(lstrect)
+	if htmlerr != nil {
+		// if error, reset
+		client.reset()
+	}
+
+	return htmldata, nil
 }
