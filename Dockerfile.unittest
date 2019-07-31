@@ -1,0 +1,13 @@
+FROM golang:1.12
+
+MAINTAINER zerro "zerrozhao@gmail.com"
+
+WORKDIR /app/adacore
+
+COPY ./go.* /app/adacore/
+
+RUN go mod download
+
+COPY . /app/adacore
+
+RUN go test ./... -cover
