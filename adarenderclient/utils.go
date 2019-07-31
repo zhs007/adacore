@@ -8,7 +8,7 @@ import (
 )
 
 // BuildMarkdownStream - MarkdownData => []MarkdownStream
-func BuildMarkdownStream(mddata *adarender.MarkdownData) ([]*adarender.MarkdownStream, error) {
+func BuildMarkdownStream(mddata *adarender.MarkdownData, token string) ([]*adarender.MarkdownStream, error) {
 	buf, err := proto.Marshal(mddata)
 	if err != nil {
 		return nil, err
@@ -19,6 +19,7 @@ func BuildMarkdownStream(mddata *adarender.MarkdownData) ([]*adarender.MarkdownS
 		stream := &adarender.MarkdownStream{}
 
 		stream.MarkdownData = mddata
+		stream.Token = token
 
 		return []*adarender.MarkdownStream{stream}, nil
 	}

@@ -89,13 +89,17 @@ func (client *Client) Render(ctx context.Context, mddata *adarender.MarkdownData
 
 			if err != nil {
 				recverr = err
+
+				close(waitc)
+
+				return
 			}
 
 			lstrect = append(lstrect, in)
 		}
 	}()
 
-	lst, err := BuildMarkdownStream(mddata)
+	lst, err := BuildMarkdownStream(mddata, client.token)
 	if err != nil {
 		// if error, close
 		stream.CloseSend()
