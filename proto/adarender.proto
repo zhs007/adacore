@@ -1,0 +1,76 @@
+syntax = "proto3";
+package adarender;
+
+// MarkdownData - markdown data
+message MarkdownData {
+    // strData - markdown string
+    string strData = 1;
+    // binaryData - binary data, it's like images
+    map<string, bytes> binaryData = 2;
+
+    // templateName - template Name
+    string templateName = 10;
+    // templateData - template data
+    string templateData = 11;
+}
+
+// MarkdownStream - markdown stream data
+message MarkdownStream {
+    // totalLength - If the message is too long, it will send data in multiple msg, this is the total length.
+    int32 totalLength = 1;
+    // curStart - The starting point of the current data (in bytes).
+    int32 curStart = 2;
+    // curLength - The length of the current data (in bytes).
+    int32 curLength = 3;
+    // hashData - This is the hash of each paragraph.
+    string hashData = 4;
+    // totalHashData - If multiple messages return data, this is the hash value of all data, only sent in the last message.
+    string totalHashData = 5;
+    // data - binary data
+    bytes data = 6;
+
+    // error - error string
+    string error = 100;
+
+    // markdownData - If the data does not exceed 4mb, this is the data that is directly available.
+    MarkdownData markdownData = 200;
+
+    // token - API token
+    string token = 300;
+}
+
+// HTMLData - HTML data
+message HTMLData {
+    // strData - HTML string
+    string strData = 1;
+    // binaryData - binary data, it's like images, css file
+    map<string, bytes> binaryData = 2;
+}
+
+// HTMLStream - HTML data stream
+message HTMLStream {
+    // totalLength - If the message is too long, it will send data in multiple msg, this is the total length.
+    int32 totalLength = 1;
+    // curStart - The starting point of the current data (in bytes).
+    int32 curStart = 2;
+    // curLength - The length of the current data (in bytes).
+    int32 curLength = 3;
+    // hashData - This is the hash of each paragraph.
+    string hashData = 4;
+    // totalHashData - If multiple messages return data, this is the hash value of all data, only sent in the last message.
+    string totalHashData = 5;
+    // data - binary data
+    bytes data = 6;
+
+    // error - error string
+    string error = 100;
+
+    // markdownData - If the data does not exceed 4mb, this is the data that is directly available.
+    HTMLData htmlData = 200;
+}
+
+// AdaRenderService - AdaRender service
+service AdaRenderService {
+    // render - render markdown
+    rpc render(stream MarkdownStream) returns (stream HTMLStream) {}
+}

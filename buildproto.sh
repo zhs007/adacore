@@ -1,0 +1,1 @@
+protoc -I proto/ proto/adarender.proto --go_out=plugins=grpc:proto
