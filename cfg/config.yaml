@@ -1,0 +1,6 @@
+# Ada node config
+
+# adarenderservaddr - Ada render service address
+adarenderservaddr: 127.0.0.1:7052
+# adarendertoken
+adarendertoken: RVhVrt13P6i5xCrL5Fc3GcuHC03kaunA
