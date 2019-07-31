@@ -26,7 +26,7 @@ func main() {
 
 	htmldata, err := client.Render(ctx, mddata)
 	if err != nil {
-		fmt.Print("TestRenderClient Render err is %v", err)
+		fmt.Printf("TestRenderClient Render err is %v", err)
 	}
 
 	if htmldata == nil {
