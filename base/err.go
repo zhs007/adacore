@@ -10,7 +10,9 @@ var (
 	// ErrConfigNoAdaRenderToken - There is no AdaRenderToken in the configuration file
 	ErrConfigNoAdaRenderToken = errors.New("There is no AdaRenderToken in the configuration file")
 	// ErrConfigNoFilePath - There is no FilePath in the configuration file
-	ErrConfigNoFilePath = errors.New("There is no FilePath in the configuration file")	
+	ErrConfigNoFilePath = errors.New("There is no FilePath in the configuration file")
+	// ErrConfigNoBindAddr - There is no BindAddr in the configuration file
+	ErrConfigNoBindAddr = errors.New("There is no BindAddr in the configuration file")
 
 	// ErrAdaRenderClientNoServAddr - There is no ServAddr in AdaRenderClient
 	ErrAdaRenderClientNoServAddr = errors.New("There is no ServAddr in AdaRenderClient")

@@ -2,6 +2,8 @@ package adacorebase
 
 import (
 	"bytes"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -47,4 +49,11 @@ func AppendString(strs ...string) string {
 // GetCurTime - append string
 func GetCurTime() int64 {
 	return time.Now().Unix()
+}
+
+// HashBuffer - hash buffer
+func HashBuffer(buf []byte) string {
+	hash := sha256.New()
+	out := hash.Sum(buf)
+	return hex.EncodeToString(out)
 }

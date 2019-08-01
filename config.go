@@ -27,7 +27,9 @@ type Config struct {
 	// ClientTokens - There are the valid clienttokens for this node
 	ClientTokens []string
 	// FilePath - Output file path
-	FilePath string	
+	FilePath string
+	// BindAddr - bind addr
+	BindAddr string
 }
 
 func getLogLevel(str string) zapcore.Level {
@@ -58,6 +60,10 @@ func checkConfig(cfg *Config) error {
 
 	if cfg.FilePath == "" {
 		return adacorebase.ErrConfigNoFilePath
+	}
+
+	if cfg.BindAddr == "" {
+		return adacorebase.ErrConfigNoBindAddr
 	}
 
 	return nil
