@@ -14,3 +14,6 @@ adarenderservaddr: 127.0.0.1:7052
 # clienttokens - There are the valid clienttokens for this node
 clienttokens:
   - x7sSGGHgmKwUMoa5S4VZlr9bUF2lCCzF
+
+# filepath - Output file path
+filepath: ./output/

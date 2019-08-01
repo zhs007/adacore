@@ -31,5 +31,10 @@ func TestLoadConfig(t *testing.T) {
 		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoAdaRenderToken", "./unittest/config004.yaml")
 	}
 
+	cfg, err = LoadConfig("./unittest/config005.yaml")
+	if err != adacoredef.ErrConfigNoFilePath {
+		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoFilePath", "./unittest/config005.yaml")
+	}
+
 	t.Logf("TestLoadConfig OK")
 }
