@@ -1,4 +1,4 @@
-package adacoredef
+package adacorebase
 
 import "errors"
 
@@ -16,4 +16,9 @@ var (
 	ErrAdaRenderClientNoServAddr = errors.New("There is no ServAddr in AdaRenderClient")
 	// ErrAdaRenderClientNoToken - There is no Token in AdaRenderClient
 	ErrAdaRenderClientNoToken = errors.New("There is no Token in AdaRenderClient")
+
+	// ErrAdaCoreDBInvalidHashName - There is invalid hashname in AdaCoreDB
+	ErrAdaCoreDBInvalidHashName = errors.New("There is invalid hashname in AdaCoreDB")
+	// ErrAdaCoreDBInvalidResList - There is invalid reslist in AdaCoreDB
+	ErrAdaCoreDBInvalidResList = errors.New("There is invalid reslist in AdaCoreDB")
 )

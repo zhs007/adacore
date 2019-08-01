@@ -5,7 +5,7 @@ import (
 	"io"
 
 	adarender "github.com/zhs007/adacore/adarenderpb"
-	adacoredef "github.com/zhs007/adacore/basedef"
+	adacorebase "github.com/zhs007/adacore/base"
 	"google.golang.org/grpc"
 )
 
@@ -28,11 +28,11 @@ func NewClient(servAddr string, token string) *Client {
 // isValid - check myself
 func (client *Client) isValid() error {
 	if client.servAddr == "" {
-		return adacoredef.ErrAdaRenderClientNoServAddr
+		return adacorebase.ErrAdaRenderClientNoServAddr
 	}
 
 	if client.token == "" {
-		return adacoredef.ErrAdaRenderClientNoToken
+		return adacorebase.ErrAdaRenderClientNoToken
 	}
 
 	return nil

@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/yaml.v2"
 
-	adacoredef "github.com/zhs007/adacore/basedef"
+	adacorebase "github.com/zhs007/adacore/base"
 )
 
 // Config - config
@@ -45,19 +45,19 @@ func getLogLevel(str string) zapcore.Level {
 
 func checkConfig(cfg *Config) error {
 	if cfg.AdaRenderServAddr == "" {
-		return adacoredef.ErrConfigNoAdaRenderServAddr
+		return adacorebase.ErrConfigNoAdaRenderServAddr
 	}
 
 	if cfg.AdaRenderToken == "" {
-		return adacoredef.ErrConfigNoAdaRenderToken
+		return adacorebase.ErrConfigNoAdaRenderToken
 	}
 
 	if len(cfg.ClientTokens) == 0 {
-		return adacoredef.ErrConfigNoClientTokens
+		return adacorebase.ErrConfigNoClientTokens
 	}
 
 	if cfg.FilePath == "" {
-		return adacoredef.ErrConfigNoFilePath
+		return adacorebase.ErrConfigNoFilePath
 	}
 
 	return nil

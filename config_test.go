@@ -3,7 +3,7 @@ package adacore
 import (
 	"testing"
 
-	adacoredef "github.com/zhs007/adacore/basedef"
+	adacorebase "github.com/zhs007/adacore/base"
 )
 
 func TestLoadConfig(t *testing.T) {
@@ -17,22 +17,22 @@ func TestLoadConfig(t *testing.T) {
 	}
 
 	cfg, err = LoadConfig("./unittest/config002.yaml")
-	if err != adacoredef.ErrConfigNoAdaRenderServAddr {
+	if err != adacorebase.ErrConfigNoAdaRenderServAddr {
 		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoAdaRenderServAddr", "./unittest/config002.yaml")
 	}
 
 	cfg, err = LoadConfig("./unittest/config003.yaml")
-	if err != adacoredef.ErrConfigNoClientTokens {
+	if err != adacorebase.ErrConfigNoClientTokens {
 		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoClientTokens", "./unittest/config003.yaml")
 	}
 
 	cfg, err = LoadConfig("./unittest/config004.yaml")
-	if err != adacoredef.ErrConfigNoAdaRenderToken {
+	if err != adacorebase.ErrConfigNoAdaRenderToken {
 		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoAdaRenderToken", "./unittest/config004.yaml")
 	}
 
 	cfg, err = LoadConfig("./unittest/config005.yaml")
-	if err != adacoredef.ErrConfigNoFilePath {
+	if err != adacorebase.ErrConfigNoFilePath {
 		t.Fatalf("TestLoadConfig LoadConfig %v err is not ErrConfigNoFilePath", "./unittest/config005.yaml")
 	}
 

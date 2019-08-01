@@ -4,7 +4,7 @@ import (
 	"github.com/golang/protobuf/proto"
 
 	adarender "github.com/zhs007/adacore/adarenderpb"
-	"github.com/zhs007/jarviscore/basedef"
+	"github.com/zhs007/adacore/base"
 )
 
 // BuildMarkdownStream - MarkdownData => []MarkdownStream
@@ -15,7 +15,7 @@ func BuildMarkdownStream(mddata *adarender.MarkdownData, token string) ([]*adare
 	}
 
 	bl := len(buf)
-	if bl <= basedef.BigMsgLength {
+	if bl <= adacorebase.BigMsgLength {
 		stream := &adarender.MarkdownStream{}
 
 		stream.MarkdownData = mddata
