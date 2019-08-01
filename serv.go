@@ -5,16 +5,18 @@ import (
 	"net"
 
 	"go.uber.org/zap"
+	"google.golang.org/grpc"
 
+	"github.com/zhs007/adacore/adarenderclient"
 	adacorebase "github.com/zhs007/adacore/base"
 	adacorepb "github.com/zhs007/adacore/proto"
-	"google.golang.org/grpc"
 )
 
 // Serv - AdaCore Service
 type Serv struct {
-	lis      net.Listener
-	grpcServ *grpc.Server
+	lis          net.Listener
+	grpcServ     *grpc.Server
+	renderClient *adarenderclient.Client
 }
 
 // NewAdaCoreServ -
