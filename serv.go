@@ -2,18 +2,21 @@ package adacore
 
 import (
 	"context"
+	"io"
 	"net"
 
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 
 	"github.com/zhs007/adacore/adarenderclient"
+	adarender "github.com/zhs007/adacore/adarenderpb"
 	adacorebase "github.com/zhs007/adacore/base"
 	adacorepb "github.com/zhs007/adacore/proto"
 )
 
 // Serv - AdaCore Service
 type Serv struct {
+	cfg          *Config
 	lis          net.Listener
 	grpcServ     *grpc.Server
 	renderClient *adarenderclient.Client
@@ -21,6 +24,10 @@ type Serv struct {
 
 // NewAdaCoreServ -
 func NewAdaCoreServ(cfg *Config) (*Serv, error) {
+	if cfg == nil {
+		return nil, adacorebase.ErrServNoConfig
+	}
+
 	lis, err := net.Listen("tcp", cfg.BindAddr)
 	if err != nil {
 		adacorebase.Error("NewAdaCoreServ", zap.Error(err))
@@ -33,6 +40,7 @@ func NewAdaCoreServ(cfg *Config) (*Serv, error) {
 	grpcServ := grpc.NewServer()
 
 	serv := &Serv{
+		cfg:      cfg,
 		lis:      lis,
 		grpcServ: grpcServ,
 	}
@@ -55,7 +63,55 @@ func (serv *Serv) Stop() {
 }
 
 // BuildWithMarkdown - build with markdown
-func (serv *Serv) BuildWithMarkdown(s adacorepb.AdaCoreService_BuildWithMarkdownServer) error {
+func (serv *Serv) BuildWithMarkdown(stream adacorepb.AdaCoreService_BuildWithMarkdownServer) error {
+	var lst []*adacorepb.MarkdownStream
+
+	for {
+		in, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			return err
+		}
+
+		if !serv.cfg.HasToken(in.Token) {
+			return adacorebase.ErrServInvalidToken
+		}
+
+		lst = append(lst, in)
+	}
+
+	md, err := BuildMarkdownData(lst)
+	if err != nil {
+		return err
+	}
+
+	rendermd := &adarender.MarkdownData{
+		StrData:      md.StrData,
+		TemplateName: md.TemplateName,
+		TemplateData: md.TemplateData,
+	}
+
+	if len(md.BinaryData) > 0 {
+		rendermd.BinaryData = make(map[string][]byte)
+
+		for k, v := range md.BinaryData {
+			rendermd.BinaryData[k] = v
+		}
+	}
+
+	htmldata, err := serv.renderClient.Render(stream.Context(), rendermd)
+	if err != nil {
+		return err
+	}
+
+	err = SaveHTMLData(htmldata)
+	if err != nil {
+		return nil
+	}
+
 	return nil
 }
 

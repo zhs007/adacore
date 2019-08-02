@@ -96,3 +96,14 @@ func LoadConfig(filename string) (*Config, error) {
 
 	return cfg, nil
 }
+
+// HasToken - has token
+func (cfg *Config) HasToken(token string) bool {
+	for _, v := range cfg.ClientTokens {
+		if v == token {
+			return true
+		}
+	}
+
+	return false
+}

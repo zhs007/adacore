@@ -23,4 +23,9 @@ var (
 	ErrAdaCoreDBInvalidHashName = errors.New("There is invalid hashname in AdaCoreDB")
 	// ErrAdaCoreDBInvalidResList - There is invalid reslist in AdaCoreDB
 	ErrAdaCoreDBInvalidResList = errors.New("There is invalid reslist in AdaCoreDB")
+
+	// ErrServNoConfig - The config is invalid
+	ErrServNoConfig = errors.New("The config is invalid")
+	// ErrServInvalidToken - This token is invalid
+	ErrServInvalidToken = errors.New("This token is invalid")
 )
