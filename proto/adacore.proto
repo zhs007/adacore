@@ -71,6 +71,9 @@ message ReplyMarkdown {
 
 	// lstRes - resource list
 	repeated ResourceInfo lstRes = 10;
+
+	// err - error
+	string err = 100;
 }
 
 // AdaCoreService - AdaCore service

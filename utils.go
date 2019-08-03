@@ -1,7 +1,12 @@
 package adacore
 
 import (
+	"io/ioutil"
+	"path/filepath"
+
+	"github.com/golang/protobuf/proto"
 	adarender "github.com/zhs007/adacore/adarenderpb"
+	adacorebase "github.com/zhs007/adacore/base"
 	adacorepb "github.com/zhs007/adacore/proto"
 )
 
@@ -17,6 +22,34 @@ func BuildMarkdownData(lst []*adacorepb.MarkdownStream) (*adacorepb.MarkdownData
 }
 
 // SaveHTMLData - save html
-func SaveHTMLData(htmldata *adarender.HTMLData) error {
-	return nil
+func SaveHTMLData(htmldata *adarender.HTMLData, cfg *Config) error {
+	if len(htmldata.StrData) > 0 {
+		hashname := adacorebase.HashBuffer([]byte(htmldata.StrData))
+
+		fn := filepath.Join(cfg.FilePath, hashname)
+
+		return ioutil.WriteFile(fn, []byte(htmldata.StrData), 0644)
+	}
+
+	return adacorebase.ErrEmptyHTMLData
+}
+
+// BuildMarkdownStream - MarkdownData => []MarkdownStream
+func BuildMarkdownStream(mddata *adacorepb.MarkdownData, token string) ([]*adacorepb.MarkdownStream, error) {
+	buf, err := proto.Marshal(mddata)
+	if err != nil {
+		return nil, err
+	}
+
+	bl := len(buf)
+	if bl <= adacorebase.BigMsgLength {
+		stream := &adacorepb.MarkdownStream{}
+
+		stream.MarkdownData = mddata
+		stream.Token = token
+
+		return []*adacorepb.MarkdownStream{stream}, nil
+	}
+
+	return nil, nil
 }

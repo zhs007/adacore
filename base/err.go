@@ -28,4 +28,14 @@ var (
 	ErrServNoConfig = errors.New("The config is invalid")
 	// ErrServInvalidToken - This token is invalid
 	ErrServInvalidToken = errors.New("This token is invalid")
+	// ErrServInvalidErrString - The err string is invalid
+	ErrServInvalidErrString = errors.New("The err string is invalid")
+
+	// ErrEmptyHTMLData - The HTMLData is empty
+	ErrEmptyHTMLData = errors.New("The HTMLData is empty")
+
+	// ErrAdaCoreClientNoServAddr - There is no ServAddr in AdaCoreClient
+	ErrAdaCoreClientNoServAddr = errors.New("There is no ServAddr in AdaCoreClient")
+	// ErrAdaCoreClientNoToken - There is no Token in AdaCoreClient
+	ErrAdaCoreClientNoToken = errors.New("There is no Token in AdaCoreClient")
 )
