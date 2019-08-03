@@ -30,6 +30,18 @@ type Config struct {
 	FilePath string
 	// BindAddr - bind addr
 	BindAddr string
+
+	//------------------------------------------------------------------
+	// logger configuration
+
+	Log struct {
+		// LogPath - log path
+		LogPath string
+		// LogLevel - log level, it can be debug, info, warn, error
+		LogLevel string
+		// LogConsole - it can be output to console
+		LogConsole bool
+	}
 }
 
 func getLogLevel(str string) zapcore.Level {
@@ -106,4 +118,9 @@ func (cfg *Config) HasToken(token string) bool {
 	}
 
 	return false
+}
+
+// InitLogger - init logger
+func InitLogger(cfg *Config) {
+	adacorebase.InitLogger(getLogLevel(cfg.Log.LogLevel), cfg.Log.LogConsole, cfg.Log.LogPath)
 }

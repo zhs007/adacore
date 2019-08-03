@@ -37,15 +37,20 @@ func NewAdaCoreServ(cfg *Config) (*Serv, error) {
 
 	adacorebase.Info("Listen", zap.String("addr", cfg.BindAddr))
 
+	renderClient := adarenderclient.NewClient(cfg.AdaRenderServAddr, cfg.AdaRenderToken)
+
 	grpcServ := grpc.NewServer()
 
 	serv := &Serv{
-		cfg:      cfg,
-		lis:      lis,
-		grpcServ: grpcServ,
+		cfg:          cfg,
+		lis:          lis,
+		grpcServ:     grpcServ,
+		renderClient: renderClient,
 	}
 
 	adacorepb.RegisterAdaCoreServiceServer(grpcServ, serv)
+
+	adacorebase.Info("NewAdaCoreServ OK.")
 
 	return serv, nil
 }

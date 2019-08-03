@@ -53,7 +53,10 @@ func GetCurTime() int64 {
 
 // HashBuffer - hash buffer
 func HashBuffer(buf []byte) string {
-	hash := sha256.New()
-	out := hash.Sum(buf)
-	return hex.EncodeToString(out)
+	// hash := sha256.New()
+	// hash.Write(buf)
+	// out := hash.Sum(nil)
+	sum256 := sha256.Sum256(buf)
+	return hex.EncodeToString(sum256[:])
+	// return fmt.Sprintf("%x", out)
 }

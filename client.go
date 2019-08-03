@@ -2,6 +2,8 @@ package adacore
 
 import (
 	"context"
+	"io"
+	"io/ioutil"
 
 	adacorebase "github.com/zhs007/adacore/base"
 	adacorepb "github.com/zhs007/adacore/proto"
@@ -97,7 +99,7 @@ func (client *Client) BuildWithMarkdown(ctx context.Context, mddata *adacorepb.M
 	}
 
 	reply, err := stream.CloseAndRecv()
-	if err != nil {
+	if err != nil && err != io.EOF {
 
 		// if error, reset
 		client.reset()
@@ -106,4 +108,19 @@ func (client *Client) BuildWithMarkdown(ctx context.Context, mddata *adacorepb.M
 	}
 
 	return reply, nil
+}
+
+// BuildWithMarkdownFile - markdown file => ReplyMarkdown
+func (client *Client) BuildWithMarkdownFile(ctx context.Context, fn string, tempname string) (*adacorepb.ReplyMarkdown, error) {
+	fd, err := ioutil.ReadFile(fn)
+	if err != nil {
+		return nil, err
+	}
+
+	md := &adacorepb.MarkdownData{
+		StrData:      string(fd),
+		TemplateName: tempname,
+	}
+
+	return client.BuildWithMarkdown(ctx, md)
 }

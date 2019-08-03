@@ -43,10 +43,9 @@ func initPanicFile() error {
 	return nil
 }
 
-func initLogger(level zapcore.Level, isConsole bool, logpath string,
-	subName string) (*zap.Logger, error) {
+func initLogger(level zapcore.Level, isConsole bool, logpath string) (*zap.Logger, error) {
 
-	logSubName = subName
+	// logSubName = subName
 
 	// curtime = time.Now().Unix()
 
@@ -97,12 +96,11 @@ func initLogger(level zapcore.Level, isConsole bool, logpath string,
 }
 
 // InitLogger - initializes a thread-safe singleton logger
-func InitLogger(level zapcore.Level, isConsole bool, logpath string,
-	nodeType string) {
+func InitLogger(level zapcore.Level, isConsole bool, logpath string) {
 
 	// once ensures the singleton is initialized only once
 	onceLogger.Do(func() {
-		cl, err := initLogger(level, isConsole, logpath, nodeType)
+		cl, err := initLogger(level, isConsole, logpath)
 		if err != nil {
 			fmt.Printf("initLogger error! %v \n", err)
 
