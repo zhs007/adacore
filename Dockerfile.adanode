@@ -1,0 +1,28 @@
+FROM golang:1.12 as builder
+
+MAINTAINER zerro "zerrozhao@gmail.com"
+
+ENV GOPROXY https://goproxy.io
+
+WORKDIR /src/adanode
+
+COPY ./go.* /src/adanode/
+
+RUN go mod download
+
+COPY . /src/adanode
+
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o adanode ./node \
+    && mkdir /app \
+    && mkdir /app/adanode \
+    && mkdir /app/adanode/cfg \
+    && mkdir /app/adanode/logs \
+    && cp ./adanode /app/adanode/ \
+    && cp ./cfg/config.yaml.sample /app/adanode/cfg/adanode.yaml
+
+FROM alpine
+RUN apk upgrade && apk add --no-cache ca-certificates
+WORKDIR /app/adanode
+COPY --from=builder /usr/local/go/lib/time/zoneinfo.zip /usr/local/go/lib/time/zoneinfo.zip
+COPY --from=builder /app/adanode /app/adanode
+CMD ["./adanode"]

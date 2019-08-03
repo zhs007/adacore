@@ -28,7 +28,7 @@ func startServ(cfg *adacore.Config, endchan chan int) (*adacore.Serv, error) {
 }
 
 func main() {
-	cfg, err := adacore.LoadConfig("./cfg/config.yaml")
+	cfg, err := adacore.LoadConfig("./cfg/adanode.yaml")
 	if err != nil {
 		fmt.Printf("startServ LoadConfig %v", err)
 
