@@ -13,3 +13,5 @@
 
 .vscode
 cfg/*.yaml
+logs
+output
