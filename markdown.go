@@ -1,6 +1,8 @@
 package adacore
 
 import (
+	"strings"
+
 	adacorebase "github.com/zhs007/adacore/base"
 )
 
@@ -24,7 +26,19 @@ func NewMakrdown(title string) *Markdown {
 }
 
 // GetMarkdownString - get markdown string
-func (md *Markdown) GetMarkdownString() string {
+func (md *Markdown) GetMarkdownString(lst *KeywordMappingList) string {
+	if lst != nil && len(lst.Keywords) > 0 {
+		for _, v := range lst.Keywords {
+			if v.URL == "" {
+				md.str = strings.Replace(md.str, v.Keyword,
+					adacorebase.AppendString("``", v.Keyword, "``"), -1)
+			} else {
+				md.str = strings.Replace(md.str, v.Keyword,
+					adacorebase.AppendString("``[", v.Keyword, "]("+v.URL+")``"), -1)
+			}
+		}
+	}
+
 	return md.str
 }
 
