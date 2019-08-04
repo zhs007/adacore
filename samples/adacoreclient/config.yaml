@@ -1,0 +1,31 @@
+# Ada node config
+
+#----------------------------------------------------------------
+# adarender configuration
+
+# adarenderservaddr - Ada render service address
+adarenderservaddr: 47.91.209.141:7052
+# adarendertoken - This is a valid adarenderserv token
+adarendertoken: RVhVrt13P6i5xCrL5Fc3GcuHC03kaunA
+
+#----------------------------------------------------------------
+# adanode service configuration
+
+# clienttokens - There are the valid clienttokens for this node
+clienttokens:
+  - x7sSGGHgmKwUMoa5S4VZlr9bUF2lCCzF
+
+# filepath - Output file path
+filepath: ./
+
+# bindaddr - bind addr
+bindaddr: 0.0.0.0:7201
+
+# log - log config
+log:
+  # logpath - log path
+  logpath: './logs'
+  # loglevel - log level, it can be debug, info, warn, error
+  loglevel: 'debug'
+  # logconsole - it can be output to console
+  logconsole: true
