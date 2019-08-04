@@ -12,8 +12,22 @@ adarendertoken: RVhVrt13P6i5xCrL5Fc3GcuHC03kaunA
 # adanode service configuration
 
 # clienttokens - There are the valid clienttokens for this node
+#               这里都是默认角色用的token
 clienttokens:
   - x7sSGGHgmKwUMoa5S4VZlr9bUF2lCCzF
+
+# maxexpiretime - max expire time in seconds
+maxexpiretime: 86400
+
+# isallowtemplatedata - Whether to allow templatedata
+isallowtemplatedata: false
+
+# templates - This is all the templates available for this role.
+templates:
+  - default
+
+# resNums - This is the amount of resources available for this role
+resnums: 0
 
 # filepath - Output file path
 filepath: ./output/

@@ -26,6 +26,15 @@ type Config struct {
 
 	// ClientTokens - There are the valid clienttokens for this node
 	ClientTokens []string
+	// MaxExpireTime - max expire time in seconds
+	MaxExpireTime int32
+	// IsAllowTemplateData - Whether to allow templatedata
+	IsAllowTemplateData bool
+	// Templates - This is all the templates available for this role.
+	Templates []string
+	// ResNums - This is the amount of resources available for this role
+	ResNums int32
+
 	// FilePath - Output file path
 	FilePath string
 	// BindAddr - bind addr
@@ -76,6 +85,18 @@ func checkConfig(cfg *Config) error {
 
 	if cfg.BindAddr == "" {
 		return adacorebase.ErrConfigNoBindAddr
+	}
+
+	if cfg.MaxExpireTime <= 0 {
+		cfg.MaxExpireTime = 24 * 60 * 60
+	}
+
+	if len(cfg.Templates) == 0 {
+		cfg.Templates = append(cfg.Templates, "default")
+	}
+
+	if cfg.ResNums < 0 {
+		cfg.ResNums = 0
 	}
 
 	return nil

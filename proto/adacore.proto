@@ -12,6 +12,11 @@ message MarkdownData{
 	string templateName = 10;
 	// templateData - template data
 	string templateData = 11;  
+
+	// expireTime - expire time in seconds
+	int32 expireTime = 100;
+	// ctrlKey - Control keys are generated and managed by the client
+	int32 ctrlKey = 101;
 }
 
 // MarkdownStream - markdown stream data
@@ -60,6 +65,11 @@ message ResourceInfo {
 
 	// children - children resource hashname
 	repeated string children = 10;
+
+	// expireTime - expire time in seconds
+	int32 expireTime = 100;
+	// ctrlKey - Control keys are generated and managed by the client
+	int32 ctrlKey = 101;	
 }
 
 // ReplyMarkdown - reply 
@@ -74,6 +84,20 @@ message ReplyMarkdown {
 
 	// err - error
 	string err = 100;
+}
+
+// RoleInfo - role infomation
+message TokenInfo {
+	// token - token
+	string token = 1;
+	// maxExpireTime - max expire time in seconds
+	int32 maxExpireTime = 2;
+	// isAllowTemplateData - Whether to allow templatedata
+	bool isAllowTemplateData = 3;
+	// templates - This is all the templates available for this role.
+	repeated string templates = 4;
+	// resNums - This is the amount of resources available for this role
+	int32 resNums = 5;
 }
 
 // AdaCoreService - AdaCore service
