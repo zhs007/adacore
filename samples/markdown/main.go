@@ -17,5 +17,9 @@ func main() {
 	md.AppendParagraph("This is a Markdown API for Ada.")
 	md.AppendParagraph("This libraray is write by Zerro.")
 
+	md.AppendTable([]string{"head0", "head1", "head2"}, [][]string{
+		[]string{"text0_0", "text1_0", "text2_0"},
+		[]string{"text0_1", "text1_1", "text2_1"}})
+
 	fmt.Printf("%v", md.GetMarkdownString(km))
 }

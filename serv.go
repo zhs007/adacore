@@ -118,12 +118,14 @@ func (serv *Serv) BuildWithMarkdown(stream adacorepb.AdaCoreService_BuildWithMar
 		return err
 	}
 
-	err = SaveHTMLData(htmldata, serv.cfg)
+	hashname, err := SaveHTMLData(htmldata, serv.cfg)
 	if err != nil {
 		serv.replyErr(stream, err)
 
 		return err
 	}
+
+	serv.replyResult(stream, hashname)
 
 	return nil
 }
@@ -136,6 +138,19 @@ func (serv *Serv) replyErr(stream adacorepb.AdaCoreService_BuildWithMarkdownServ
 
 	reply := &adacorepb.ReplyMarkdown{
 		Err: err.Error(),
+	}
+
+	return stream.SendAndClose(reply)
+}
+
+// replyResult - reply result
+func (serv *Serv) replyResult(stream adacorepb.AdaCoreService_BuildWithMarkdownServer, hashname string) error {
+	if hashname == "" {
+		return serv.replyErr(stream, adacorebase.ErrServInvalidResult)
+	}
+
+	reply := &adacorepb.ReplyMarkdown{
+		HashName: hashname,
 	}
 
 	return stream.SendAndClose(reply)

@@ -30,6 +30,8 @@ var (
 	ErrServInvalidToken = errors.New("This token is invalid")
 	// ErrServInvalidErrString - The err string is invalid
 	ErrServInvalidErrString = errors.New("The err string is invalid")
+	// ErrServInvalidResult - The result is invalid
+	ErrServInvalidResult = errors.New("The result is invalid")
 
 	// ErrEmptyHTMLData - The HTMLData is empty
 	ErrEmptyHTMLData = errors.New("The HTMLData is empty")

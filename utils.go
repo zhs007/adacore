@@ -22,16 +22,21 @@ func BuildMarkdownData(lst []*adacorepb.MarkdownStream) (*adacorepb.MarkdownData
 }
 
 // SaveHTMLData - save html
-func SaveHTMLData(htmldata *adarender.HTMLData, cfg *Config) error {
+func SaveHTMLData(htmldata *adarender.HTMLData, cfg *Config) (string, error) {
 	if len(htmldata.StrData) > 0 {
 		hashname := adacorebase.HashBuffer([]byte(htmldata.StrData))
 
 		fn := filepath.Join(cfg.FilePath, hashname)
 
-		return ioutil.WriteFile(fn, []byte(htmldata.StrData), 0644)
+		err := ioutil.WriteFile(fn, []byte(htmldata.StrData), 0644)
+		if err != nil {
+			return "", err
+		}
+
+		return hashname, nil
 	}
 
-	return adacorebase.ErrEmptyHTMLData
+	return "", adacorebase.ErrEmptyHTMLData
 }
 
 // BuildMarkdownStream - MarkdownData => []MarkdownStream

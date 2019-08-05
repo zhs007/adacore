@@ -52,10 +52,26 @@ func (md *Markdown) AppendParagraph(str string) string {
 // AppendTable - append a table
 func (md *Markdown) AppendTable(head []string, data [][]string) string {
 	if len(head) > 0 {
-		str := ""
+		str := "|"
 
 		for _, hv := range head {
+			str += hv + "|"
+		}
 
+		str += "\n|"
+
+		for range head {
+			str += "---|"
+		}
+
+		str += "\n"
+
+		for _, li := range data {
+			str += "|"
+			for _, ld := range li {
+				str += ld + "|"
+			}
+			str += "\n"
 		}
 
 		md.str = adacorebase.AppendString(md.str, str+"\n\n")
