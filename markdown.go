@@ -25,18 +25,39 @@ func NewMakrdown(title string) *Markdown {
 	return md
 }
 
+// isTitle - is this line a title?
+func isTitle(strline string) bool {
+	ns := strings.TrimLeft(strline, " ")
+	if len(ns) > 0 {
+		return ns[0] == '#'
+	}
+
+	return false
+}
+
 // GetMarkdownString - get markdown string
 func (md *Markdown) GetMarkdownString(lst *KeywordMappingList) string {
 	if lst != nil && len(lst.Keywords) > 0 {
+		lstline := strings.Split(md.str, "\n")
 		for _, v := range lst.Keywords {
 			if v.URL == "" {
-				md.str = strings.Replace(md.str, v.Keyword,
-					adacorebase.AppendString("``", v.Keyword, "``"), -1)
+				for i, cl := range lstline {
+					if !isTitle(cl) {
+						lstline[i] = strings.Replace(cl, v.Keyword,
+							adacorebase.AppendString("``", v.Keyword, "``"), -1)
+					}
+				}
 			} else {
-				md.str = strings.Replace(md.str, v.Keyword,
-					adacorebase.AppendString("[", v.Keyword, "]("+v.URL+")"), -1)
+				for i, cl := range lstline {
+					if !isTitle(cl) {
+						lstline[i] = strings.Replace(cl, v.Keyword,
+							adacorebase.AppendString("[", v.Keyword, "]("+v.URL+")"), -1)
+					}
+				}
 			}
 		}
+
+		md.str = strings.Join(lstline, "\n")
 	}
 
 	return md.str
