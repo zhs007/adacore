@@ -103,3 +103,10 @@ func (md *Markdown) AppendTable(head []string, data [][]string) string {
 
 	return md.str
 }
+
+// AppendCode - append code
+func (md *Markdown) AppendCode(code string, codetype string) string {
+	md.str = adacorebase.AppendString(md.str, "``` ", codetype, "\n", code, "\n```")
+
+	return md.str
+}

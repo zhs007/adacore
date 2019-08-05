@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 
 	"github.com/zhs007/adacore"
 	adacorepb "github.com/zhs007/adacore/proto"
@@ -17,13 +18,24 @@ func genMarkdown() string {
 	md := adacore.NewMakrdown("Ada Core")
 
 	md.AppendParagraph("This is a Markdown API for Ada.")
-	md.AppendParagraph("This libraray is write by Zerro.")
+	md.AppendParagraph("This libraray is write by Zerro.\nThis is a multi-line text.")
 
 	md.AppendTable([]string{"head0", "head1", "head2"}, [][]string{
 		[]string{"text0_0", "text1_0", "text2_0"},
 		[]string{"text0_1", "text1_1", "text2_1"}})
 
-	return md.GetMarkdownString(km)
+	fd, err := ioutil.ReadFile("./main.go")
+	if err != nil {
+		return ""
+	}
+
+	md.AppendCode(string(fd), "golang")
+
+	str := md.GetMarkdownString(km)
+
+	// fmt.Print(str)
+
+	return str
 }
 
 func startClient(cfg *adacore.Config) error {
