@@ -40,7 +40,8 @@ func startClient(cfg *adacore.Config) error {
 	}
 
 	if reply != nil {
-		fmt.Print(reply.HashName)
+		// fmt.Print(reply.HashName)
+		fmt.Print(reply.Url)
 	}
 
 	return nil

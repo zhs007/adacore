@@ -65,6 +65,9 @@ func (md *Markdown) GetMarkdownString(lst *KeywordMappingList) string {
 
 // AppendParagraph - append paragraph
 func (md *Markdown) AppendParagraph(str string) string {
+	str = strings.Replace(str, "  \n", "\n", -1)
+	str = strings.Replace(str, "\n", "  \n", -1)
+
 	md.str = adacorebase.AppendString(md.str, str+"\n\n")
 
 	return md.str
