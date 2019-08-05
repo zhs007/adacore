@@ -1,3 +1,4 @@
+// Zerro
 package main
 
 import (
@@ -30,6 +31,8 @@ func genMarkdown() string {
 	}
 
 	md.AppendCode(string(fd), "golang")
+
+	md.AppendParagraph("This libraray is write by Zerro.\nThis is a multi-line text.")
 
 	str := md.GetMarkdownString(km)
 
