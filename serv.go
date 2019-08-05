@@ -151,6 +151,7 @@ func (serv *Serv) replyResult(stream adacorepb.AdaCoreService_BuildWithMarkdownS
 
 	reply := &adacorepb.ReplyMarkdown{
 		HashName: hashname,
+		Url:      adacorebase.AppendString(serv.cfg.BaseURL, hashname),
 	}
 
 	return stream.SendAndClose(reply)

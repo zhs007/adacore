@@ -35,6 +35,9 @@ filepath: ./output/
 # bindaddr - bind addr
 bindaddr: 0.0.0.0:7201
 
+# baseurl - baseurl
+baseurl: http://127.0.0.1/
+
 # log - log config
 log:
   # logpath - log path

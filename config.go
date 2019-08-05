@@ -39,6 +39,8 @@ type Config struct {
 	FilePath string
 	// BindAddr - bind addr
 	BindAddr string
+	// BaseURL - base URL
+	BaseURL string
 
 	//------------------------------------------------------------------
 	// logger configuration
@@ -88,15 +90,19 @@ func checkConfig(cfg *Config) error {
 	}
 
 	if cfg.MaxExpireTime <= 0 {
-		cfg.MaxExpireTime = 24 * 60 * 60
+		cfg.MaxExpireTime = adacorebase.DefaultMaxExpireTime
 	}
 
 	if len(cfg.Templates) == 0 {
-		cfg.Templates = append(cfg.Templates, "default")
+		cfg.Templates = append(cfg.Templates, adacorebase.DefaultTemplate)
 	}
 
 	if cfg.ResNums < 0 {
-		cfg.ResNums = 0
+		cfg.ResNums = adacorebase.DefaultResNums
+	}
+
+	if cfg.BaseURL == "" {
+		cfg.BaseURL = adacorebase.DefaultBaseURL
 	}
 
 	return nil
