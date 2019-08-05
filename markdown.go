@@ -20,7 +20,7 @@ func NewMakrdown(title string) *Markdown {
 		Title: title,
 	}
 
-	md.AppendString("# " + title)
+	md.AppendParagraph("# " + title)
 
 	return md
 }
@@ -42,9 +42,24 @@ func (md *Markdown) GetMarkdownString(lst *KeywordMappingList) string {
 	return md.str
 }
 
-// AppendString - append string
-func (md *Markdown) AppendString(str string) string {
+// AppendParagraph - append paragraph
+func (md *Markdown) AppendParagraph(str string) string {
 	md.str = adacorebase.AppendString(md.str, str+"\n\n")
+
+	return md.str
+}
+
+// AppendTable - append a table
+func (md *Markdown) AppendTable(head []string, data [][]string) string {
+	if len(head) > 0 {
+		str := ""
+
+		for _, hv := range head {
+
+		}
+
+		md.str = adacorebase.AppendString(md.str, str+"\n\n")
+	}
 
 	return md.str
 }

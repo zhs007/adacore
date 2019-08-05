@@ -14,8 +14,8 @@ func main() {
 
 	md := adacore.NewMakrdown("Ada Core")
 
-	md.AppendString("This is a Markdown API for Ada.")
-	md.AppendString("This libraray is write by Zerro.")
+	md.AppendParagraph("This is a Markdown API for Ada.")
+	md.AppendParagraph("This libraray is write by Zerro.")
 
 	fmt.Printf("%v", md.GetMarkdownString(km))
 }
