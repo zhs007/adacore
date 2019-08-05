@@ -34,7 +34,7 @@ func (md *Markdown) GetMarkdownString(lst *KeywordMappingList) string {
 					adacorebase.AppendString("``", v.Keyword, "``"), -1)
 			} else {
 				md.str = strings.Replace(md.str, v.Keyword,
-					adacorebase.AppendString("``[", v.Keyword, "]("+v.URL+")``"), -1)
+					adacorebase.AppendString("[", v.Keyword, "]("+v.URL+")"), -1)
 			}
 		}
 	}
