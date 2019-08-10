@@ -10,7 +10,12 @@ import (
 	adacorepb "github.com/zhs007/adacore/proto"
 )
 
-func genMarkdown() string {
+func genMarkdown() (*adacorepb.MarkdownData, error) {
+	mddata := &adacorepb.MarkdownData{
+		TemplateName: "default",
+		BinaryData:   make(map[string][]byte),
+	}
+
 	km, err := adacore.LoadKeywordMappingList("./keywordmapping.yaml")
 	if err != nil {
 		fmt.Printf("load keywordmapping error %v", err)
@@ -27,27 +32,38 @@ func genMarkdown() string {
 
 	fd, err := ioutil.ReadFile("./main.go")
 	if err != nil {
-		return ""
+		return nil, err
 	}
 
 	md.AppendCode(string(fd), "golang")
 
 	md.AppendParagraph("This libraray is write by Zerro.\nThis is a multi-line text.")
 
-	str := md.GetMarkdownString(km)
+	buf, _, err := md.AppendImage("This is a image", "sample001.jpg")
+	if err != nil {
+		return nil, err
+	}
+
+	mddata.BinaryData["sample001.jpg"] = buf
+
+	mddata.StrData = md.GetMarkdownString(km)
 
 	// fmt.Print(str)
 
-	return str
+	return mddata, nil
 }
 
 func startClient(cfg *adacore.Config) error {
 	client := adacore.NewClient("47.91.209.141:7201", "x7sSGGHgmKwUMoa5S4VZlr9bUF2lCCzF")
 
-	reply, err := client.BuildWithMarkdown(context.Background(), &adacorepb.MarkdownData{
-		StrData:      genMarkdown(),
-		TemplateName: "default",
-	})
+	md, err := genMarkdown()
+	if err != nil {
+		fmt.Printf("startClient genMarkdown %v", err)
+
+		return err
+	}
+
+	reply, err := client.BuildWithMarkdown(context.Background(), md)
 	if err != nil {
 		fmt.Printf("startClient BuildWithMarkdownFile %v", err)
 

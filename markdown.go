@@ -1,6 +1,7 @@
 package adacore
 
 import (
+	"io/ioutil"
 	"strings"
 
 	adacorebase "github.com/zhs007/adacore/base"
@@ -141,4 +142,16 @@ func (md *Markdown) AppendCode(code string, codetype string) string {
 	md.str = adacorebase.AppendString(md.str, "``` ", codetype, "\n", code, "\n```\n\n")
 
 	return md.str
+}
+
+// AppendImage - append image
+func (md *Markdown) AppendImage(text string, fn string) ([]byte, string, error) {
+	buf, err := ioutil.ReadFile(fn)
+	if err != nil {
+		return nil, "", err
+	}
+
+	md.str = adacorebase.AppendString(md.str, "![", text, "](", fn, ")")
+
+	return buf, md.str, nil
 }

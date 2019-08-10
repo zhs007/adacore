@@ -99,6 +99,7 @@ func (serv *Serv) BuildWithMarkdown(stream adacorepb.AdaCoreService_BuildWithMar
 
 	rendermd := &adarender.MarkdownData{
 		StrData:      md.StrData,
+		BinaryData:   md.BinaryData,
 		TemplateName: md.TemplateName,
 		TemplateData: md.TemplateData,
 	}
