@@ -1,10 +1,13 @@
 package adarenderclient
 
 import (
+	"io/ioutil"
+	"path"
+
 	"github.com/golang/protobuf/proto"
 
 	adarender "github.com/zhs007/adacore/adarenderpb"
-	"github.com/zhs007/adacore/base"
+	adacorebase "github.com/zhs007/adacore/base"
 )
 
 // BuildMarkdownStream - MarkdownData => []MarkdownStream
@@ -36,4 +39,37 @@ func BuildHTMLData(lst []*adarender.HTMLStream) (*adarender.HTMLData, error) {
 	}
 
 	return nil, nil
+}
+
+// BuildMarkdownData - MarkdownData => []MarkdownStream
+func BuildMarkdownData(inpath string, filename string) (*adarender.MarkdownData, error) {
+	mdbuf, err := ioutil.ReadFile(path.Join(inpath, filename))
+	if err != nil {
+		return nil, err
+	}
+
+	md := &adarender.MarkdownData{
+		StrData:    string(mdbuf),
+		BinaryData: make(map[string][]byte),
+	}
+
+	files, err := ioutil.ReadDir(inpath)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, fn := range files {
+		if fn.IsDir() {
+
+		} else if fn.Name() != "__debug_bin" {
+			buf, err := ioutil.ReadFile(fn.Name())
+			if err != nil {
+				return nil, err
+			}
+
+			md.BinaryData[fn.Name()] = buf
+		}
+	}
+
+	return md, nil
 }
