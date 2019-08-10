@@ -34,7 +34,8 @@ func SaveHTMLData(htmldata *adarender.HTMLData, cfg *Config) (string, error) {
 		}
 
 		if len(htmldata.BinaryData) > 0 {
-			for rfn, buf := range htmldata.BinaryData {
+			for hn, buf := range htmldata.BinaryData {
+				rfn := filepath.Join(cfg.FilePath, hn)
 				err := ioutil.WriteFile(rfn, buf, 0644)
 				if err != nil {
 					// 	return "", err
