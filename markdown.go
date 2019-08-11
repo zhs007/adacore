@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	adacorebase "github.com/zhs007/adacore/base"
+	adacorepb "github.com/zhs007/adacore/proto"
 )
 
 // Markdown - markdown
@@ -145,13 +146,36 @@ func (md *Markdown) AppendCode(code string, codetype string) string {
 }
 
 // AppendImage - append image
-func (md *Markdown) AppendImage(text string, fn string) ([]byte, string, error) {
+func (md *Markdown) AppendImage(text string, fn string, mddata *adacorepb.MarkdownData) (
+	[]byte, string, error) {
+
 	buf, err := ioutil.ReadFile(fn)
 	if err != nil {
 		return nil, "", err
 	}
 
 	md.str = adacorebase.AppendString(md.str, "![", text, "](", fn, ")")
+
+	if mddata.BinaryData == nil {
+		mddata.BinaryData = make(map[string][]byte)
+	}
+
+	mddata.BinaryData[fn] = buf
+
+	return buf, md.str, nil
+}
+
+// AppendImageBuf - append image buf
+func (md *Markdown) AppendImageBuf(text string, name string, buf []byte, mddata *adacorepb.MarkdownData) (
+	[]byte, string, error) {
+
+	md.str = adacorebase.AppendString(md.str, "![", text, "](", name, ")")
+
+	if mddata.BinaryData == nil {
+		mddata.BinaryData = make(map[string][]byte)
+	}
+
+	mddata.BinaryData[name] = buf
 
 	return buf, md.str, nil
 }

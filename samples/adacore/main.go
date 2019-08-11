@@ -39,12 +39,12 @@ func genMarkdown() (*adacorepb.MarkdownData, error) {
 
 	md.AppendParagraph("This libraray is write by Zerro.\nThis is a multi-line text.")
 
-	buf, _, err := md.AppendImage("This is a image", "sample001.jpg")
+	_, _, err = md.AppendImage("This is a image", "sample001.jpg", mddata)
 	if err != nil {
 		return nil, err
 	}
 
-	mddata.BinaryData["sample001.jpg"] = buf
+	// mddata.BinaryData["sample001.jpg"] = buf
 
 	mddata.StrData = md.GetMarkdownString(km)
 
