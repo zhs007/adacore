@@ -1,3 +1,3 @@
 ``` ada.pie
-{{ .yaml }}
+{{ .Yaml }}
 ```

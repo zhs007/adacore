@@ -11,11 +11,6 @@ type piedataset struct {
 	ValData  []int    `yaml:"valdata"`
 }
 
-type dataset struct {
-	Name string      `yaml:"name"`
-	Data interface{} `yaml:"data"`
-}
-
 func main() {
 	err := adacore.InitTemplates("../../templates")
 	if err != nil {
@@ -40,19 +35,29 @@ func main() {
 		[]string{"text0_0", "text1_0", "text2_0"},
 		[]string{"text0_1", "text1_1", "text2_1"}})
 
-	// ds := &dataset{
-	// 	Name: "pieds",
-	// 	Data: &piedataset{
-	// 		NameData: []string{"dat0", "dat1", "dat2"},
-	// 		ValData:  []int{100, 123, 89},
-	// 	},
-	// }
 	_, err = md.AppendDataset("pieds", &piedataset{
 		NameData: []string{"dat0", "dat1", "dat2"},
 		ValData:  []int{100, 123, 89},
 	})
 	if err != nil {
 		fmt.Printf("AppendDataset error %v", err)
+
+		return
+	}
+
+	_, err = md.AppendChartPie(&adacore.ChartPie{
+		ID:          "pie001",
+		DatasetName: "pieds",
+		Title:       "Pie",
+		SubText:     "test pie chart",
+		Width:       1280,
+		Height:      800,
+		A:           "pie name",
+		BVal:        "namedata",
+		CVal:        "valdata",
+	})
+	if err != nil {
+		fmt.Printf("AppendChartPie error %v", err)
 
 		return
 	}

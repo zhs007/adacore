@@ -49,6 +49,29 @@ type Dataset struct {
 	Data interface{} `yaml:"data"`
 }
 
+// // Chart - chart basic infomation
+// type Chart struct {
+// 	ID          string `yaml:"id"`
+// 	DatasetName string `yaml:"datasetname"`
+// 	Title       string `yaml:"title"`
+// 	SubText     string `yaml:"subtext"`
+// 	Width       int    `yaml:"width"`
+// 	Height      int    `yaml:"height"`
+// }
+
+// ChartPie - chart pie infomation
+type ChartPie struct {
+	ID          string `yaml:"id"`
+	DatasetName string `yaml:"datasetname"`
+	Title       string `yaml:"title"`
+	SubText     string `yaml:"subtext"`
+	Width       int    `yaml:"width"`
+	Height      int    `yaml:"height"`
+	A           string `yaml:"a"`
+	BVal        string `yaml:"bval"`
+	CVal        string `yaml:"cval"`
+}
+
 // baseObj -
 type baseObj struct {
 	Yaml string
@@ -254,10 +277,10 @@ func (md *Markdown) AppendDataset(name string, data interface{}) (
 }
 
 // AppendChartPie - append chart pie, the obj should be an object that can be encoded by yaml
-func (md *Markdown) AppendChartPie(obj interface{}) (
+func (md *Markdown) AppendChartPie(pie *ChartPie) (
 	string, error) {
 
-	d, err := yaml.Marshal(obj)
+	d, err := yaml.Marshal(pie)
 	if err != nil {
 		return "", err
 	}

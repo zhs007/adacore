@@ -1,3 +1,3 @@
 ``` ada.line
-{{ .yaml }}
+{{ .Yaml }}
 ```
