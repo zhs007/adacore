@@ -32,6 +32,9 @@ resnums: 0
 # filepath - Output file path
 filepath: ./output/
 
+# templatespath - templates file path
+templatespath: ./templates/
+
 # bindaddr - bind addr
 bindaddr: 0.0.0.0:7201
 

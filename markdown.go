@@ -1,12 +1,58 @@
 package adacore
 
 import (
+	"bytes"
 	"io/ioutil"
+	"path"
 	"strings"
+	"text/template"
+
+	"gopkg.in/yaml.v2"
 
 	adacorebase "github.com/zhs007/adacore/base"
 	adacorepb "github.com/zhs007/adacore/proto"
 )
+
+var tempDataset *template.Template
+var tempLine *template.Template
+var tempPie *template.Template
+
+// InitTemplates - init templates
+func InitTemplates(dir string) error {
+	tmp, err := template.ParseFiles(path.Join(dir, "adadataset.md"))
+	if err != nil {
+		return err
+	}
+
+	tempDataset = tmp
+
+	tmp, err = template.ParseFiles(path.Join(dir, "adapie.md"))
+	if err != nil {
+		return err
+	}
+
+	tempPie = tmp
+
+	tmp, err = template.ParseFiles(path.Join(dir, "adaline.md"))
+	if err != nil {
+		return err
+	}
+
+	tempLine = tmp
+
+	return nil
+}
+
+// Dataset - dataset
+type Dataset struct {
+	Name string      `yaml:"name"`
+	Data interface{} `yaml:"data"`
+}
+
+// baseObj -
+type baseObj struct {
+	Yaml string
+}
 
 // Markdown - markdown
 type Markdown struct {
@@ -178,4 +224,76 @@ func (md *Markdown) AppendImageBuf(text string, name string, buf []byte, mddata 
 	mddata.BinaryData[name] = buf
 
 	return buf, md.str, nil
+}
+
+// AppendDataset - append dataset, the obj should be an object that can be encoded by yaml
+func (md *Markdown) AppendDataset(name string, data interface{}) (
+	string, error) {
+
+	obj := &Dataset{
+		Name: name,
+		Data: data,
+	}
+
+	d, err := yaml.Marshal(obj)
+	if err != nil {
+		return "", err
+	}
+
+	var b bytes.Buffer
+	err = tempDataset.Execute(&b, &baseObj{
+		Yaml: string(d),
+	})
+	if err != nil {
+		return "", err
+	}
+
+	md.str += b.String()
+
+	return md.str, nil
+}
+
+// AppendChartPie - append chart pie, the obj should be an object that can be encoded by yaml
+func (md *Markdown) AppendChartPie(obj interface{}) (
+	string, error) {
+
+	d, err := yaml.Marshal(obj)
+	if err != nil {
+		return "", err
+	}
+
+	var b bytes.Buffer
+	err = tempPie.Execute(&b, baseObj{
+		Yaml: string(d),
+	})
+	if err != nil {
+		return "", err
+	}
+
+	md.str += b.String()
+
+	return md.str, nil
+}
+
+// AppendChartLine - append chart line, the obj should be an object that can be encoded by yaml
+func (md *Markdown) AppendChartLine(obj interface{}) (
+	string, error) {
+
+	d, err := yaml.Marshal(obj)
+	if err != nil {
+		return "", err
+	}
+
+	var b bytes.Buffer
+
+	err = tempLine.Execute(&b, baseObj{
+		Yaml: string(d),
+	})
+	if err != nil {
+		return "", err
+	}
+
+	md.str += b.String()
+
+	return md.str, nil
 }

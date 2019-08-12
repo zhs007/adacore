@@ -41,6 +41,8 @@ type Config struct {
 	BindAddr string
 	// BaseURL - base URL
 	BaseURL string
+	// TemplatesPath - templates file path
+	TemplatesPath string
 
 	//------------------------------------------------------------------
 	// logger configuration
@@ -103,6 +105,10 @@ func checkConfig(cfg *Config) error {
 
 	if cfg.BaseURL == "" {
 		cfg.BaseURL = adacorebase.DefaultBaseURL
+	}
+
+	if cfg.TemplatesPath == "" {
+		cfg.TemplatesPath = adacorebase.DefaultTemplatesPath
 	}
 
 	return nil
