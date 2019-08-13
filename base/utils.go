@@ -58,5 +58,5 @@ func HashBuffer(buf []byte) string {
 	return strings.Replace(strings.Replace(
 		base64.StdEncoding.EncodeToString(sum256[:]),
 		"/", "_", -1),
-		"=", "-", -1)
+		"=", "", -1)
 }
