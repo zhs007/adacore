@@ -3,9 +3,10 @@ package adacorebase
 import (
 	"bytes"
 	"crypto/sha256"
-	"encoding/hex"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"strings"
 	"time"
 
 	"go.uber.org/zap"
@@ -53,10 +54,9 @@ func GetCurTime() int64 {
 
 // HashBuffer - hash buffer
 func HashBuffer(buf []byte) string {
-	// hash := sha256.New()
-	// hash.Write(buf)
-	// out := hash.Sum(nil)
 	sum256 := sha256.Sum256(buf)
-	return hex.EncodeToString(sum256[:])
-	// return fmt.Sprintf("%x", out)
+	return strings.Replace(strings.Replace(
+		base64.StdEncoding.EncodeToString(sum256[:]),
+		"/", "_", -1),
+		"=", "-", -1)
 }
