@@ -72,6 +72,7 @@ func main() {
 		LegendData:  []string{"val1"},
 		XType:       "category",
 		XData:       "namedata",
+		XShowAll:    true,
 		YType:       "value",
 		YData: []adacore.ChartBasicData{
 			adacore.ChartBasicData{

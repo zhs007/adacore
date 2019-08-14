@@ -97,6 +97,7 @@ type ChartBar struct {
 	LegendData  []string         `yaml:"legenddata"`
 	XType       string           `yaml:"xtype"`
 	XData       string           `yaml:"xdata"`
+	XShowAll    bool             `yaml:"xshowall"`
 	YType       string           `yaml:"ytype"`
 	YData       []ChartBasicData `yaml:"ydata"`
 }
