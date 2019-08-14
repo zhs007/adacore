@@ -17,6 +17,7 @@ var tempDataset *template.Template
 var tempLine *template.Template
 var tempPie *template.Template
 var tempBar *template.Template
+var tempTreeMap *template.Template
 
 // InitTemplates - init templates
 func InitTemplates(dir string) error {
@@ -48,6 +49,13 @@ func InitTemplates(dir string) error {
 
 	tempLine = tmp
 
+	tmp, err = template.ParseFiles(path.Join(dir, "adatreemap.md"))
+	if err != nil {
+		return err
+	}
+
+	tempTreeMap = tmp
+
 	return nil
 }
 
@@ -71,6 +79,13 @@ type Dataset struct {
 type ChartBasicData struct {
 	Name string `yaml:"name"`
 	Data string `yaml:"data"`
+}
+
+// ChartTreeMapData - chart treemap data
+type ChartTreeMapData struct {
+	Name     string             `yaml:"name"`
+	Value    int                `yaml:"value"`
+	Children []ChartTreeMapData `yaml:"children"`
 }
 
 // ChartPie - chart pie infomation
@@ -100,6 +115,16 @@ type ChartBar struct {
 	XShowAll    bool             `yaml:"xshowall"`
 	YType       string           `yaml:"ytype"`
 	YData       []ChartBasicData `yaml:"ydata"`
+}
+
+// ChartTreeMap - chart treemap infomation
+type ChartTreeMap struct {
+	ID      string             `yaml:"id"`
+	Title   string             `yaml:"title"`
+	SubText string             `yaml:"subtext"`
+	Width   int                `yaml:"width"`
+	Height  int                `yaml:"height"`
+	Data    []ChartTreeMapData `yaml:"data"`
 }
 
 // baseObj -
@@ -362,6 +387,28 @@ func (md *Markdown) AppendChartBar(bar *ChartBar) (
 
 	var b bytes.Buffer
 	err = tempBar.Execute(&b, baseObj{
+		Yaml: string(d),
+	})
+	if err != nil {
+		return "", err
+	}
+
+	md.str += b.String()
+
+	return md.str, nil
+}
+
+// AppendChartTreeMap - append chart treemap, the obj should be an object that can be encoded by yaml
+func (md *Markdown) AppendChartTreeMap(treemap *ChartTreeMap) (
+	string, error) {
+
+	d, err := yaml.Marshal(treemap)
+	if err != nil {
+		return "", err
+	}
+
+	var b bytes.Buffer
+	err = tempTreeMap.Execute(&b, baseObj{
 		Yaml: string(d),
 	})
 	if err != nil {

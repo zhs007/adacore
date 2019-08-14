@@ -87,5 +87,47 @@ func main() {
 		return
 	}
 
+	_, err = md.AppendChartTreeMap(&adacore.ChartTreeMap{
+		ID:      "treemap001",
+		Title:   "TreeMap",
+		SubText: "test treemap chart",
+		Width:   1280,
+		Height:  800,
+		Data: []adacore.ChartTreeMapData{
+			adacore.ChartTreeMapData{
+				Name: "nodeA",
+				Children: []adacore.ChartTreeMapData{
+					adacore.ChartTreeMapData{
+						Name:  "nodeAa",
+						Value: 6,
+					},
+					adacore.ChartTreeMapData{
+						Name:  "nodeAa",
+						Value: 6,
+					},
+				},
+			},
+			adacore.ChartTreeMapData{
+				Name: "nodeB",
+				Children: []adacore.ChartTreeMapData{
+					adacore.ChartTreeMapData{
+						Name: "nodeBa",
+						Children: []adacore.ChartTreeMapData{
+							adacore.ChartTreeMapData{
+								Name:  "nodeBa1",
+								Value: 20,
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+	if err != nil {
+		fmt.Printf("AppendChartPie error %v", err)
+
+		return
+	}
+
 	fmt.Printf("%v", md.GetMarkdownString(km))
 }
