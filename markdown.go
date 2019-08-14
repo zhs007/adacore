@@ -16,6 +16,7 @@ import (
 var tempDataset *template.Template
 var tempLine *template.Template
 var tempPie *template.Template
+var tempBar *template.Template
 
 // InitTemplates - init templates
 func InitTemplates(dir string) error {
@@ -32,6 +33,13 @@ func InitTemplates(dir string) error {
 	}
 
 	tempPie = tmp
+
+	tmp, err = template.ParseFiles(path.Join(dir, "adabar.md"))
+	if err != nil {
+		return err
+	}
+
+	tempBar = tmp
 
 	tmp, err = template.ParseFiles(path.Join(dir, "adaline.md"))
 	if err != nil {
@@ -59,6 +67,12 @@ type Dataset struct {
 // 	Height      int    `yaml:"height"`
 // }
 
+// ChartBasicData - chart basic data
+type ChartBasicData struct {
+	Name string `yaml:"name"`
+	Data string `yaml:"data"`
+}
+
 // ChartPie - chart pie infomation
 type ChartPie struct {
 	ID          string `yaml:"id"`
@@ -70,6 +84,20 @@ type ChartPie struct {
 	A           string `yaml:"a"`
 	BVal        string `yaml:"bval"`
 	CVal        string `yaml:"cval"`
+}
+
+// ChartBar - chart bar infomation
+type ChartBar struct {
+	ID          string           `yaml:"id"`
+	DatasetName string           `yaml:"datasetname"`
+	Title       string           `yaml:"title"`
+	SubText     string           `yaml:"subtext"`
+	Width       int              `yaml:"width"`
+	Height      int              `yaml:"height"`
+	XType       string           `yaml:"xtype"`
+	XData       string           `yaml:"xdata"`
+	YType       string           `yaml:"ytype"`
+	YData       []ChartBasicData `yaml:"ydata"`
 }
 
 // baseObj -
@@ -310,6 +338,28 @@ func (md *Markdown) AppendChartLine(obj interface{}) (
 	var b bytes.Buffer
 
 	err = tempLine.Execute(&b, baseObj{
+		Yaml: string(d),
+	})
+	if err != nil {
+		return "", err
+	}
+
+	md.str += b.String()
+
+	return md.str, nil
+}
+
+// AppendChartBar - append chart bar, the obj should be an object that can be encoded by yaml
+func (md *Markdown) AppendChartBar(bar *ChartBar) (
+	string, error) {
+
+	d, err := yaml.Marshal(bar)
+	if err != nil {
+		return "", err
+	}
+
+	var b bytes.Buffer
+	err = tempBar.Execute(&b, baseObj{
 		Yaml: string(d),
 	})
 	if err != nil {

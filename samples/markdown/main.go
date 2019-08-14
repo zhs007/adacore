@@ -62,5 +62,28 @@ func main() {
 		return
 	}
 
+	_, err = md.AppendChartBar(&adacore.ChartBar{
+		ID:          "bar001",
+		DatasetName: "pieds",
+		Title:       "Bar",
+		SubText:     "test bar chart",
+		Width:       1280,
+		Height:      800,
+		XType:       "category",
+		XData:       "namedata",
+		YType:       "value",
+		YData: []adacore.ChartBasicData{
+			adacore.ChartBasicData{
+				Name: "val1",
+				Data: "valdata",
+			},
+		},
+	})
+	if err != nil {
+		fmt.Printf("AppendChartPie error %v", err)
+
+		return
+	}
+
 	fmt.Printf("%v", md.GetMarkdownString(km))
 }
