@@ -69,6 +69,7 @@ func main() {
 		SubText:     "test bar chart",
 		Width:       1280,
 		Height:      800,
+		LegendData:  []string{"val1"},
 		XType:       "category",
 		XData:       "namedata",
 		YType:       "value",

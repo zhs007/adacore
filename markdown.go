@@ -94,6 +94,7 @@ type ChartBar struct {
 	SubText     string           `yaml:"subtext"`
 	Width       int              `yaml:"width"`
 	Height      int              `yaml:"height"`
+	LegendData  []string         `yaml:"legenddata"`
 	XType       string           `yaml:"xtype"`
 	XData       string           `yaml:"xdata"`
 	YType       string           `yaml:"ytype"`
