@@ -88,6 +88,12 @@ type ChartTreeMapData struct {
 	Children []ChartTreeMapData `yaml:"children"`
 }
 
+// ChartTreeMapSeriesNode - chart treemap series node
+type ChartTreeMapSeriesNode struct {
+	Name string             `yaml:"name"`
+	Data []ChartTreeMapData `yaml:"data"`
+}
+
 // ChartPie - chart pie infomation
 type ChartPie struct {
 	ID          string `yaml:"id"`
@@ -119,12 +125,13 @@ type ChartBar struct {
 
 // ChartTreeMap - chart treemap infomation
 type ChartTreeMap struct {
-	ID      string             `yaml:"id"`
-	Title   string             `yaml:"title"`
-	SubText string             `yaml:"subtext"`
-	Width   int                `yaml:"width"`
-	Height  int                `yaml:"height"`
-	Data    []ChartTreeMapData `yaml:"data"`
+	ID         string                   `yaml:"id"`
+	Title      string                   `yaml:"title"`
+	SubText    string                   `yaml:"subtext"`
+	Width      int                      `yaml:"width"`
+	Height     int                      `yaml:"height"`
+	LegendData []string                 `yaml:"legenddata"`
+	TreeMap    []ChartTreeMapSeriesNode `yaml:"treemap"`
 }
 
 // baseObj -
