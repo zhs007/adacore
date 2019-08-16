@@ -42,6 +42,7 @@ type Config struct {
 	// BaseURL - base URL
 	BaseURL string
 	// TemplatesPath - templates file path
+	// Deprecated: The configuration of the template path is no longer needed.
 	TemplatesPath string
 
 	//------------------------------------------------------------------
