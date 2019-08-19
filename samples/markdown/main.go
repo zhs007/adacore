@@ -12,7 +12,7 @@ type piedataset struct {
 }
 
 func main() {
-	err := adacore.InitTemplates("../../templates")
+	err := adacore.InitTemplates()
 	if err != nil {
 		fmt.Printf("InitTemplates error %v", err)
 
@@ -130,7 +130,55 @@ func main() {
 		},
 	})
 	if err != nil {
-		fmt.Printf("AppendChartPie error %v", err)
+		fmt.Printf("AppendChartTreeMap error %v", err)
+
+		return
+	}
+
+	_, err = md.AppendChartTreeMapFloat(&adacore.ChartTreeMapFloat{
+		ID:         "treemap001",
+		Title:      "TreeMap",
+		SubText:    "test treemap chart",
+		Width:      1280,
+		Height:     800,
+		LegendData: []string{"test1"},
+		TreeMap: []adacore.ChartTreeMapSeriesNodeFloat{
+			adacore.ChartTreeMapSeriesNodeFloat{
+				Name: "test1",
+				Data: []adacore.ChartTreeMapDataFloat{
+					adacore.ChartTreeMapDataFloat{
+						Name: "nodeA",
+						Children: []adacore.ChartTreeMapDataFloat{
+							adacore.ChartTreeMapDataFloat{
+								Name:  "nodeAa",
+								Value: 6.5,
+							},
+							adacore.ChartTreeMapDataFloat{
+								Name:  "nodeAa",
+								Value: 6,
+							},
+						},
+					},
+					adacore.ChartTreeMapDataFloat{
+						Name: "nodeB",
+						Children: []adacore.ChartTreeMapDataFloat{
+							adacore.ChartTreeMapDataFloat{
+								Name: "nodeBa",
+								Children: []adacore.ChartTreeMapDataFloat{
+									adacore.ChartTreeMapDataFloat{
+										Name:  "nodeBa1",
+										Value: 18.8,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+	if err != nil {
+		fmt.Printf("AppendChartTreeMapFloat error %v", err)
 
 		return
 	}

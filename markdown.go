@@ -106,6 +106,19 @@ type ChartTreeMapSeriesNode struct {
 	Data []ChartTreeMapData `yaml:"data"`
 }
 
+// ChartTreeMapDataFloat - chart treemap float data
+type ChartTreeMapDataFloat struct {
+	Name     string                  `yaml:"name"`
+	Value    float32                 `yaml:"value"`
+	Children []ChartTreeMapDataFloat `yaml:"children"`
+}
+
+// ChartTreeMapSeriesNodeFloat - chart treemap series node
+type ChartTreeMapSeriesNodeFloat struct {
+	Name string                  `yaml:"name"`
+	Data []ChartTreeMapDataFloat `yaml:"data"`
+}
+
 // ChartPie - chart pie infomation
 type ChartPie struct {
 	ID          string `yaml:"id"`
@@ -144,6 +157,17 @@ type ChartTreeMap struct {
 	Height     int                      `yaml:"height"`
 	LegendData []string                 `yaml:"legenddata"`
 	TreeMap    []ChartTreeMapSeriesNode `yaml:"treemap"`
+}
+
+// ChartTreeMapFloat - chart treemap float infomation
+type ChartTreeMapFloat struct {
+	ID         string                        `yaml:"id"`
+	Title      string                        `yaml:"title"`
+	SubText    string                        `yaml:"subtext"`
+	Width      int                           `yaml:"width"`
+	Height     int                           `yaml:"height"`
+	LegendData []string                      `yaml:"legenddata"`
+	TreeMap    []ChartTreeMapSeriesNodeFloat `yaml:"treemap"`
 }
 
 // baseObj -
@@ -419,6 +443,28 @@ func (md *Markdown) AppendChartBar(bar *ChartBar) (
 
 // AppendChartTreeMap - append chart treemap, the obj should be an object that can be encoded by yaml
 func (md *Markdown) AppendChartTreeMap(treemap *ChartTreeMap) (
+	string, error) {
+
+	d, err := yaml.Marshal(treemap)
+	if err != nil {
+		return "", err
+	}
+
+	var b bytes.Buffer
+	err = tempTreeMap.Execute(&b, baseObj{
+		Yaml: string(d),
+	})
+	if err != nil {
+		return "", err
+	}
+
+	md.str += b.String()
+
+	return md.str, nil
+}
+
+// AppendChartTreeMapFloat - append chart treemap, the obj should be an object that can be encoded by yaml
+func (md *Markdown) AppendChartTreeMapFloat(treemap *ChartTreeMapFloat) (
 	string, error) {
 
 	d, err := yaml.Marshal(treemap)
