@@ -150,24 +150,26 @@ type ChartBar struct {
 
 // ChartTreeMap - chart treemap infomation
 type ChartTreeMap struct {
-	ID         string                   `yaml:"id"`
-	Title      string                   `yaml:"title"`
-	SubText    string                   `yaml:"subtext"`
-	Width      int                      `yaml:"width"`
-	Height     int                      `yaml:"height"`
-	LegendData []string                 `yaml:"legenddata"`
-	TreeMap    []ChartTreeMapSeriesNode `yaml:"treemap"`
+	ID          string                   `yaml:"id"`
+	Title       string                   `yaml:"title"`
+	SubText     string                   `yaml:"subtext"`
+	Width       int                      `yaml:"width"`
+	Height      int                      `yaml:"height"`
+	RecountType string                   `yaml:"recounttype"`
+	LegendData  []string                 `yaml:"legenddata"`
+	TreeMap     []ChartTreeMapSeriesNode `yaml:"treemap"`
 }
 
 // ChartTreeMapFloat - chart treemap float infomation
 type ChartTreeMapFloat struct {
-	ID         string                        `yaml:"id"`
-	Title      string                        `yaml:"title"`
-	SubText    string                        `yaml:"subtext"`
-	Width      int                           `yaml:"width"`
-	Height     int                           `yaml:"height"`
-	LegendData []string                      `yaml:"legenddata"`
-	TreeMap    []ChartTreeMapSeriesNodeFloat `yaml:"treemap"`
+	ID          string                        `yaml:"id"`
+	Title       string                        `yaml:"title"`
+	SubText     string                        `yaml:"subtext"`
+	Width       int                           `yaml:"width"`
+	Height      int                           `yaml:"height"`
+	RecountType string                        `yaml:"recounttype"`
+	LegendData  []string                      `yaml:"legenddata"`
+	TreeMap     []ChartTreeMapSeriesNodeFloat `yaml:"treemap"`
 }
 
 // baseObj -
