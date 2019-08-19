@@ -97,6 +97,7 @@ type ChartBasicData struct {
 type ChartTreeMapData struct {
 	Name     string             `yaml:"name"`
 	Value    int                `yaml:"value"`
+	URL      string             `yaml:"url"`
 	Children []ChartTreeMapData `yaml:"children"`
 }
 
@@ -110,6 +111,7 @@ type ChartTreeMapSeriesNode struct {
 type ChartTreeMapDataFloat struct {
 	Name     string                  `yaml:"name"`
 	Value    float32                 `yaml:"value"`
+	URL      string                  `yaml:"url"`
 	Children []ChartTreeMapDataFloat `yaml:"children"`
 }
 
