@@ -97,6 +97,12 @@ func (serv *Serv) BuildWithMarkdown(stream adacorepb.AdaCoreService_BuildWithMar
 		return err
 	}
 
+	if md == nil {
+		serv.replyErr(stream, adacorebase.ErrNoMarkdownData)
+
+		return adacorebase.ErrNoMarkdownData
+	}
+
 	rendermd := &adarender.MarkdownData{
 		StrData:      md.StrData,
 		BinaryData:   md.BinaryData,

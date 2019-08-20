@@ -40,4 +40,7 @@ var (
 	ErrAdaCoreClientNoServAddr = errors.New("There is no ServAddr in AdaCoreClient")
 	// ErrAdaCoreClientNoToken - There is no Token in AdaCoreClient
 	ErrAdaCoreClientNoToken = errors.New("There is no Token in AdaCoreClient")
+
+	// ErrNoMarkdownData - The MarkdownData is empty
+	ErrNoMarkdownData = errors.New("The MarkdownData is empty")
 )
