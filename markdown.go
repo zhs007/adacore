@@ -325,7 +325,7 @@ func (md *Markdown) AppendImage(text string, fn string, mddata *adacorepb.Markdo
 		return nil, "", err
 	}
 
-	md.str = adacorebase.AppendString(md.str, "![", text, "](", fn, ")")
+	md.str = adacorebase.AppendString(md.str, "![", text, "](", fn, ")\n")
 
 	if mddata.BinaryData == nil {
 		mddata.BinaryData = make(map[string][]byte)

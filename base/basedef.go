@@ -1,7 +1,7 @@
 package adacorebase
 
 // VERSION - adacore version
-const VERSION = "0.1.52"
+const VERSION = "0.1.53"
 
 // BigMsgLength -if msg length >= BigMsgLength, the message is big message
 const BigMsgLength = 4*1024*1024 - 1024
