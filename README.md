@@ -5,7 +5,10 @@
 
 ``adacore``是一个开箱即用的报表输出工具。  
 
-
 ### 使用
 
-具体可见 [例子-报表]()
+具体可见 [例子-报表](https://github.com/zhs007/adacore/blob/master/samples/report/main.go) 。
+
+执行该例子后，会生成一个这样的 [页面](https://ada.heyalgo.io/c82NbzgT2DELRjcu+q356XrDp+_ePWs3X2NVhg_DBdE.html)。
+
+接口现在还比较简单，逐步完善中，如果您有任何的意见和建议，可以提出来。
