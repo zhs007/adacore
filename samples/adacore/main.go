@@ -23,6 +23,7 @@ func genMarkdown() (*adacorepb.MarkdownData, error) {
 
 	md := adacore.NewMakrdown("Ada Core")
 
+	// for i := 0; i < 500; i++ {
 	md.AppendParagraph("This is a Markdown API for Ada.")
 	md.AppendParagraph("This libraray is write by Zerro.\nThis is a multi-line text.")
 
@@ -43,6 +44,22 @@ func genMarkdown() (*adacorepb.MarkdownData, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	// _, _, err = md.AppendImage("This is a image", "jpg.png", mddata)
+	// if err != nil {
+	// 	return nil, err
+	// }
+
+	// _, _, err = md.AppendImage("This is a image", "output.png", mddata)
+	// if err != nil {
+	// 	return nil, err
+	// }
+
+	// _, _, err = md.AppendImage("This is a image", "q100webp.png", mddata)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// }
 
 	// mddata.BinaryData["sample001.jpg"] = buf
 

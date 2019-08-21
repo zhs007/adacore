@@ -2,6 +2,7 @@ package adacorebase
 
 import (
 	"bytes"
+	"crypto/md5"
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
@@ -59,4 +60,11 @@ func HashBuffer(buf []byte) string {
 		base64.StdEncoding.EncodeToString(sum256[:]),
 		"/", "_", -1),
 		"=", "", -1)
+}
+
+// MD5Buffer - hash buffer
+func MD5Buffer(buf []byte) string {
+	h := md5.New()
+	h.Write(buf)
+	return base64.StdEncoding.EncodeToString(h.Sum(nil))
 }

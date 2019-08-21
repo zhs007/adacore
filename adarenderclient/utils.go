@@ -1,6 +1,7 @@
 package adarenderclient
 
 import (
+	"bytes"
 	"io/ioutil"
 	"path"
 
@@ -27,7 +28,37 @@ func BuildMarkdownStream(mddata *adarender.MarkdownData, token string) ([]*adare
 		return []*adarender.MarkdownStream{stream}, nil
 	}
 
-	return nil, nil
+	var lst []*adarender.MarkdownStream
+
+	st := 0
+	for st < bl {
+		isend := false
+		cl := adacorebase.BigMsgLength
+		if cl > bl-st {
+			cl = bl - st
+			isend = true
+		}
+
+		cb := buf[st:(st + cl)]
+
+		cs := &adarender.MarkdownStream{
+			TotalLength: int32(bl),
+			CurStart:    int32(st),
+			CurLength:   int32(cl),
+			HashData:    adacorebase.MD5Buffer(cb),
+			Data:        cb,
+			Token:       token,
+		}
+
+		st += cl
+		if isend {
+			cs.TotalHashData = adacorebase.MD5Buffer(buf)
+		}
+
+		lst = append(lst, cs)
+	}
+
+	return lst, nil
 }
 
 // BuildHTMLData - []HTMLStream => HTMLData
@@ -36,9 +67,56 @@ func BuildHTMLData(lst []*adarender.HTMLStream) (*adarender.HTMLData, error) {
 		if lst[0].HtmlData != nil {
 			return lst[0].HtmlData, nil
 		}
+
+		return nil, adacorebase.ErrEmptyHTMLData
 	}
 
-	return nil, nil
+	var lstbytes [][]byte
+	totalmd5inmsg := ""
+	st := 0
+	ct := 0
+	for i, v := range lst {
+		if st != int(v.CurStart) {
+			return nil, adacorebase.ErrInvalidCurStartAdaRender
+		}
+
+		if len(v.Data) != int(v.CurLength) {
+			return nil, adacorebase.ErrInvalidCurLengthAdaRender
+		}
+
+		curmd5 := adacorebase.MD5Buffer(v.Data)
+		if curmd5 != v.HashData {
+			return nil, adacorebase.ErrInvalidHashDataAdaRender
+		}
+
+		lstbytes = append(lstbytes, v.Data)
+
+		st += len(v.Data)
+		ct += len(v.Data)
+
+		if i == len(lst)-1 {
+			totalmd5inmsg = v.TotalHashData
+
+			if ct != int(v.TotalLength) {
+				return nil, adacorebase.ErrInvalidTotalLengthAdaRender
+			}
+		}
+	}
+
+	buf := bytes.Join(lstbytes, []byte(""))
+
+	totalmd5 := adacorebase.MD5Buffer(buf)
+	if totalmd5 != totalmd5inmsg {
+		return nil, adacorebase.ErrInvalidTotalHashDataAdaRender
+	}
+
+	htmld := &adarender.HTMLData{}
+	err := proto.Unmarshal(buf, htmld)
+	if err != nil {
+		return nil, err
+	}
+
+	return htmld, nil
 }
 
 // BuildMarkdownData - MarkdownData => []MarkdownStream

@@ -43,4 +43,15 @@ var (
 
 	// ErrNoMarkdownData - The MarkdownData is empty
 	ErrNoMarkdownData = errors.New("The MarkdownData is empty")
+
+	// ErrInvalidHashDataAdaRender - invalid hashdata in adarender
+	ErrInvalidHashDataAdaRender = errors.New("invalid hashdata in adarender")
+	// ErrInvalidTotalHashDataAdaRender - invalid totalhashdata in adarender
+	ErrInvalidTotalHashDataAdaRender = errors.New("invalid totalhashdata in adarender")
+	// ErrInvalidCurStartAdaRender - invalid curstart in adarender
+	ErrInvalidCurStartAdaRender = errors.New("invalid curstart in adarender")
+	// ErrInvalidCurLengthAdaRender - invalid curlength in adarender
+	ErrInvalidCurLengthAdaRender = errors.New("invalid curlength in adarender")
+	// ErrInvalidTotalLengthAdaRender - invalid totallength in adarender
+	ErrInvalidTotalLengthAdaRender = errors.New("invalid totallength in adarender")
 )
