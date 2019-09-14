@@ -106,7 +106,7 @@ func (db *AdaCoreDB) GetResource(ctx context.Context, hashname string) (*adacore
 		return nil, err
 	}
 
-	return nil, nil
+	return ri, nil
 }
 
 // DelResource - delete a resource
