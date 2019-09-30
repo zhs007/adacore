@@ -59,8 +59,8 @@ github.com/zhs007/adacore v0.1.56/go.mod h1:6bITOZEC5OdPAXQ9VpNwDi8afCucqL+Bch1c
 github.com/zhs007/anka v0.0.0-20180701110635-4fa730b5b368/go.mod h1:E4SJE09/V3y/yZm+fpccYMSTNC0eY2GrJ4JBQoE4qe0=
 github.com/zhs007/ankadb v0.3.31 h1:Md7g2OVuJ7uppkeDhqZdd0SFWKX0LRRAnQBwhJHDq6w=
 github.com/zhs007/ankadb v0.3.31/go.mod h1:IsfaA6sTij3tK+2knD9UMdMfN1xGOmwjRJOsEfg7NKk=
-github.com/zhs007/chatbot v0.1.33 h1:yOPwiGHT8ctOuGux4bDvRcUaO1TEExlt2dgsAWFrNKM=
-github.com/zhs007/chatbot v0.1.33/go.mod h1:yiBlerXEIGZQvUx5RMNg+JaB9iovdGpM0ULR1VE9eR4=
+github.com/zhs007/chatbot v0.1.35 h1:eB6WTzEBw3VpmWkMtb0KDeMZyp83Ca9H7jnh9cdiuIA=
+github.com/zhs007/chatbot v0.1.35/go.mod h1:yiBlerXEIGZQvUx5RMNg+JaB9iovdGpM0ULR1VE9eR4=
 github.com/zhs007/jccclient v0.1.51/go.mod h1:nzGYsF6ZsN8RXe+ahYY+jdUuwCIjs14C2kUy2wyqSc4=
 go.uber.org/atomic v1.4.0 h1:cxzIVoETapQEqDhQu3QfnvXAV4AlzcvUCxkVUFw3+EU=
 go.uber.org/atomic v1.4.0/go.mod h1:gD2HeocX3+yG+ygLZcrzQJaqmWj9AIm7n08wl/qW/PE=

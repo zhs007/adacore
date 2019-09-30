@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	chatbotada "github.com/zhs007/adacore/chatbot"
 	chatbot "github.com/zhs007/chatbot"
 	chatbotbase "github.com/zhs007/chatbot/base"
 	chatbotcmdhelp "github.com/zhs007/chatbot/commands/help"
@@ -40,7 +41,7 @@ func main() {
 		return
 	}
 
-	serv, err := chatbot.NewChatBotServ(cfg, mgr)
+	serv, err := chatbot.NewChatBotServ(cfg, mgr, &chatbotada.ServiceCore{})
 	if err != nil {
 		fmt.Printf("NewChatBotServ %v", err)
 
