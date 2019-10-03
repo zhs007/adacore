@@ -7,6 +7,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	adacore "github.com/zhs007/adacore"
 	adarender "github.com/zhs007/adacore/adarenderpb"
+	adacorebase "github.com/zhs007/adacore/base"
 	chatbot "github.com/zhs007/chatbot"
 	chatbotpb "github.com/zhs007/chatbot/proto"
 )
@@ -36,10 +37,21 @@ func (fp *markdownFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbo
 			return nil, err
 		}
 
+		lang := serv.GetChatMsgLang(chat)
+
+		locale, err := serv.MgrText.GetLocalizer(lang)
+		if err != nil {
+			return nil, err
+		}
+
 		var lst []*chatbotpb.ChatMsg
 
-		msghashname := chatbot.BuildTextChatMsg(hashname, chat.Uai,
-			chat.Token, chat.SessionID)
+		msghashname, err := chatbot.NewChatMsgWithText(locale, "iprocok", map[string]interface{}{
+			"Url": adacorebase.AppendString(fp.serv.Cfg.BaseURL, hashname),
+		}, chat.Uai)
+		if err != nil {
+			return nil, err
+		}
 
 		lst = append(lst, msghashname)
 

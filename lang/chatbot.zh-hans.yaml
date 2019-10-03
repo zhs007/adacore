@@ -28,3 +28,6 @@ yousaid:
 igetfile:
   description: in debug
   other: 我收到了一个 {{.FileType}} 文件 ({{.FileName}})，文件大小是 {{.FileSize}}，文件Hash是 "{{.FileHash}}"。
+iprocok:
+  description: ada proc file ok
+  other: 我处理完成了，你可以在 {{.Url}} 看到结果.
