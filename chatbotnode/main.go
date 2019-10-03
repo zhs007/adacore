@@ -7,8 +7,8 @@ import (
 	chatbotada "github.com/zhs007/adacore/chatbot"
 	chatbot "github.com/zhs007/chatbot"
 	chatbotbase "github.com/zhs007/chatbot/base"
-	chatbotusermgr "github.com/zhs007/chatbot/usermgr"
 	basicchatbot "github.com/zhs007/chatbot/basicchatbot"
+	chatbotusermgr "github.com/zhs007/chatbot/usermgr"
 	"go.uber.org/zap/zapcore"
 )
 
@@ -20,7 +20,7 @@ func main() {
 		return
 	}
 
-	cfg, err := chatbot.LoadConfig("./config.yaml")
+	cfg, err := chatbot.LoadConfig("./cfg/chatbot.yaml")
 	if err != nil {
 		fmt.Printf("LoadConfig %v", err)
 
