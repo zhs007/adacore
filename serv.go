@@ -16,10 +16,10 @@ import (
 
 // Serv - AdaCore Service
 type Serv struct {
-	cfg          *Config
+	Cfg          *Config
 	lis          net.Listener
 	grpcServ     *grpc.Server
-	renderClient *adarenderclient.Client
+	ClientRender *adarenderclient.Client
 }
 
 // NewAdaCoreServ -
@@ -42,10 +42,10 @@ func NewAdaCoreServ(cfg *Config) (*Serv, error) {
 	grpcServ := grpc.NewServer()
 
 	serv := &Serv{
-		cfg:          cfg,
+		Cfg:          cfg,
 		lis:          lis,
 		grpcServ:     grpcServ,
-		renderClient: renderClient,
+		ClientRender: renderClient,
 	}
 
 	adacorepb.RegisterAdaCoreServiceServer(grpcServ, serv)
@@ -83,7 +83,7 @@ func (serv *Serv) BuildWithMarkdown(stream adacorepb.AdaCoreService_BuildWithMar
 			return err
 		}
 
-		if !serv.cfg.HasToken(in.Token) {
+		if !serv.Cfg.HasToken(in.Token) {
 			return adacorebase.ErrServInvalidToken
 		}
 
@@ -118,14 +118,14 @@ func (serv *Serv) BuildWithMarkdown(stream adacorepb.AdaCoreService_BuildWithMar
 		}
 	}
 
-	htmldata, err := serv.renderClient.Render(stream.Context(), rendermd)
+	htmldata, err := serv.ClientRender.Render(stream.Context(), rendermd)
 	if err != nil {
 		serv.replyErr(stream, err)
 
 		return err
 	}
 
-	hashname, err := SaveHTMLData(htmldata, serv.cfg)
+	hashname, err := SaveHTMLData(htmldata, serv.Cfg)
 	if err != nil {
 		serv.replyErr(stream, err)
 
@@ -158,7 +158,7 @@ func (serv *Serv) replyResult(stream adacorepb.AdaCoreService_BuildWithMarkdownS
 
 	reply := &adacorepb.ReplyMarkdown{
 		HashName: hashname,
-		Url:      adacorebase.AppendString(serv.cfg.BaseURL, hashname),
+		Url:      adacorebase.AppendString(serv.Cfg.BaseURL, hashname),
 	}
 
 	return stream.SendAndClose(reply)

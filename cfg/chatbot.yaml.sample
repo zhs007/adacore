@@ -16,6 +16,7 @@ plugins:
 
 pluginssecondline:
   - debug
+  - fileproc  
 
 commands:
   - help

@@ -28,3 +28,6 @@ yousaid:
 igetfile:
   description: in debug
   other: I get a {{.FileType}} file ({{.FileName}}), the file size is {{.FileSize}}, the file hash is "{{.FileHash}}".
+iprocok:
+  description: ada proc file ok
+  other: I am done, you can see the results at {{.Url}}.
