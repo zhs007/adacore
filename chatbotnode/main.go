@@ -4,27 +4,23 @@ import (
 	"context"
 	"fmt"
 
+	chatbotada "github.com/zhs007/adacore/chatbot"
 	chatbot "github.com/zhs007/chatbot"
 	chatbotbase "github.com/zhs007/chatbot/base"
-	chatbotcmdhelp "github.com/zhs007/chatbot/commands/help"
-	chatbotcmdstart "github.com/zhs007/chatbot/commands/start"
-	chatbotdebugplugin "github.com/zhs007/chatbot/plugins/debug"
+	basicchatbot "github.com/zhs007/chatbot/basicchatbot"
 	chatbotusermgr "github.com/zhs007/chatbot/usermgr"
 	"go.uber.org/zap/zapcore"
 )
 
 func main() {
-	err := chatbotdebugplugin.RegisterPlugin()
+	err := basicchatbot.InitBasicChatBot()
 	if err != nil {
-		fmt.Printf("chatbotdebugplugin.RegisterPlugin %v", err)
+		fmt.Printf("basicchatbot.InitBasicChatBot %v", err)
 
 		return
 	}
 
-	chatbotcmdhelp.RegisterCommand()
-	chatbotcmdstart.RegisterCommand()
-
-	cfg, err := chatbot.LoadConfig("./config.yaml")
+	cfg, err := chatbot.LoadConfig("./cfg/chatbot.yaml")
 	if err != nil {
 		fmt.Printf("LoadConfig %v", err)
 
@@ -40,7 +36,7 @@ func main() {
 		return
 	}
 
-	serv, err := chatbot.NewChatBotServ(cfg, mgr)
+	serv, err := chatbot.NewChatBotServ(cfg, mgr, &chatbotada.ServiceCore{})
 	if err != nil {
 		fmt.Printf("NewChatBotServ %v", err)
 

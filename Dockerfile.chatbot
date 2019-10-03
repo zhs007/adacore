@@ -1,0 +1,30 @@
+FROM golang:1.12 as builder
+
+MAINTAINER zerro "zerrozhao@gmail.com"
+
+ENV GOPROXY https://goproxy.io
+
+WORKDIR /src/adachatbot
+
+COPY ./go.* /src/adachatbot/
+
+RUN go mod download
+
+COPY . /src/adachatbot
+
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o adachatbot ./chatbotnode \
+    && mkdir /app \
+    && mkdir /app/adachatbot \
+    && mkdir /app/adachatbot/cfg \
+    && mkdir /app/adachatbot/logs \
+    && cp ./adachatbot /app/adachatbot/ \
+    && cp ./cfg/config.yaml.sample /app/adachatbot/cfg/adanode.yaml \
+    && cp ./cfg/chatbot.yaml.sample /app/adachatbot/cfg/chatbot.yaml \
+    && cp -r ./lang /app/adachatbot/
+
+FROM alpine
+RUN apk upgrade && apk add --no-cache ca-certificates
+WORKDIR /app/adachatbot
+COPY --from=builder /usr/local/go/lib/time/zoneinfo.zip /usr/local/go/lib/time/zoneinfo.zip
+COPY --from=builder /app/adachatbot /app/adachatbot
+CMD ["./adachatbot"]

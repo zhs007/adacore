@@ -1,0 +1,17 @@
+syntax = "proto3";
+package adacorepb;
+
+// ChatBotData - chatbot data
+message ChatBotData{
+    int64 dataNums = 1;
+    int64 pageNums = 2;
+    int64 buildNums = 3;
+}
+
+// UserData - user data
+message UserData {
+    string token = 1;
+    int64 dataNums = 2;
+    int64 pageNums = 3;
+    int64 buildNums = 4;
+}

@@ -12,3 +12,13 @@
 执行该例子后，会生成一个这样的 [页面](https://ada.heyalgo.io/c82NbzgT2DELRjcu+q356XrDp+_ePWs3X2NVhg_DBdE.html)。
 
 接口现在还比较简单，逐步完善中，如果您有任何的意见和建议，可以提出来。
+
+### 更新日志
+
+##### v0.1
+
+- 支持grpc调用。
+
+##### v0.2
+
+- 加入ChatBot支持。
