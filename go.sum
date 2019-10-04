@@ -1,4 +1,6 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+github.com/360EntSecGroup-Skylar/excelize/v2 v2.0.1 h1:gnknz1/4RnpL2fZsJzsqsGHgjWDT7k11tGPsFiDQeDk=
+github.com/360EntSecGroup-Skylar/excelize/v2 v2.0.1/go.mod h1:fkN+AZg31J/y9B4AtylxjzzNYetIxi6cElYu/WBUb7g=
 github.com/BurntSushi/toml v0.3.0/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
@@ -32,6 +34,8 @@ github.com/kr/text v0.1.0 h1:45sCR5RtlFHMR4UwH9sdQ5TC8v0qDQCHnXt+kaKSTVE=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
 github.com/mitchellh/mapstructure v1.1.2 h1:fmNYVwqnSfB9mZU6OS2O6GsXM+wcskZDuKQzvN1EDeE=
 github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
+github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 h1:RWengNIwukTxcDr9M+97sNutRR1RKhG96O6jWumTTnw=
+github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826/go.mod h1:TaXosZuwdSHYgviHp1DAtfrULt5eUgsSMsZf+YrPgl8=
 github.com/nicksnyder/go-i18n/v2 v2.0.2 h1:KsHGcTByIM0mHZKQGy0nlJLOjPNjQ6MVib/3PvsBDNY=
 github.com/nicksnyder/go-i18n/v2 v2.0.2/go.mod h1:JXS4+OKhbcwDoVTEj0sLFWL1vOwec2g/YBAxZ9owJqY=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
@@ -59,8 +63,8 @@ github.com/zhs007/adacore v0.1.56/go.mod h1:6bITOZEC5OdPAXQ9VpNwDi8afCucqL+Bch1c
 github.com/zhs007/anka v0.0.0-20180701110635-4fa730b5b368/go.mod h1:E4SJE09/V3y/yZm+fpccYMSTNC0eY2GrJ4JBQoE4qe0=
 github.com/zhs007/ankadb v0.3.31 h1:Md7g2OVuJ7uppkeDhqZdd0SFWKX0LRRAnQBwhJHDq6w=
 github.com/zhs007/ankadb v0.3.31/go.mod h1:IsfaA6sTij3tK+2knD9UMdMfN1xGOmwjRJOsEfg7NKk=
-github.com/zhs007/chatbot v0.2.10 h1:pjEUHMymbeGI6nivW+XquiUHZfZcdKA7hw1elnv8la0=
-github.com/zhs007/chatbot v0.2.10/go.mod h1:yiBlerXEIGZQvUx5RMNg+JaB9iovdGpM0ULR1VE9eR4=
+github.com/zhs007/chatbot v0.2.13 h1:/ueQh9T2uQ3G3Bby94tvwzKhlsHHzcIqedux+I401kg=
+github.com/zhs007/chatbot v0.2.13/go.mod h1:yiBlerXEIGZQvUx5RMNg+JaB9iovdGpM0ULR1VE9eR4=
 github.com/zhs007/jccclient v0.1.51/go.mod h1:nzGYsF6ZsN8RXe+ahYY+jdUuwCIjs14C2kUy2wyqSc4=
 go.uber.org/atomic v1.4.0 h1:cxzIVoETapQEqDhQu3QfnvXAV4AlzcvUCxkVUFw3+EU=
 go.uber.org/atomic v1.4.0/go.mod h1:gD2HeocX3+yG+ygLZcrzQJaqmWj9AIm7n08wl/qW/PE=

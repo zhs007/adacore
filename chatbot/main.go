@@ -59,8 +59,12 @@ func startChatBot(ctx context.Context, servAda *adacore.Serv, adacorecfg *adacor
 		return err
 	}
 
+	// register file processor
 	serv.MgrFile.RegisterFileProcessor(&markdownFP{
-		serv: servAda,
+		servAda: servAda,
+	})
+	serv.MgrFile.RegisterFileProcessor(&excelFP{
+		servAda: servAda,
 	})
 
 	serv.Init(context.Background())
