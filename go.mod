@@ -3,6 +3,7 @@ module github.com/zhs007/adacore
 go 1.12
 
 require (
+	github.com/360EntSecGroup-Skylar/excelize/v2 v2.0.1
 	github.com/golang/protobuf v1.3.2
 	github.com/zhs007/ankadb v0.3.31
 	github.com/zhs007/chatbot v0.2.10

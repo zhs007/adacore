@@ -12,9 +12,9 @@ import (
 	chatbotpb "github.com/zhs007/chatbot/proto"
 )
 
-// markdownFP - file processor markdown
+// markdownFP - file processor for markdown
 type markdownFP struct {
-	serv *adacore.Serv
+	servAda *adacore.Serv
 }
 
 // Proc - process
@@ -24,15 +24,15 @@ func (fp *markdownFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbo
 	if chat.File != nil && chat.File.FileData != nil {
 		rendermd := &adarender.MarkdownData{
 			StrData:      string(chat.File.FileData),
-			TemplateName: fp.serv.Cfg.Templates[0],
+			TemplateName: fp.servAda.Cfg.Templates[0],
 		}
 
-		htmldata, err := fp.serv.ClientRender.Render(ctx, rendermd)
+		htmldata, err := fp.servAda.ClientRender.Render(ctx, rendermd)
 		if err != nil {
 			return nil, err
 		}
 
-		hashname, err := adacore.SaveHTMLData(htmldata, fp.serv.Cfg)
+		hashname, err := adacore.SaveHTMLData(htmldata, fp.servAda.Cfg)
 		if err != nil {
 			return nil, err
 		}
@@ -47,7 +47,7 @@ func (fp *markdownFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbo
 		var lst []*chatbotpb.ChatMsg
 
 		msghashname, err := chatbot.NewChatMsgWithText(locale, "iprocok", map[string]interface{}{
-			"Url": adacorebase.AppendString(fp.serv.Cfg.BaseURL, hashname),
+			"Url": adacorebase.AppendString(fp.servAda.Cfg.BaseURL, hashname),
 		}, chat.Uai)
 		if err != nil {
 			return nil, err
