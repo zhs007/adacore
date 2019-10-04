@@ -355,6 +355,10 @@ func AnalysisColumn(arr [][]string, x int) ExcelColumnType {
 			return ColumnTimestampMs
 		}
 
+		if !HasDuplication(arr, x) {
+			return ColumnPrimaryKey
+		}
+
 		return ColumnInt
 	}
 
