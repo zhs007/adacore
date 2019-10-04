@@ -63,8 +63,12 @@ func (fp *excelFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbotpb
 
 // IsMyFile - is my file
 func (fp *excelFP) IsMyFile(chat *chatbotpb.ChatMsg) bool {
+	return isExcelFile(chat)
+}
 
-	if chat.File != nil {
+func isExcelFile(chat *chatbotpb.ChatMsg) bool {
+	if chat.File != nil && chat.File.FileData != nil {
+
 		arr := strings.Split(chat.File.Filename, ".")
 		if len(arr) > 1 &&
 			(arr[len(arr)-1] == "xls" || arr[len(arr)-1] == "xlsx") {

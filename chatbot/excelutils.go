@@ -55,6 +55,20 @@ const (
 	ColumnTimestampMs ExcelColumnType = 9
 )
 
+var lstColumnString = []string{
+	"Info",
+	"ID",
+	"PrimaryKey",
+	"DataTime",
+	"Number",
+	"Percentage",
+	"NegligiblePrimaryKey",
+	"Category",
+	"Int",
+	"Timestamp",
+	"TimestampMs",
+}
+
 func isFloat(str string) bool {
 	const strFloat = "0123456789,.%"
 	str = strings.TrimSpace(str)
@@ -367,4 +381,13 @@ func ProcHead(arr [][]string) [][]string {
 	}
 
 	return arr
+}
+
+// ExcelColumnType2String - ExcelColumnType -> string
+func ExcelColumnType2String(ect ExcelColumnType) string {
+	if ect >= 0 && ect <= ColumnTimestampMs {
+		return lstColumnString[ect]
+	}
+
+	return "invalid"
 }
