@@ -158,11 +158,31 @@ func isInt(str string) bool {
 
 func isDataTime(str string) bool {
 	_, err := time.Parse(time.RFC3339, str)
-	if err != nil {
-		return false
+	if err == nil {
+		return true
 	}
 
-	return true
+	_, err = time.Parse("2006-01-02", str)
+	if err == nil {
+		return true
+	}
+
+	_, err = time.Parse("2006-01-02 15:04:05", str)
+	if err == nil {
+		return true
+	}
+
+	_, err = time.Parse("02/01/2006 15:04:05", str)
+	if err == nil {
+		return true
+	}
+
+	_, err = time.Parse("02/01/2006", str)
+	if err == nil {
+		return true
+	}
+
+	return false
 }
 
 // AnalysisCell - analysis cell, exclude rows with y == 0

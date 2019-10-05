@@ -65,6 +65,7 @@ github.com/zhs007/ankadb v0.3.31 h1:Md7g2OVuJ7uppkeDhqZdd0SFWKX0LRRAnQBwhJHDq6w=
 github.com/zhs007/ankadb v0.3.31/go.mod h1:IsfaA6sTij3tK+2knD9UMdMfN1xGOmwjRJOsEfg7NKk=
 github.com/zhs007/chatbot v0.2.13 h1:/ueQh9T2uQ3G3Bby94tvwzKhlsHHzcIqedux+I401kg=
 github.com/zhs007/chatbot v0.2.13/go.mod h1:yiBlerXEIGZQvUx5RMNg+JaB9iovdGpM0ULR1VE9eR4=
+github.com/zhs007/jccclient v0.1.51 h1:rNe+BewcP2tcGTKfGsRPN8gpVyHyDpJ35oL4fdoAx5I=
 github.com/zhs007/jccclient v0.1.51/go.mod h1:nzGYsF6ZsN8RXe+ahYY+jdUuwCIjs14C2kUy2wyqSc4=
 go.uber.org/atomic v1.4.0 h1:cxzIVoETapQEqDhQu3QfnvXAV4AlzcvUCxkVUFw3+EU=
 go.uber.org/atomic v1.4.0/go.mod h1:gD2HeocX3+yG+ygLZcrzQJaqmWj9AIm7n08wl/qW/PE=

@@ -7,6 +7,7 @@ require (
 	github.com/golang/protobuf v1.3.2
 	github.com/zhs007/ankadb v0.3.31
 	github.com/zhs007/chatbot v0.2.13
+	github.com/zhs007/jccclient v0.1.51
 	go.uber.org/multierr v1.2.0 // indirect
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20190926025831-c00fd9afed17
