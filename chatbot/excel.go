@@ -36,7 +36,9 @@ func (fp *excelFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbotpb
 			return nil, err
 		}
 
-		arr = ProcHead(arr)
+		sx, sy := GetStartXY(arr)
+
+		arr = ProcHead(arr, sx, sy)
 
 		var lst []*chatbotpb.ChatMsg
 

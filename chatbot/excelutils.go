@@ -205,8 +205,8 @@ func isDataTime(str string) bool {
 	return false
 }
 
-// AnalysisCell - analysis cell, exclude rows with y == 0
-func AnalysisCell(arr [][]string, x int) ExcelCellType {
+// AnalysisCell - analysis cell, exclude rows with y <= sy
+func AnalysisCell(arr [][]string, x int, sy int) ExcelCellType {
 	if x >= 0 && x < len(arr[0]) {
 		isneedfloat := false
 
@@ -215,7 +215,7 @@ func AnalysisCell(arr [][]string, x int) ExcelCellType {
 		// 暂时不区分32位和64位，默认为64位
 
 		isallnull := true
-		for y := 1; y < len(arr); y++ {
+		for y := sy + 1; y < len(arr); y++ {
 			cr := strings.TrimSpace(arr[y][x])
 			if cr == "" {
 				if y == len(arr)-1 && isallnull {
@@ -334,8 +334,8 @@ func HasDuplication(arr [][]string, x int) bool {
 }
 
 // AnalysisColumn - analysis column, exclude rows with y == 0
-func AnalysisColumn(arr [][]string, x int) ExcelColumnType {
-	ct := AnalysisCell(arr, x)
+func AnalysisColumn(arr [][]string, x int, sy int) ExcelColumnType {
+	ct := AnalysisCell(arr, x, sy)
 	if ct == CellString {
 		isinfo := false
 		for y := 1; y < len(arr); y++ {
@@ -418,21 +418,23 @@ func AnalysisColumn(arr [][]string, x int) ExcelColumnType {
 }
 
 // AnalysisColumnsType - analysis column type
-func AnalysisColumnsType(arr [][]string) []ExcelColumnType {
+func AnalysisColumnsType(arr [][]string, sx int, sy int) []ExcelColumnType {
 	var lst []ExcelColumnType
 
-	for x := 0; x < len(arr[0]); x++ {
-		lst = append(lst, AnalysisColumn(arr, x))
+	for x := sx; x < len(arr[0]); x++ {
+		lst = append(lst, AnalysisColumn(arr, x, sy))
 	}
 
 	return lst
 }
 
 // ProcHead - process head
-func ProcHead(arr [][]string) [][]string {
-	for i, v := range arr[0] {
-		if v == "" {
-			arr[0][i] = fmt.Sprintf("__column%v__", i)
+func ProcHead(arr [][]string, sx int, sy int) [][]string {
+	for i, v := range arr[sy] {
+		if i >= sx {
+			if v == "" {
+				arr[sy][i] = fmt.Sprintf("__column%v__", i)
+			}
 		}
 	}
 
@@ -502,14 +504,16 @@ func GetStartXY(arr [][]string) (int, int) {
 }
 
 // AnalysisColumnsTypeWithComments - analysis ColumnsType with comments
-func AnalysisColumnsTypeWithComments(arr [][]string, cx int, cy int,
+func AnalysisColumnsTypeWithComments(arr [][]string, sx int, sy int,
 	mapComments map[string]string) []ExcelColumnTypeObj {
 
 	var lst []ExcelColumnTypeObj
 
-	for tx := cx; tx < len(arr[0]); tx++ {
-		cn, err := excelize.CoordinatesToCellName(tx, cy)
+	for tx := sx; tx < len(arr[0]); tx++ {
+		cn, err := excelize.CoordinatesToCellName(tx+1, sy+1)
 		if err == nil {
+			// fmt.Printf("%v\n", cn)
+
 			d, isok := mapComments[cn]
 			if isok {
 				d = strings.TrimSpace(d)
@@ -546,4 +550,20 @@ func AnalysisColumnsTypeWithComments(arr [][]string, cx int, cy int,
 	}
 
 	return lst
+}
+
+// GetComments - get comments with sheetName
+func GetComments(f *excelize.File, sheetName string) map[string]string {
+	mc := f.GetComments()
+	cursheetcomments, isok := mc[sheetName]
+	if !isok {
+		return nil
+	}
+
+	mapComments := make(map[string]string)
+	for _, v := range cursheetcomments {
+		mapComments[v.Ref] = v.Text
+	}
+
+	return mapComments
 }

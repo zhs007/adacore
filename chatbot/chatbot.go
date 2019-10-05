@@ -82,7 +82,9 @@ func (core *ServiceCore) OnDebug(ctx context.Context, serv *chatbot.Serv, chat *
 			return nil, err
 		}
 
-		arr = ProcHead(arr)
+		sx, sy := GetStartXY(arr)
+
+		arr = ProcHead(arr, sx, sy)
 
 		lang := serv.GetChatMsgLang(chat)
 
@@ -98,7 +100,7 @@ func (core *ServiceCore) OnDebug(ctx context.Context, serv *chatbot.Serv, chat *
 
 		var lst []*chatbotpb.ChatMsg
 
-		lstct := AnalysisColumnsType(arr)
+		lstct := AnalysisColumnsType(arr, sx, sy)
 		var lstallcts []DebugExcelColumnType
 
 		for i, v := range arr[0] {
