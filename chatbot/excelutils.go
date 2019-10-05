@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 	"unicode"
+
+	"github.com/360EntSecGroup-Skylar/excelize/v2"
 )
 
 // ExcelCellType - excel cell type
@@ -58,7 +60,15 @@ const (
 	ColumnTimestampMs ExcelColumnType = 10
 	// ColumnNull - null
 	ColumnNull ExcelColumnType = 11
+	// ColumnTreeCategory - tree category
+	ColumnTreeCategory ExcelColumnType = 12
 )
+
+// ExcelColumnTypeObj - excel column type object
+type ExcelColumnTypeObj struct {
+	Type      ExcelColumnType
+	Separator string
+}
 
 var lstColumnString = []string{
 	"Info",
@@ -436,4 +446,104 @@ func ExcelColumnType2String(ect ExcelColumnType) string {
 	}
 
 	return "invalid"
+}
+
+func isEmptyRow(arr [][]string, x int) bool {
+	if x >= 0 && x < len(arr[0]) {
+		for y := 0; y < len(arr); y++ {
+			cr := strings.TrimSpace(arr[y][x])
+			if cr != "" {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	return true
+}
+
+func isEmptyColumn(arr [][]string, y int) bool {
+	if y >= 0 && y < len(arr) {
+		for x := 0; x < len(arr[0]); x++ {
+			cr := strings.TrimSpace(arr[y][x])
+			if cr != "" {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	return true
+}
+
+// GetStartXY - get start x & y
+func GetStartXY(arr [][]string) (int, int) {
+	cx := 0
+	for x := 0; x < len(arr[0]); x++ {
+		if !isEmptyRow(arr, x) {
+			cx = x
+
+			break
+		}
+	}
+
+	cy := 0
+	for y := 0; y < len(arr); y++ {
+		if !isEmptyColumn(arr, y) {
+			cy = y
+
+			break
+		}
+	}
+
+	return cx, cy
+}
+
+// AnalysisColumnsTypeWithComments - analysis ColumnsType with comments
+func AnalysisColumnsTypeWithComments(arr [][]string, cx int, cy int,
+	mapComments map[string]string) []ExcelColumnTypeObj {
+
+	var lst []ExcelColumnTypeObj
+
+	for tx := cx; tx < len(arr[0]); tx++ {
+		cn, err := excelize.CoordinatesToCellName(tx, cy)
+		if err == nil {
+			d, isok := mapComments[cn]
+			if isok {
+				d = strings.TrimSpace(d)
+
+				if d == "ID" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Type: ColumnID,
+					})
+
+					continue
+				} else if strings.Contains(d, "TreeCategory") {
+					ca := strings.Split(d, " ")
+					if len(ca) > 1 {
+						lst = append(lst, ExcelColumnTypeObj{
+							Type:      ColumnTreeCategory,
+							Separator: strings.TrimSpace(ca[1]),
+						})
+
+						continue
+					}
+				} else if d == "Category" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Type: ColumnCategory,
+					})
+
+					continue
+				}
+			}
+		}
+
+		lst = append(lst, ExcelColumnTypeObj{
+			Type: ColumnNull,
+		})
+	}
+
+	return lst
 }

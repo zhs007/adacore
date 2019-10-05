@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
+	chatbotada "github.com/zhs007/adacore/chatbot"
 )
 
 func testExcel(fn string) error {
@@ -20,7 +21,11 @@ func testExcel(fn string) error {
 		return err
 	}
 
-	fmt.Printf("w - %v h - %v", len(rows[0]), len(rows))
+	fmt.Printf("w - %v h - %v\n", len(rows[0]), len(rows))
+
+	cx, cy := chatbotada.GetStartXY(rows)
+
+	fmt.Printf("cx - %v cy - %v", cx, cy)
 
 	return nil
 }
