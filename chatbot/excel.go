@@ -28,14 +28,8 @@ func (fp *excelFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbotpb
 			return nil, err
 		}
 
-		mapSheet := f.GetSheetMap()
-		curSheet := ""
-
-		for _, v := range mapSheet {
-			curSheet = v
-
-			break
-		}
+		cs := f.GetActiveSheetIndex()
+		curSheet := f.GetSheetName(cs)
 
 		arr, err := f.GetRows(curSheet)
 		if err != nil {

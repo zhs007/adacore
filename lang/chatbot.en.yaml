@@ -31,3 +31,10 @@ igetfile:
 iprocok:
   description: ada proc file ok
   other: I am done, you can see the results at {{.Url}}.
+debugexcel:
+  description: in ada chatbot debug
+  other: |
+    "The file {{.FileName}}'s active sheet is {{.CurCheet}}.
+    {{range $val := .Columns}}
+    The column {{$val.Name}}'s type is {{$val.Type}}.
+    {{end}}"
