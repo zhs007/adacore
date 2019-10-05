@@ -31,3 +31,10 @@ igetfile:
 iprocok:
   description: ada proc file ok
   other: 我处理完成了，你可以在 {{.Url}} 看到结果.
+debugexcel:
+  description: in ada chatbot debug
+  other: |
+    "文件 {{.FileName}} 的激活表格是 {{.CurCheet}}。
+    {{range $val := .Columns}}
+    {{$val.Name}} 列类型是 {{$val.Type}}。
+    {{end}}"

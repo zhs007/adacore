@@ -2,6 +2,7 @@ package chatbotada
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 	"unicode"
@@ -25,6 +26,8 @@ const (
 	CellFloat64 ExcelCellType = 4
 	// CellPercentage - percentage
 	CellPercentage ExcelCellType = 5
+	// CellNull - null
+	CellNull ExcelCellType = 6
 )
 
 // ExcelColumnType - excel column type
@@ -52,7 +55,9 @@ const (
 	// ColumnTimestamp - timestamp
 	ColumnTimestamp ExcelColumnType = 9
 	// ColumnTimestampMs - timestampms
-	ColumnTimestampMs ExcelColumnType = 9
+	ColumnTimestampMs ExcelColumnType = 10
+	// ColumnNull - null
+	ColumnNull ExcelColumnType = 11
 )
 
 var lstColumnString = []string{
@@ -67,11 +72,12 @@ var lstColumnString = []string{
 	"Int",
 	"Timestamp",
 	"TimestampMs",
+	"Null",
 }
 
 func isFloat(str string) bool {
-	const strFloat = "0123456789,.%"
-	str = strings.TrimSpace(str)
+	const strFloat = "0123456789.%"
+	// str = strings.TrimSpace(str)
 	haspt := false
 	for i, v := range str {
 		if strings.IndexRune(strFloat, v) < 0 {
@@ -97,8 +103,8 @@ func isFloat(str string) bool {
 }
 
 func isPercentage(str string) bool {
-	const strFloat = "0123456789,.%"
-	str = strings.TrimSpace(str)
+	const strFloat = "0123456789.%"
+	// str = strings.TrimSpace(str)
 	haspt := false
 	for i, v := range str {
 		if strings.IndexRune(strFloat, v) < 0 {
@@ -126,9 +132,11 @@ func isPercentage(str string) bool {
 }
 
 func isTimestamp(str string) bool {
-	arr := strings.Split(str, ",")
-	str = strings.Join(arr, "")
-	if len(str) == 10 {
+	i64, err := strconv.ParseInt(str, 10, 64)
+	if err != nil {
+		return false
+	}
+	if i64 > 100000000 && i64 < 10000000000 {
 		return true
 	}
 
@@ -136,9 +144,11 @@ func isTimestamp(str string) bool {
 }
 
 func isTimestampMs(str string) bool {
-	arr := strings.Split(str, ",")
-	str = strings.Join(arr, "")
-	if len(str) == 13 {
+	i64, err := strconv.ParseInt(str, 10, 64)
+	if err != nil {
+		return false
+	}
+	if i64 > 100000000000 && i64 < 10000000000000 {
 		return true
 	}
 
@@ -158,11 +168,31 @@ func isInt(str string) bool {
 
 func isDataTime(str string) bool {
 	_, err := time.Parse(time.RFC3339, str)
-	if err != nil {
-		return false
+	if err == nil {
+		return true
 	}
 
-	return true
+	_, err = time.Parse("2006-01-02", str)
+	if err == nil {
+		return true
+	}
+
+	_, err = time.Parse("2006-01-02 15:04:05", str)
+	if err == nil {
+		return true
+	}
+
+	_, err = time.Parse("02/01/2006 15:04:05", str)
+	if err == nil {
+		return true
+	}
+
+	_, err = time.Parse("02/01/2006", str)
+	if err == nil {
+		return true
+	}
+
+	return false
 }
 
 // AnalysisCell - analysis cell, exclude rows with y == 0
@@ -174,14 +204,26 @@ func AnalysisCell(arr [][]string, x int) ExcelCellType {
 		// 如果至少一行不是数字，则整列都不应该是数字
 		// 暂时不区分32位和64位，默认为64位
 
+		isallnull := true
 		for y := 1; y < len(arr); y++ {
-			isf := isFloat(arr[y][x])
+			cr := strings.TrimSpace(arr[y][x])
+			if cr == "" {
+				if y == len(arr)-1 && isallnull {
+					return CellNull
+				}
+
+				continue
+			}
+
+			isallnull = false
+
+			isf := isFloat(cr)
 			if !isf {
 				return CellString
 			}
 
 			if !isneedfloat {
-				isi := isInt(arr[y][x])
+				isi := isInt(cr)
 				if !isi {
 					isneedfloat = true
 				}
@@ -389,7 +431,7 @@ func ProcHead(arr [][]string) [][]string {
 
 // ExcelColumnType2String - ExcelColumnType -> string
 func ExcelColumnType2String(ect ExcelColumnType) string {
-	if ect >= 0 && ect <= ColumnTimestampMs {
+	if ect >= 0 && ect <= ColumnNull {
 		return lstColumnString[ect]
 	}
 
