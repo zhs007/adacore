@@ -40,8 +40,8 @@ type ExcelColumnType int32
 const (
 	// ColumnInfo - info
 	ColumnInfo ExcelColumnType = 0
-	// ColumnID - ID
-	ColumnID ExcelColumnType = 1
+	// ColumnNumberPrimaryKey - number primary key
+	ColumnNumberPrimaryKey ExcelColumnType = 1
 	// ColumnPrimaryKey - primary key
 	ColumnPrimaryKey ExcelColumnType = 2
 	// ColumnDataTime - data time
@@ -50,8 +50,8 @@ const (
 	ColumnNumber ExcelColumnType = 4
 	// ColumnPercentage - percentage
 	ColumnPercentage ExcelColumnType = 5
-	// ColumnNegligiblePrimaryKey - negligible primary key
-	ColumnNegligiblePrimaryKey ExcelColumnType = 6
+	// ColumnIgnorePrimaryKey - ignore primary key
+	ColumnIgnorePrimaryKey ExcelColumnType = 6
 	// ColumnCategory - category
 	ColumnCategory ExcelColumnType = 7
 	// ColumnInt - int
@@ -79,12 +79,12 @@ type ExcelColumnTypeObj struct {
 
 var lstColumnString = []string{
 	"Info",
-	"ID",
 	"PrimaryKey",
+	"NumberPrimaryKey",
 	"DataTime",
 	"Number",
 	"Percentage",
-	"NegligiblePrimaryKey",
+	"IgnorePrimaryKey",
 	"Category",
 	"Int",
 	"Timestamp",
@@ -384,7 +384,7 @@ func AnalysisColumn(arr [][]string, x int, sy int) ExcelColumnType {
 		}
 
 		if !HasDuplication(arr, x) {
-			return ColumnID
+			return ColumnPrimaryKey
 		}
 
 		return ColumnCategory
@@ -428,7 +428,7 @@ func AnalysisColumn(arr [][]string, x int, sy int) ExcelColumnType {
 		}
 
 		if !HasDuplication(arr, x) {
-			return ColumnPrimaryKey
+			return ColumnNumberPrimaryKey
 		}
 
 		return ColumnInt
@@ -463,7 +463,7 @@ func ProcHead(arr [][]string, sx int, sy int) [][]string {
 
 // ExcelColumnType2String - ExcelColumnType -> string
 func ExcelColumnType2String(ect ExcelColumnType) string {
-	if ect >= 0 && ect <= ColumnNull {
+	if ect >= 0 && int(ect) < len(lstColumnString) {
 		return lstColumnString[ect]
 	}
 
@@ -538,10 +538,10 @@ func AnalysisColumnsTypeWithComments(arr [][]string, sx int, sy int,
 			if isok {
 				d = strings.TrimSpace(d)
 
-				if d == "ID" {
+				if d == "PrimaryKey" {
 					lst = append(lst, ExcelColumnTypeObj{
 						Name: arr[sy][tx],
-						Type: ColumnID,
+						Type: ColumnPrimaryKey,
 					})
 
 					continue

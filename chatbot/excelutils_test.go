@@ -92,7 +92,7 @@ func Test_AnalysisColumnsType(t *testing.T) {
 
 	results := []ExcelColumnType{
 		ColumnInt,
-		ColumnID,
+		ColumnPrimaryKey,
 		ColumnInfo,
 		ColumnInfo,
 	}
@@ -142,7 +142,7 @@ func Test_AnalysisColumnsTypeWithComments(t *testing.T) {
 
 	results := []ExcelColumnType{
 		ColumnNull,
-		ColumnID,
+		ColumnPrimaryKey,
 		ColumnNull,
 		ColumnNull,
 	}
