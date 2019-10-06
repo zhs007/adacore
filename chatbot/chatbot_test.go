@@ -44,7 +44,7 @@ func Test_debugexcel(t *testing.T) {
 	}
 
 	lstct := []ExcelColumnType{
-		ColumnID,
+		ColumnPrimaryKey,
 		ColumnInfo,
 	}
 	lstctn := []string{
