@@ -1,10 +1,8 @@
 package chatbotada
 
 import (
-	"bytes"
 	"context"
 
-	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/golang/protobuf/proto"
 	adacorepb "github.com/zhs007/adacore/proto"
 	chatbot "github.com/zhs007/chatbot"
@@ -15,8 +13,10 @@ import (
 
 // DebugExcelColumnType - excel column type
 type DebugExcelColumnType struct {
-	Name string
-	Type string
+	Name      string
+	Type      string
+	TypeAuto  string
+	Separator string
 }
 
 // ServiceCore - chatbot service core
@@ -62,29 +62,13 @@ func (core *ServiceCore) OnDebug(ctx context.Context, serv *chatbot.Serv, chat *
 	ui *chatbotpb.UserInfo, ud proto.Message) ([]*chatbotpb.ChatMsg, error) {
 
 	if isExcelFile(chat) {
-		r := bytes.NewReader(chat.File.FileData)
-		f, err := excelize.OpenReader(r)
+		ed, err := ProcExcelMsg(chat)
 		if err != nil {
-			chatbotbase.Warn("chatbotada.ServiceCore.OnDebug:OpenReader",
+			chatbotbase.Warn("chatbotada.ServiceCore.OnDebug:ProcExcelMsg",
 				zap.Error(err))
 
 			return nil, err
 		}
-
-		cs := f.GetActiveSheetIndex()
-		curSheet := f.GetSheetName(cs)
-
-		arr, err := f.GetRows(curSheet)
-		if err != nil {
-			chatbotbase.Warn("chatbotada.ServiceCore.OnDebug:GetRows",
-				zap.Error(err))
-
-			return nil, err
-		}
-
-		sx, sy := GetStartXY(arr)
-
-		arr = ProcHead(arr, sx, sy)
 
 		lang := serv.GetChatMsgLang(chat)
 
@@ -100,35 +84,18 @@ func (core *ServiceCore) OnDebug(ctx context.Context, serv *chatbot.Serv, chat *
 
 		var lst []*chatbotpb.ChatMsg
 
-		lstct := AnalysisColumnsType(arr, sx, sy)
 		var lstallcts []DebugExcelColumnType
 
-		for i, v := range arr[0] {
+		for i, v := range ed.Columns {
 			lstallcts = append(lstallcts, DebugExcelColumnType{
-				Name: v,
-				Type: ExcelColumnType2String(lstct[i]),
+				Name:      v.Name,
+				Type:      ExcelColumnType2String(v.Type),
+				Separator: v.Separator,
+				TypeAuto:  ExcelColumnType2String(ed.ColumnsAuto[i]),
 			})
 		}
 
 		mParams["Columns"] = lstallcts
-		// mapct := map[string]string{}
-
-		// for i, v := range arr[0] {
-		// 	mapct[v] = ExcelColumnType2String(lstct[i])
-		// }
-
-		// strct, err := chatbotbase.JSONFormat(mapct)
-		// if err != nil {
-		// 	chatbotbase.Warn("chatbotada.ServiceCore.OnDebug:JSONFormat",
-		// 		zap.Error(err))
-
-		// 	return nil, err
-		// }
-
-		// msgct := &chatbotpb.ChatMsg{
-		// 	Msg: strct,
-		// 	Uai: chat.Uai,
-		// }
 
 		msgdebugexcel, err := chatbot.NewChatMsgWithText(locale, "debugexcel", mParams, chat.Uai)
 		if err != nil {
