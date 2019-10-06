@@ -36,5 +36,9 @@ debugexcel:
   other: |
     "The file {{.FileName}}'s active sheet is {{.CurCheet}}.
     {{range $val := .Columns}}
-    The column {{$val.Name}}'s type is {{$val.Type}}.
+    {{if eq $val.Separator "" }}}
+    The column {{$val.Name}}'s type is {{$val.Type}}, the type of automatic recognition is {{$val.TypeAuto}}.
+    {{else}}
+    The column {{$val.Name}}'s type is {{$val.Type}} (separator symbol is {{$val.Separator}}), the type of automatic recognition is {{$val.TypeAuto}}.
+    {{end}}
     {{end}}"

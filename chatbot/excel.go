@@ -1,15 +1,15 @@
 package chatbotada
 
 import (
-	"bytes"
 	"context"
 	"strings"
 
-	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/golang/protobuf/proto"
 	adacore "github.com/zhs007/adacore"
 	chatbot "github.com/zhs007/chatbot"
+	chatbotbase "github.com/zhs007/chatbot/base"
 	chatbotpb "github.com/zhs007/chatbot/proto"
+	"go.uber.org/zap"
 )
 
 // excelFP - file processor for excel
@@ -22,21 +22,31 @@ func (fp *excelFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbotpb
 	ui *chatbotpb.UserInfo, ud proto.Message) ([]*chatbotpb.ChatMsg, error) {
 
 	if chat.File != nil && chat.File.FileData != nil {
-		r := bytes.NewReader(chat.File.FileData)
-		f, err := excelize.OpenReader(r)
+		_, err := ProcExcelMsg(chat)
 		if err != nil {
+			chatbotbase.Warn("chatbotada.excelFP.Proc:ProcExcelMsg",
+				zap.Error(err))
+
 			return nil, err
 		}
 
-		cs := f.GetActiveSheetIndex()
-		curSheet := f.GetSheetName(cs)
+		// r := bytes.NewReader(chat.File.FileData)
+		// f, err := excelize.OpenReader(r)
+		// if err != nil {
+		// 	return nil, err
+		// }
 
-		arr, err := f.GetRows(curSheet)
-		if err != nil {
-			return nil, err
-		}
+		// cs := f.GetActiveSheetIndex()
+		// curSheet := f.GetSheetName(cs)
 
-		arr = ProcHead(arr)
+		// arr, err := f.GetRows(curSheet)
+		// if err != nil {
+		// 	return nil, err
+		// }
+
+		// sx, sy := GetStartXY(arr)
+
+		// arr = ProcHead(arr, sx, sy)
 
 		var lst []*chatbotpb.ChatMsg
 

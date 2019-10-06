@@ -36,5 +36,9 @@ debugexcel:
   other: |
     "文件 {{.FileName}} 的激活表格是 {{.CurCheet}}。
     {{range $val := .Columns}}
-    {{$val.Name}} 列类型是 {{$val.Type}}。
+    {{if eq $val.Separator "" }}}
+    {{$val.Name}} 列类型是 {{$val.Type}}，自动识别的类型是 {{$val.TypeAuto}}。
+    {{else}}
+    {{$val.Name}} 列类型是 {{$val.Type}} (分隔符是 {{$val.Separator}})，自动识别的类型是 {{$val.TypeAuto}}。
+    {{end}}
     {{end}}"

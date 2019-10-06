@@ -1,5 +1,89 @@
 # AdaCore Development Log
 
+### 2019-10-05
+
+``excelize``是一个excel库，360的，getrows返回的数据是一个完整的数据，前面有空行或空列，也会有数据。  
+所以这个坐标是绝对的坐标。  
+
+如果表格不是从右上开始的，需要获取到起点，可以参考这段代码。
+
+``` golang
+func isEmptyRow(arr [][]string, x int) bool {
+	if x >= 0 && x < len(arr[0]) {
+		for y := 0; y < len(arr); y++ {
+			cr := strings.TrimSpace(arr[y][x])
+			if cr != "" {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	return true
+}
+
+func isEmptyColumn(arr [][]string, y int) bool {
+	if y >= 0 && y < len(arr) {
+		for x := 0; x < len(arr[0]); x++ {
+			cr := strings.TrimSpace(arr[y][x])
+			if cr != "" {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	return true
+}
+
+// GetStartXY - get start x & y
+func GetStartXY(arr [][]string) (int, int) {
+	cx := 0
+	for x := 0; x < len(arr[0]); x++ {
+		if !isEmptyRow(arr, x) {
+			cx = x
+
+			break
+		}
+	}
+
+	cy := 0
+	for y := 0; y < len(arr); y++ {
+		if !isEmptyColumn(arr, y) {
+			cy = y
+
+			break
+		}
+	}
+
+	return cx, cy
+}
+```
+
+``CoordinatesToCellName``这个接口，传入的坐标是从1开始的。
+
+``GetComments``返回的是全部表格的数据，可以参考这个函数使用。
+
+``` golang
+// GetComments - get comments with sheetName
+func GetComments(f *excelize.File, sheetName string) map[string]string {
+	mc := f.GetComments()
+	cursheetcomments, isok := mc[sheetName]
+	if !isok {
+		return nil
+	}
+
+	mapComments := make(map[string]string)
+	for _, v := range cursheetcomments {
+		mapComments[v.Ref] = v.Text
+	}
+
+	return mapComments
+}
+```
+
 ### 2019-10-04
 
 今天开始处理``excel``文件了。  

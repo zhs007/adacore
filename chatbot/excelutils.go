@@ -1,11 +1,15 @@
 package chatbotada
 
 import (
+	"bytes"
 	"fmt"
 	"strconv"
 	"strings"
 	"time"
 	"unicode"
+
+	"github.com/360EntSecGroup-Skylar/excelize/v2"
+	chatbotpb "github.com/zhs007/chatbot/proto"
 )
 
 // ExcelCellType - excel cell type
@@ -58,7 +62,20 @@ const (
 	ColumnTimestampMs ExcelColumnType = 10
 	// ColumnNull - null
 	ColumnNull ExcelColumnType = 11
+	// ColumnTreeCategory - tree category
+	ColumnTreeCategory ExcelColumnType = 12
+	// ColumnIgnore - ignore
+	ColumnIgnore ExcelColumnType = 13
+	// ColumnMultiCategories - multiple categories
+	ColumnMultiCategories ExcelColumnType = 14
 )
+
+// ExcelColumnTypeObj - excel column type object
+type ExcelColumnTypeObj struct {
+	Name      string
+	Type      ExcelColumnType
+	Separator string
+}
 
 var lstColumnString = []string{
 	"Info",
@@ -73,6 +90,18 @@ var lstColumnString = []string{
 	"Timestamp",
 	"TimestampMs",
 	"Null",
+	"TreeCategory",
+	"Ignore",
+	"MultiCategories",
+}
+
+// ExcelData - excel data
+type ExcelData struct {
+	StartX      int
+	StartY      int
+	Columns     []ExcelColumnTypeObj
+	ColumnsAuto []ExcelColumnType
+	Arr         [][]string
 }
 
 func isFloat(str string) bool {
@@ -195,8 +224,8 @@ func isDataTime(str string) bool {
 	return false
 }
 
-// AnalysisCell - analysis cell, exclude rows with y == 0
-func AnalysisCell(arr [][]string, x int) ExcelCellType {
+// AnalysisCell - analysis cell, exclude rows with y <= sy
+func AnalysisCell(arr [][]string, x int, sy int) ExcelCellType {
 	if x >= 0 && x < len(arr[0]) {
 		isneedfloat := false
 
@@ -205,7 +234,7 @@ func AnalysisCell(arr [][]string, x int) ExcelCellType {
 		// 暂时不区分32位和64位，默认为64位
 
 		isallnull := true
-		for y := 1; y < len(arr); y++ {
+		for y := sy + 1; y < len(arr); y++ {
 			cr := strings.TrimSpace(arr[y][x])
 			if cr == "" {
 				if y == len(arr)-1 && isallnull {
@@ -324,8 +353,8 @@ func HasDuplication(arr [][]string, x int) bool {
 }
 
 // AnalysisColumn - analysis column, exclude rows with y == 0
-func AnalysisColumn(arr [][]string, x int) ExcelColumnType {
-	ct := AnalysisCell(arr, x)
+func AnalysisColumn(arr [][]string, x int, sy int) ExcelColumnType {
+	ct := AnalysisCell(arr, x, sy)
 	if ct == CellString {
 		isinfo := false
 		for y := 1; y < len(arr); y++ {
@@ -408,21 +437,23 @@ func AnalysisColumn(arr [][]string, x int) ExcelColumnType {
 }
 
 // AnalysisColumnsType - analysis column type
-func AnalysisColumnsType(arr [][]string) []ExcelColumnType {
+func AnalysisColumnsType(arr [][]string, sx int, sy int) []ExcelColumnType {
 	var lst []ExcelColumnType
 
-	for x := 0; x < len(arr[0]); x++ {
-		lst = append(lst, AnalysisColumn(arr, x))
+	for x := sx; x < len(arr[0]); x++ {
+		lst = append(lst, AnalysisColumn(arr, x, sy))
 	}
 
 	return lst
 }
 
 // ProcHead - process head
-func ProcHead(arr [][]string) [][]string {
-	for i, v := range arr[0] {
-		if v == "" {
-			arr[0][i] = fmt.Sprintf("__column%v__", i)
+func ProcHead(arr [][]string, sx int, sy int) [][]string {
+	for i, v := range arr[sy] {
+		if i >= sx {
+			if v == "" {
+				arr[sy][i] = fmt.Sprintf("__column%v__", i)
+			}
 		}
 	}
 
@@ -436,4 +467,200 @@ func ExcelColumnType2String(ect ExcelColumnType) string {
 	}
 
 	return "invalid"
+}
+
+func isEmptyRow(arr [][]string, x int) bool {
+	if x >= 0 && x < len(arr[0]) {
+		for y := 0; y < len(arr); y++ {
+			cr := strings.TrimSpace(arr[y][x])
+			if cr != "" {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	return true
+}
+
+func isEmptyColumn(arr [][]string, y int) bool {
+	if y >= 0 && y < len(arr) {
+		for x := 0; x < len(arr[0]); x++ {
+			cr := strings.TrimSpace(arr[y][x])
+			if cr != "" {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	return true
+}
+
+// GetStartXY - get start x & y
+func GetStartXY(arr [][]string) (int, int) {
+	cx := 0
+	for x := 0; x < len(arr[0]); x++ {
+		if !isEmptyRow(arr, x) {
+			cx = x
+
+			break
+		}
+	}
+
+	cy := 0
+	for y := 0; y < len(arr); y++ {
+		if !isEmptyColumn(arr, y) {
+			cy = y
+
+			break
+		}
+	}
+
+	return cx, cy
+}
+
+// AnalysisColumnsTypeWithComments - analysis ColumnsType with comments
+func AnalysisColumnsTypeWithComments(arr [][]string, sx int, sy int,
+	mapComments map[string]string) []ExcelColumnTypeObj {
+
+	var lst []ExcelColumnTypeObj
+
+	for tx := sx; tx < len(arr[0]); tx++ {
+		cn, err := excelize.CoordinatesToCellName(tx+1, sy+1)
+		if err == nil {
+			// fmt.Printf("%v\n", cn)
+
+			d, isok := mapComments[cn]
+			if isok {
+				d = strings.TrimSpace(d)
+
+				if d == "ID" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Name: arr[sy][tx],
+						Type: ColumnID,
+					})
+
+					continue
+				} else if strings.Contains(d, "TreeCategory") {
+					ca := strings.Split(d, " ")
+					if len(ca) > 1 {
+						lst = append(lst, ExcelColumnTypeObj{
+							Name:      arr[sy][tx],
+							Type:      ColumnTreeCategory,
+							Separator: strings.TrimSpace(ca[1]),
+						})
+
+						continue
+					}
+				} else if strings.Contains(d, "MultiCategories") {
+					ca := strings.Split(d, " ")
+					if len(ca) > 1 {
+						lst = append(lst, ExcelColumnTypeObj{
+							Name:      arr[sy][tx],
+							Type:      ColumnMultiCategories,
+							Separator: strings.TrimSpace(ca[1]),
+						})
+
+						continue
+					}
+				} else if d == "Category" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Name: arr[sy][tx],
+						Type: ColumnCategory,
+					})
+
+					continue
+				} else if d == "Ignore" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Name: arr[sy][tx],
+						Type: ColumnIgnore,
+					})
+
+					continue
+				} else if d == "Timestamp" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Name: arr[sy][tx],
+						Type: ColumnTimestamp,
+					})
+
+					continue
+				} else if d == "TimestampMs" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Name: arr[sy][tx],
+						Type: ColumnTimestampMs,
+					})
+
+					continue
+				}
+			}
+		}
+
+		lst = append(lst, ExcelColumnTypeObj{
+			Name: arr[sy][tx],
+			Type: ColumnNull,
+		})
+	}
+
+	return lst
+}
+
+// GetComments - get comments with sheetName
+func GetComments(f *excelize.File, sheetName string) map[string]string {
+	mc := f.GetComments()
+	cursheetcomments, isok := mc[sheetName]
+	if !isok {
+		return nil
+	}
+
+	mapComments := make(map[string]string)
+	for _, v := range cursheetcomments {
+		mapComments[v.Ref] = v.Text
+	}
+
+	return mapComments
+}
+
+// ProcExcelMsg - analysis chatmsg to ExcelData
+func ProcExcelMsg(chat *chatbotpb.ChatMsg) (*ExcelData, error) {
+	r := bytes.NewReader(chat.File.FileData)
+	f, err := excelize.OpenReader(r)
+	if err != nil {
+		return nil, err
+	}
+
+	cs := f.GetActiveSheetIndex()
+	curSheet := f.GetSheetName(cs)
+
+	arr, err := f.GetRows(curSheet)
+	if err != nil {
+		return nil, err
+	}
+
+	sx, sy := GetStartXY(arr)
+
+	arr = ProcHead(arr, sx, sy)
+
+	mapComments := GetComments(f, curSheet)
+
+	lstct := AnalysisColumnsType(arr, sx, sy)
+	lstctobj := AnalysisColumnsTypeWithComments(arr, sx, sy, mapComments)
+
+	for i, v := range lstct {
+		if lstctobj[i].Type == ColumnNull {
+			lstctobj[i].Type = v
+		}
+	}
+
+	ed := &ExcelData{
+		StartX:      sx,
+		StartY:      sy,
+		Arr:         arr,
+		ColumnsAuto: lstct,
+		Columns:     lstctobj,
+	}
+
+	return ed, nil
 }
