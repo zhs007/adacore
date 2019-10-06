@@ -463,7 +463,7 @@ func ProcHead(arr [][]string, sx int, sy int) [][]string {
 
 // ExcelColumnType2String - ExcelColumnType -> string
 func ExcelColumnType2String(ect ExcelColumnType) string {
-	if ect >= 0 && ect <= ColumnNull {
+	if ect >= 0 && int(ect) < len(lstColumnString) {
 		return lstColumnString[ect]
 	}
 
