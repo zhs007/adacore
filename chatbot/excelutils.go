@@ -97,11 +97,12 @@ var lstColumnString = []string{
 
 // ExcelData - excel data
 type ExcelData struct {
-	StartX      int
-	StartY      int
-	Columns     []ExcelColumnTypeObj
-	ColumnsAuto []ExcelColumnType
-	Arr         [][]string
+	StartX       int
+	StartY       int
+	Columns      []ExcelColumnTypeObj
+	ColumnsAuto  []ExcelColumnType
+	Arr          [][]string
+	CurSheetName string
 }
 
 func isFloat(str string) bool {
@@ -655,11 +656,12 @@ func ProcExcelMsg(chat *chatbotpb.ChatMsg) (*ExcelData, error) {
 	}
 
 	ed := &ExcelData{
-		StartX:      sx,
-		StartY:      sy,
-		Arr:         arr,
-		ColumnsAuto: lstct,
-		Columns:     lstctobj,
+		StartX:       sx,
+		StartY:       sy,
+		Arr:          arr,
+		ColumnsAuto:  lstct,
+		Columns:      lstctobj,
+		CurSheetName: curSheet,
 	}
 
 	return ed, nil
