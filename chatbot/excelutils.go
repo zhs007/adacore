@@ -62,6 +62,10 @@ const (
 	ColumnNull ExcelColumnType = 11
 	// ColumnTreeCategory - tree category
 	ColumnTreeCategory ExcelColumnType = 12
+	// ColumnIgnore - ignore
+	ColumnIgnore ExcelColumnType = 13
+	// ColumnMultiCategories - multiple categories
+	ColumnMultiCategories ExcelColumnType = 14
 )
 
 // ExcelColumnTypeObj - excel column type object
@@ -83,6 +87,9 @@ var lstColumnString = []string{
 	"Timestamp",
 	"TimestampMs",
 	"Null",
+	"TreeCategory",
+	"Ignore",
+	"MultiCategories",
 }
 
 func isFloat(str string) bool {
@@ -534,9 +541,37 @@ func AnalysisColumnsTypeWithComments(arr [][]string, sx int, sy int,
 
 						continue
 					}
+				} else if strings.Contains(d, "MultiCategories") {
+					ca := strings.Split(d, " ")
+					if len(ca) > 1 {
+						lst = append(lst, ExcelColumnTypeObj{
+							Type:      ColumnMultiCategories,
+							Separator: strings.TrimSpace(ca[1]),
+						})
+
+						continue
+					}
 				} else if d == "Category" {
 					lst = append(lst, ExcelColumnTypeObj{
 						Type: ColumnCategory,
+					})
+
+					continue
+				} else if d == "Ignore" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Type: ColumnIgnore,
+					})
+
+					continue
+				} else if d == "Timestamp" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Type: ColumnTimestamp,
+					})
+
+					continue
+				} else if d == "TimestampMs" {
+					lst = append(lst, ExcelColumnTypeObj{
+						Type: ColumnTimestampMs,
 					})
 
 					continue
