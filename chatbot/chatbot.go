@@ -96,6 +96,7 @@ func (core *ServiceCore) OnDebug(ctx context.Context, serv *chatbot.Serv, chat *
 		}
 
 		mParams["Columns"] = lstallcts
+		mParams["CurCheet"] = ed.CurSheetName
 
 		msgdebugexcel, err := chatbot.NewChatMsgWithText(locale, "debugexcel", mParams, chat.Uai)
 		if err != nil {
