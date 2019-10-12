@@ -84,6 +84,14 @@ func GetComments(f *excelize.File, sheetName string) map[string]string {
 }
 ```
 
+``AddComment``接口插入数据时，类似如下：
+
+``` golang
+err := f.AddComment("Sheet1", "A30", `{"author":"Excelize: ","text":"This is a comment."}`)
+```
+
+这时，如果不传入 author，会默认帮你生成一个空的 Author字符串，如果传入空格，则不会生成Author，但使用excel打开文件时会提示报错，但文件还是可以打开。
+
 ### 2019-10-04
 
 今天开始处理``excel``文件了。  
