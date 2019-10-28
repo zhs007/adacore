@@ -55,6 +55,7 @@ func main() {
 		A:           "pie name",
 		BVal:        "namedata",
 		CVal:        "valdata",
+		Sort:        adacore.ChartSortReverse,
 	})
 	if err != nil {
 		fmt.Printf("AppendChartPie error %v", err)

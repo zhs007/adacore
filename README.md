@@ -15,11 +15,11 @@
 
 ### 更新日志
 
-##### v0.1
-
-- 支持grpc调用。
-
 ##### v0.2
 
 - 加入ChatBot支持。
 - 支持 ``telegram``，这里加入：[Ada](https://t.me/@ada_heyalgo_bot)
+
+##### v0.1
+
+- 支持grpc调用。

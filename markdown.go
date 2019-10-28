@@ -132,7 +132,17 @@ type ChartPie struct {
 	A           string `yaml:"a"`
 	BVal        string `yaml:"bval"`
 	CVal        string `yaml:"cval"`
+	Sort        string `yaml:"sort"`
 }
+
+const (
+	// ChartSortNoSort - no sort
+	ChartSortNoSort string = ""
+	// ChartSortSort - sort
+	ChartSortSort string = "sort"
+	// ChartSortReverse - reverse sort
+	ChartSortReverse string = "reverse"
+)
 
 // ChartBar - chart bar infomation
 type ChartBar struct {
