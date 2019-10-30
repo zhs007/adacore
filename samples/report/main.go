@@ -128,6 +128,7 @@ func genReport() (*adacorepb.MarkdownData, error) {
 		A:           "pie name",
 		BVal:        "namedata",
 		CVal:        "valdata",
+		Sort:        adacore.ChartSortReverse,
 	})
 	if err != nil {
 		return nil, err
