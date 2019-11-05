@@ -91,6 +91,10 @@ func StartChatBot(ctx context.Context, adacorecfgfn string, chatbotcfgfn string)
 
 	adacore.InitLogger(adacorecfg)
 
+	adacorebase.Info("StartChatBot...",
+		zap.String("version", adacorebase.VERSION),
+		zap.String("chatbot.version", chatbotbase.VERSION))
+
 	err = basicchatbot.InitBasicChatBot()
 	if err != nil {
 		adacorebase.Warn("StartChatBot:InitBasicChatBot",
