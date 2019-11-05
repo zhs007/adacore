@@ -10,6 +10,7 @@ import (
 	adacorebase "github.com/zhs007/adacore/base"
 	chatbot "github.com/zhs007/chatbot"
 	chatbotpb "github.com/zhs007/chatbot/proto"
+	"go.uber.org/zap"
 )
 
 // markdownFP - file processor for markdown
@@ -29,11 +30,17 @@ func (fp *markdownFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbo
 
 		htmldata, err := fp.servAda.ClientRender.Render(ctx, rendermd)
 		if err != nil {
+			adacorebase.Warn("markdownFP.Proc:Render",
+				zap.Error(err))
+
 			return nil, err
 		}
 
 		hashname, err := adacore.SaveHTMLData(htmldata, fp.servAda.Cfg)
 		if err != nil {
+			adacorebase.Warn("markdownFP.Proc:SaveHTMLData",
+				zap.Error(err))
+
 			return nil, err
 		}
 
@@ -41,6 +48,10 @@ func (fp *markdownFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbo
 
 		locale, err := serv.MgrText.GetLocalizer(lang)
 		if err != nil {
+			adacorebase.Warn("markdownFP.Proc:GetLocalizer",
+				zap.Error(err),
+				zap.String("lang", lang))
+
 			return nil, err
 		}
 
@@ -50,6 +61,9 @@ func (fp *markdownFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbo
 			"Url": adacorebase.AppendString(fp.servAda.Cfg.BaseURL, hashname),
 		}, chat.Uai)
 		if err != nil {
+			adacorebase.Warn("markdownFP.Proc:NewChatMsgWithText",
+				zap.Error(err))
+
 			return nil, err
 		}
 
