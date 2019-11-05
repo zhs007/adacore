@@ -288,13 +288,28 @@ func (md *Markdown) AppendParagraph(str string) string {
 	return md.str
 }
 
+var ignoreTableString = []string{
+	"[",
+	"]",
+	"|",
+}
+
+// fixTableString - fix table string
+func (md *Markdown) fixTableString(str string) string {
+	for _, v := range ignoreTableString {
+		str = strings.ReplaceAll(str, v, "")
+	}
+
+	return str
+}
+
 // AppendTable - append a table
 func (md *Markdown) AppendTable(head []string, data [][]string) string {
 	if len(head) > 0 {
 		str := "|"
 
 		for _, hv := range head {
-			str += hv + "|"
+			str += md.fixTableString(hv) + "|"
 		}
 
 		str += "\n|"
@@ -308,7 +323,7 @@ func (md *Markdown) AppendTable(head []string, data [][]string) string {
 		for _, li := range data {
 			str += "|"
 			for _, ld := range li {
-				str += ld + "|"
+				str += md.fixTableString(ld) + "|"
 			}
 			str += "\n"
 		}
