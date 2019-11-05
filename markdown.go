@@ -288,16 +288,22 @@ func (md *Markdown) AppendParagraph(str string) string {
 	return md.str
 }
 
-var ignoreTableString = []string{
+var oldTableString = []string{
 	"[",
 	"]",
 	"|",
 }
 
+var newTableString = []string{
+	"{",
+	"}",
+	"/",
+}
+
 // fixTableString - fix table string
 func (md *Markdown) fixTableString(str string) string {
-	for _, v := range ignoreTableString {
-		str = strings.ReplaceAll(str, v, "")
+	for i, v := range oldTableString {
+		str = strings.ReplaceAll(str, v, newTableString[i])
 	}
 
 	return str
@@ -305,6 +311,10 @@ func (md *Markdown) fixTableString(str string) string {
 
 // AppendTable - append a table
 func (md *Markdown) AppendTable(head []string, data [][]string) string {
+	// if len(head) != len(data) {
+	// 	return md.str
+	// }
+
 	if len(head) > 0 {
 		str := "|"
 
@@ -324,6 +334,49 @@ func (md *Markdown) AppendTable(head []string, data [][]string) string {
 			str += "|"
 			for _, ld := range li {
 				str += md.fixTableString(ld) + "|"
+			}
+			str += "\n"
+		}
+
+		md.str = adacorebase.AppendString(md.str, str+"\n\n")
+	}
+
+	return md.str
+}
+
+// AppendTableEx - append a table
+func (md *Markdown) AppendTableEx(head []string, nofix []bool, data [][]string) string {
+	if len(head) != len(nofix) {
+		return md.AppendTable(head, data)
+	}
+
+	if len(head) > 0 {
+		str := "|"
+
+		for i, hv := range head {
+			if nofix[i] {
+				str += hv + "|"
+			} else {
+				str += md.fixTableString(hv) + "|"
+			}
+		}
+
+		str += "\n|"
+
+		for range head {
+			str += "---|"
+		}
+
+		str += "\n"
+
+		for _, li := range data {
+			str += "|"
+			for i, ld := range li {
+				if nofix[i] {
+					str += ld + "|"
+				} else {
+					str += md.fixTableString(ld) + "|"
+				}
 			}
 			str += "\n"
 		}
