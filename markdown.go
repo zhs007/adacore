@@ -300,8 +300,8 @@ var newTableString = []string{
 	"/",
 }
 
-// fixTableString - fix table string
-func (md *Markdown) fixTableString(str string) string {
+// FixTableString - fix table string
+func (md *Markdown) FixTableString(str string) string {
 	for i, v := range oldTableString {
 		str = strings.ReplaceAll(str, v, newTableString[i])
 	}
@@ -319,7 +319,7 @@ func (md *Markdown) AppendTable(head []string, data [][]string) string {
 		str := "|"
 
 		for _, hv := range head {
-			str += md.fixTableString(hv) + "|"
+			str += md.FixTableString(hv) + "|"
 		}
 
 		str += "\n|"
@@ -333,7 +333,7 @@ func (md *Markdown) AppendTable(head []string, data [][]string) string {
 		for _, li := range data {
 			str += "|"
 			for _, ld := range li {
-				str += md.fixTableString(ld) + "|"
+				str += md.FixTableString(ld) + "|"
 			}
 			str += "\n"
 		}
@@ -357,7 +357,7 @@ func (md *Markdown) AppendTableEx(head []string, nofix []bool, data [][]string) 
 			if nofix[i] {
 				str += hv + "|"
 			} else {
-				str += md.fixTableString(hv) + "|"
+				str += md.FixTableString(hv) + "|"
 			}
 		}
 
@@ -375,7 +375,7 @@ func (md *Markdown) AppendTableEx(head []string, nofix []bool, data [][]string) 
 				if nofix[i] {
 					str += ld + "|"
 				} else {
-					str += md.fixTableString(ld) + "|"
+					str += md.FixTableString(ld) + "|"
 				}
 			}
 			str += "\n"
