@@ -288,25 +288,9 @@ func (md *Markdown) AppendParagraph(str string) string {
 	return md.str
 }
 
-var oldTableString = []string{
-	"[",
-	"]",
-	"|",
-}
-
-var newTableString = []string{
-	"{",
-	"}",
-	"/",
-}
-
 // FixTableString - fix table string
 func (md *Markdown) FixTableString(str string) string {
-	for i, v := range oldTableString {
-		str = strings.ReplaceAll(str, v, newTableString[i])
-	}
-
-	return str
+	return FixTableString(str)
 }
 
 // AppendTable - append a table
