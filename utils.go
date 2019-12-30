@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io/ioutil"
 	"path/filepath"
+	"strings"
 
 	"github.com/golang/protobuf/proto"
 	adarender "github.com/zhs007/adacore/adarenderpb"
@@ -113,4 +114,25 @@ func BuildMarkdownStream(mddata *adacorepb.MarkdownData, token string) ([]*adaco
 	}
 
 	return lst, nil
+}
+
+var oldTableString = []string{
+	"[",
+	"]",
+	"|",
+}
+
+var newTableString = []string{
+	"{",
+	"}",
+	"/",
+}
+
+// FixTableString - fix table string
+func FixTableString(str string) string {
+	for i, v := range oldTableString {
+		str = strings.ReplaceAll(str, v, newTableString[i])
+	}
+
+	return str
 }
