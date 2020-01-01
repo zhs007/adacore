@@ -7,6 +7,8 @@ message MarkdownData{
 	string strData = 1;
 	// binaryData - binary data map, it's like images
 	map<string, bytes> binaryData = 2;
+	// hashName - hashname
+	string hashName = 3;
 
 	// templateName - template Name
 	string templateName = 10;

@@ -39,9 +39,11 @@ func BuildMarkdownData(lst []*adacorepb.MarkdownStream) (*adacorepb.MarkdownData
 }
 
 // SaveHTMLData - save html
-func SaveHTMLData(htmldata *adarender.HTMLData, cfg *Config) (string, error) {
+func SaveHTMLData(htmldata *adarender.HTMLData, hashname string, cfg *Config) (string, error) {
 	if htmldata != nil && len(htmldata.StrData) > 0 {
-		hashname := adacorebase.HashBuffer([]byte(htmldata.StrData)) + ".html"
+		if hashname == "" {
+			hashname = adacorebase.HashBuffer([]byte(htmldata.StrData)) + ".html"
+		}
 
 		fn := filepath.Join(cfg.FilePath, hashname)
 
@@ -135,4 +137,35 @@ func FixTableString(str string) string {
 	}
 
 	return str
+}
+
+// LoadMarkdownAndFiles - load a markdown file & somes files
+func LoadMarkdownAndFiles(fn string, globpattern string) (*adacorepb.MarkdownData, error) {
+	buf, err := ioutil.ReadFile(fn)
+	if err != nil {
+		return nil, err
+	}
+
+	mdd := &adacorepb.MarkdownData{
+		StrData:      string(buf),
+		BinaryData:   make(map[string][]byte),
+		TemplateName: "default",
+	}
+
+	matches, err := filepath.Glob(globpattern)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, v := range matches {
+		_, cfn := filepath.Split(v)
+		buf, err := ioutil.ReadFile(v)
+		if err != nil {
+			return nil, err
+		}
+
+		mdd.BinaryData[cfn] = buf
+	}
+
+	return mdd, nil
 }

@@ -36,7 +36,7 @@ func (fp *markdownFP) Proc(ctx context.Context, serv *chatbot.Serv, chat *chatbo
 			return nil, err
 		}
 
-		hashname, err := adacore.SaveHTMLData(htmldata, fp.servAda.Cfg)
+		hashname, err := adacore.SaveHTMLData(htmldata, "", fp.servAda.Cfg)
 		if err != nil {
 			adacorebase.Warn("markdownFP.Proc:SaveHTMLData",
 				zap.Error(err))
