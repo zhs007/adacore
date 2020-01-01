@@ -39,9 +39,11 @@ func BuildMarkdownData(lst []*adacorepb.MarkdownStream) (*adacorepb.MarkdownData
 }
 
 // SaveHTMLData - save html
-func SaveHTMLData(htmldata *adarender.HTMLData, cfg *Config) (string, error) {
+func SaveHTMLData(htmldata *adarender.HTMLData, hashname string, cfg *Config) (string, error) {
 	if htmldata != nil && len(htmldata.StrData) > 0 {
-		hashname := adacorebase.HashBuffer([]byte(htmldata.StrData)) + ".html"
+		if hashname == "" {
+			hashname = adacorebase.HashBuffer([]byte(htmldata.StrData)) + ".html"
+		}
 
 		fn := filepath.Join(cfg.FilePath, hashname)
 

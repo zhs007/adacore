@@ -125,7 +125,7 @@ func (serv *Serv) BuildWithMarkdown(stream adacorepb.AdaCoreService_BuildWithMar
 		return err
 	}
 
-	hashname, err := SaveHTMLData(htmldata, serv.Cfg)
+	hashname, err := SaveHTMLData(htmldata, md.HashName, serv.Cfg)
 	if err != nil {
 		serv.replyErr(stream, err)
 

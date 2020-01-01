@@ -50,7 +50,9 @@ func (client *Client) reset() {
 }
 
 // BuildWithMarkdown - MarkdownData => ReplyMarkdown
-func (client *Client) BuildWithMarkdown(ctx context.Context, mddata *adacorepb.MarkdownData) (*adacorepb.ReplyMarkdown, error) {
+func (client *Client) BuildWithMarkdown(ctx context.Context, mddata *adacorepb.MarkdownData) (
+	*adacorepb.ReplyMarkdown, error) {
+
 	err := client.isValid()
 	if err != nil {
 		return nil, err
