@@ -136,3 +136,34 @@ func FixTableString(str string) string {
 
 	return str
 }
+
+// LoadMarkdownAndFiles - load a markdown file & somes files
+func LoadMarkdownAndFiles(fn string, globpattern string) (*adacorepb.MarkdownData, error) {
+	buf, err := ioutil.ReadFile(fn)
+	if err != nil {
+		return nil, err
+	}
+
+	mdd := &adacorepb.MarkdownData{
+		StrData:      string(buf),
+		BinaryData:   make(map[string][]byte),
+		TemplateName: "default",
+	}
+
+	matches, err := filepath.Glob(globpattern)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, v := range matches {
+		_, cfn := filepath.Split(v)
+		buf, err := ioutil.ReadFile(v)
+		if err != nil {
+			return nil, err
+		}
+
+		mdd.BinaryData[cfn] = buf
+	}
+
+	return mdd, nil
+}

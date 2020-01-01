@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="101 88 685 355" width="685pt" height="355pt" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata> Produced by OmniGraffle 7.2.1 
+    <dc:date>2019-12-26 13:41:58 +0000</dc:date>
+  </metadata>
+  <defs>
+    <font-face font-family="Helvetica" font-size="12" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="522.9492" cap-height="717.28516" ascent="770.0195" descent="-229.98047" font-weight="500">
+      <font-face-src>
+        <font-face-name name="Helvetica"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica" font-size="12" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="532.22656" cap-height="719.7266" ascent="770.0195" descent="-229.98047" font-weight="bold">
+      <font-face-src>
+        <font-face-name name="Helvetica-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="500">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
+    <title>版面 1</title>
+    <rect fill="white" width="836" height="656"/>
+    <g>
+      <title>图层 1</title>
+      <path d="M 559.5 91.5 L 696.5 91.5 C 700.9183 91.5 704.5 95.08172 704.5 99.5 L 704.5 412 C 704.5 416.4183 700.9183 420 696.5 420 L 559.5 420 C 555.0817 420 551.5 416.4183 551.5 412 L 551.5 99.5 C 551.5 95.08172 555.0817 91.5 559.5 91.5 Z" fill="white"/>
+      <path d="M 559.5 91.5 L 696.5 91.5 C 700.9183 91.5 704.5 95.08172 704.5 99.5 L 704.5 412 C 704.5 416.4183 700.9183 420 696.5 420 L 559.5 420 C 555.0817 420 551.5 416.4183 551.5 412 L 551.5 99.5 C 551.5 95.08172 555.0817 91.5 559.5 91.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="4,4"/>
+      <text transform="translate(331 222.5)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="500" x=".20800781" y="11" textLength="24.01172">KOL</tspan>
+        <tspan font-family="Helvetica" font-size="12" font-weight="500" x="23.780273" y="11" textLength="10.664062"> - </tspan>
+        <tspan font-family="Helvetica" font-size="12" font-weight="500" x="33.788086" y="11" textLength="8.003906">A</tspan>
+      </text>
+      <circle cx="351.4997" cy="189.7517" r="6.750711" fill="white"/>
+      <circle cx="351.4997" cy="189.7517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="351.5" y1="196.501" x2="351.5" y2="206.616" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="351.5" y1="206.616" x2="344" y2="220.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="351.5" y1="206.616" x2="359" y2="220.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="359" y1="202.001" x2="344" y2="201.876" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(330 332.5)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="500" x=".3798828" y="11" textLength="24.01172">KOL</tspan>
+        <tspan font-family="Helvetica" font-size="12" font-weight="500" x="23.952148" y="11" textLength="18.667969"> - B</tspan>
+      </text>
+      <circle cx="351.4997" cy="299.7517" r="6.750711" fill="white"/>
+      <circle cx="351.4997" cy="299.7517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="351.5" y1="306.501" x2="351.5" y2="316.616" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="351.5" y1="316.616" x2="344" y2="330.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="351.5" y1="316.616" x2="359" y2="330.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="359" y1="312.001" x2="344" y2="311.876" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <rect x="102" y="88.5" width="99" height="24" fill="white"/>
+      <rect x="102" y="88.5" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(107 93.5)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="27.493164" y="11" textLength="34.01367">Bruce</tspan>
+      </text>
+      <rect x="102" y="418.5" width="99" height="24" fill="white"/>
+      <rect x="102" y="418.5" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(107 423.5)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="27.15039" y="11" textLength="34.69922">Jarvis</tspan>
+      </text>
+      <rect x="167.5" y="308.5" width="99" height="24" fill="white"/>
+      <rect x="167.5" y="308.5" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(172.5 313.5)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="22.489258" y="11" textLength="44.021484">Charles</tspan>
+      </text>
+      <rect x="421.5" y="253" width="99" height="24" fill="white"/>
+      <rect x="421.5" y="253" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(426.5 258)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="27.82129" y="11" textLength="33.35742">Drake</tspan>
+      </text>
+      <rect x="579" y="253" width="99" height="24" fill="white"/>
+      <rect x="579" y="253" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(584 258)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="26.6084" y="11" textLength="11.326172">W</tspan>
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="37.723633" y="11" textLength="24.66797">eibo</tspan>
+      </text>
+      <rect x="579" y="198" width="99" height="24" fill="white"/>
+      <rect x="579" y="198" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(584 203)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="25.27539" y="11" textLength="7.330078">T</tspan>
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="31.720703" y="11" textLength="32.003906">witter</tspan>
+      </text>
+      <rect x="579" y="308" width="99" height="24" fill="white"/>
+      <rect x="579" y="308" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(584 313)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="35.166016" y="11" textLength="18.667969">QQ</tspan>
+      </text>
+      <rect x="579" y="143" width="99" height="24" fill="white"/>
+      <rect x="579" y="143" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(584 148)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="22.27246" y="11" textLength="11.326172">W</tspan>
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="33.387695" y="11" textLength="33.339844">eChat</tspan>
+      </text>
+      <rect x="579" y="363" width="99" height="38" fill="white"/>
+      <rect x="579" y="363" width="99" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(584 368)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="9.15625" y="11" textLength="74.02148">Other Social </tspan>
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="29.5" y="25" textLength="30">Apps</tspan>
+      </text>
+      <rect x="167.5" y="198.5" width="99" height="24" fill="white"/>
+      <rect x="167.5" y="198.5" width="99" height="24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(172.5 203.5)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="bold" x="33.16504" y="11" textLength="22.669922">Ada</tspan>
+      </text>
+      <text transform="translate(584 97.276)" fill="black">
+        <tspan font-family="Helvetica Neue" font-size="16" font-weight="500" x=".184" y="15" textLength="85.632">Social Apps</tspan>
+      </text>
+      <text transform="translate(744 277)" fill="black">
+        <tspan font-family="Helvetica" font-size="12" font-weight="500" x="3.8320312" y="11" textLength="31.335938">Users</tspan>
+      </text>
+      <circle cx="763.4997" cy="244.2517" r="6.750711" fill="white"/>
+      <circle cx="763.4997" cy="244.2517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="763.5" y1="251.001" x2="763.5" y2="261.116" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <path d="M 763.5 261.116 L 760.2734 264.1328 L 756 274.617" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="763.5" y1="261.116" x2="771" y2="274.617" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="771" y1="256.501" x2="756" y2="256.376" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

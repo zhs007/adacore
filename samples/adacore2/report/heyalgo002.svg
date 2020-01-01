@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 -41 679 589" width="679pt" height="589pt" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata> Produced by OmniGraffle 7.2.1 
+    <dc:date>2019-12-31 03:06:29 +0000</dc:date>
+  </metadata>
+  <defs>
+    <font-face font-family="PingFang SC" font-size="12" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="bold">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="500">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
+    <title>版面 1</title>
+    <rect fill="white" width="836" height="656"/>
+    <g>
+      <title>图层 1</title>
+      <rect x="372" y="458" width="99" height="28" fill="white"/>
+      <rect x="372" y="458" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(377 463.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="14.5" y="13" textLength="60">节点控制器</tspan>
+      </text>
+      <rect x="304" y="519" width="99" height="28" fill="white"/>
+      <rect x="304" y="519" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(309 524.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="24.178" y="13" textLength="40.644">PC节点</tspan>
+      </text>
+      <rect x="442" y="519" width="99" height="28" fill="white"/>
+      <rect x="442" y="519" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(447 524.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="8.5" y="13" textLength="72">移动设备节点</tspan>
+      </text>
+      <rect x="372" y="312" width="99" height="28" fill="white"/>
+      <rect x="372" y="312" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(377 317.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="14.5" y="13" textLength="60">任务调度器</tspan>
+      </text>
+      <rect x="372" y="155" width="99" height="28" fill="white"/>
+      <rect x="372" y="155" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(377 160.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="2.5" y="13" textLength="84">分布式数据存储</tspan>
+      </text>
+      <rect x="372" y="94" width="99" height="28" fill="white"/>
+      <rect x="372" y="94" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(377 99.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="20.5" y="13" textLength="48">数据分析</tspan>
+      </text>
+      <rect x="372" y="-40" width="99" height="28" fill="white"/>
+      <rect x="372" y="-40" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(377 -34.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="3.994" y="13" textLength="81.012">模板渲染&amp;分发</tspan>
+      </text>
+      <line x1="421.5" y1="486" x2="362.4066" y2="514.6777" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="486" x2="482.5452" y2="514.77845" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(394 257.052)" fill="black">
+        <tspan font-family="Helvetica Neue" font-size="16" font-weight="500" fill="black" x=".244" y="15" textLength="54.512">Charles</tspan>
+      </text>
+      <circle cx="421.4997" cy="228.7517" r="6.750711" fill="white"/>
+      <circle cx="421.4997" cy="228.7517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="235.501" x2="421.5" y2="245.616" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="245.616" x2="414" y2="259.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="245.616" x2="429" y2="259.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="429" y1="241.001" x2="414" y2="240.876" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="155" x2="421.5" y2="131.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(401 409.052)" fill="black">
+        <tspan font-family="Helvetica Neue" font-size="16" font-weight="500" x=".112" y="15" textLength="41.776">Jarvis</tspan>
+      </text>
+      <circle cx="421.4997" cy="380.7517" r="6.750711" fill="white"/>
+      <circle cx="421.4997" cy="380.7517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="387.501" x2="421.5" y2="397.616" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="397.616" x2="414" y2="411.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="397.616" x2="429" y2="411.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="429" y1="393.001" x2="414" y2="392.876" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(402 51.052)" fill="black">
+        <tspan font-family="Helvetica Neue" font-size="16" font-weight="500" x="5.276" y="15" textLength="28.448">Ada</tspan>
+      </text>
+      <circle cx="421.4997" cy="22.7517" r="6.750711" fill="white"/>
+      <circle cx="421.4997" cy="22.7517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="29.501" x2="421.5" y2="39.616" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="39.616" x2="414" y2="53.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="39.616" x2="429" y2="53.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="429" y1="35.001" x2="414" y2="34.876" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(193 274.052)" fill="black">
+        <tspan font-family="Helvetica Neue" font-size="16" font-weight="500" x=".316" y="15" textLength="42.368">Bruce</tspan>
+      </text>
+      <circle cx="214.4997" cy="245.7517" r="6.750711" fill="white"/>
+      <circle cx="214.4997" cy="245.7517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214.5" y1="252.501" x2="214.5" y2="262.616" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214.5" y1="262.616" x2="207" y2="276.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214.5" y1="262.616" x2="222" y2="276.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="222" y1="258.001" x2="207" y2="257.876" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(607 274.052)" fill="black">
+        <tspan font-family="Helvetica Neue" font-size="16" font-weight="500" x=".46" y="15" textLength="42.08">Drake</tspan>
+      </text>
+      <circle cx="628.4997" cy="245.7517" r="6.750711" fill="white"/>
+      <circle cx="628.4997" cy="245.7517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="628.5" y1="252.501" x2="628.5" y2="262.616" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="628.5" y1="262.616" x2="621" y2="276.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="628.5" y1="262.616" x2="636" y2="276.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="636" y1="258.001" x2="621" y2="257.876" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <rect x="579" y="343" width="99" height="28" fill="white"/>
+      <rect x="579" y="343" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(584 348.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="6.052" y="13" textLength="76.896">社交Apps网关</tspan>
+      </text>
+      <rect x="579" y="436" width="99" height="28" fill="white"/>
+      <rect x="579" y="436" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(584 441.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="18.052" y="13" textLength="52.896">社交Apps</tspan>
+      </text>
+      <rect x="165" y="162" width="99" height="28" fill="white"/>
+      <rect x="165" y="162" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(170 167.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="24.142" y="13" textLength="40.716">Git仓库</tspan>
+      </text>
+      <text transform="translate(178 93.052)" fill="black">
+        <tspan font-family="Helvetica Neue" font-size="16" font-weight="500" x=".204" y="15" textLength="72.592">Developer</tspan>
+      </text>
+      <circle cx="214.4997" cy="64.7517" r="6.750711" fill="white"/>
+      <circle cx="214.4997" cy="64.7517" r="6.750711" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214.5" y1="71.501" x2="214.5" y2="81.616" stroke="black" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214.5" y1="81.616" x2="207" y2="95.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214.5" y1="81.616" x2="222" y2="95.117" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="222" y1="77.001" x2="207" y2="76.876" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <rect x="165" y="343" width="99" height="28" fill="white"/>
+      <rect x="165" y="343" width="99" height="28" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(170 348.5)" fill="black">
+        <tspan font-family="PingFang SC" font-size="12" font-weight="bold" x="26.854" y="13" textLength="35.292">CI/CD</tspan>
+      </text>
+      <line x1="421.5" y1="432" x2="421.5" y2="448.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="446" y1="396" x2="569.5" y2="359.7857" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="397" y1="394" x2="273.5378" y2="359.65337" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="628.5" y1="297" x2="628.5" y2="333.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421" y1="344" x2="421" y2="360.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="628.5" y1="371" x2="628.5" y2="426.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214.5" y1="297" x2="214.5" y2="333.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214.5" y1="116" x2="214.5" y2="152.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="214" y1="192" x2="214" y2="221.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421" y1="283" x2="421" y2="299.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421.5" y1="214" x2="421.5" y2="192.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421" y1="92" x2="421" y2="81.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="421" y1="10" x2="421" y2="-.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>
