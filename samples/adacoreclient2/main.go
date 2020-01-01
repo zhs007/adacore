@@ -17,6 +17,8 @@ func startClient(cfg *adacore.Config) error {
 		return err
 	}
 
+	md.HashName = "wepgS2vAftAdt9WdqlztHDYlm2YaAGFLWAp7IUmrM1I.html"
+
 	reply, err := client.BuildWithMarkdown(context.Background(), md)
 	if err != nil {
 		fmt.Printf("startClient BuildWithMarkdownFile %v", err)
