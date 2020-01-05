@@ -18,6 +18,7 @@ var tempLine *template.Template
 var tempPie *template.Template
 var tempBar *template.Template
 var tempTreeMap *template.Template
+var tempCommodity *template.Template
 
 func parseBase64(name string, str string) (*template.Template, error) {
 	buf, err := base64.StdEncoding.DecodeString(str)
@@ -67,6 +68,13 @@ func InitTemplates() error {
 	}
 
 	tempTreeMap = tmp
+
+	tmp, err = parseBase64("adacommodity", templatecommodity)
+	if err != nil {
+		return err
+	}
+
+	tempCommodity = tmp
 
 	return nil
 }
@@ -547,6 +555,40 @@ func (md *Markdown) AppendChartTreeMapFloat(treemap *ChartTreeMapFloat) (
 	}
 
 	md.str += b.String()
+
+	return md.str, nil
+}
+
+// AppendCommodity - append commodity
+func (md *Markdown) AppendCommodity(commodity *Commodity, im *ImageMap, mddata *adacorepb.MarkdownData) (
+	string, error) {
+
+	if im == nil {
+		return "", ErrNilImageMap
+	}
+
+	d, err := yaml.Marshal(commodity)
+	if err != nil {
+		return "", err
+	}
+
+	var b bytes.Buffer
+	err = tempCommodity.Execute(&b, baseObj{
+		Yaml: string(d),
+	})
+	if err != nil {
+		return "", err
+	}
+
+	md.str += b.String()
+
+	if mddata.BinaryData == nil {
+		mddata.BinaryData = make(map[string][]byte)
+	}
+
+	for k, v := range im.MapImgs {
+		mddata.BinaryData[k] = v
+	}
 
 	return md.str, nil
 }
