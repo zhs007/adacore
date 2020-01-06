@@ -1,6 +1,9 @@
 package adacore
 
-import "io/ioutil"
+import (
+	"io/ioutil"
+	"path/filepath"
+)
 
 // ImageMap - image mapping
 type ImageMap struct {
@@ -15,20 +18,29 @@ func NewImageMap() *ImageMap {
 }
 
 // AddImage - add a image
-func (im *ImageMap) AddImage(fn string) error {
-	_, isok := im.MapImgs[fn]
+func (im *ImageMap) AddImage(fn string, fullfn bool) (string, error) {
+	var key string
+
+	if !fullfn {
+		_, cfn := filepath.Split(fn)
+		key = cfn
+	} else {
+		key = fn
+	}
+
+	_, isok := im.MapImgs[key]
 	if isok {
-		return ErrDuplicateFNInImageMap
+		return key, ErrDuplicateFNInImageMap
 	}
 
 	buf, err := ioutil.ReadFile(fn)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	im.MapImgs[fn] = buf
+	im.MapImgs[key] = buf
 
-	return nil
+	return key, nil
 }
 
 // AddImageBuff - add a image buffer

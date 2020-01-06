@@ -8,11 +8,12 @@ type CommodityShop struct {
 
 // CommodityItem - commodity item
 type CommodityItem struct {
-	Title    string        `yaml:"title"`
-	CurPrice float32       `yaml:"curprice"`
-	Img      string        `yaml:"img"`
-	URL      string        `yaml:"url"`
-	Shop     CommodityShop `yaml:"shop"`
+	Title       string        `yaml:"title"`
+	CurPrice    float32       `yaml:"curprice"`
+	Img         string        `yaml:"img"`
+	ImgFileName string        `yaml:"imgfilename"`
+	URL         string        `yaml:"url"`
+	Shop        CommodityShop `yaml:"shop"`
 }
 
 // Commodity - commodity
@@ -22,7 +23,7 @@ type Commodity struct {
 }
 
 // LoadImageMap - load ImageMap
-func (c *Commodity) LoadImageMap() (*ImageMap, error) {
+func (c *Commodity) LoadImageMap(fullfn bool) (*ImageMap, error) {
 	if len(c.Items) <= 0 {
 		return nil, nil
 	}
@@ -30,10 +31,14 @@ func (c *Commodity) LoadImageMap() (*ImageMap, error) {
 	im := NewImageMap()
 
 	for _, v := range c.Items {
-		err := im.AddImage(v.Img)
+		in, err := im.AddImage(v.ImgFileName, fullfn)
 		if err != nil {
-			return nil, err
+			if err != ErrDuplicateFNInImageMap {
+				return nil, err
+			}
 		}
+
+		v.Img = in
 	}
 
 	return im, nil
