@@ -44,11 +44,49 @@ func genMarkdown() (*adacorepb.MarkdownData, error) {
 		return nil, err
 	}
 
+	md.AppendParagraph("")
+
+	c := &adacore.Commodity{
+		ID: "commodity001",
+		Items: []*adacore.CommodityItem{
+			&adacore.CommodityItem{
+				Title:       "这是一件商品1",
+				CurPrice:    999.99,
+				ImgFileName: "./c.jpg",
+				URL:         "https://ada.heyalgo.io/p1",
+				Shop: adacore.CommodityShop{
+					Name: "这是一个店铺1",
+					URL:  "https://ada.heyalgo.io/shop1",
+				},
+			},
+			&adacore.CommodityItem{
+				Title:       "这是一件商品2",
+				CurPrice:    1999.99,
+				ImgFileName: "./c.jpg",
+				URL:         "https://ada.heyalgo.io/p2",
+				Shop: adacore.CommodityShop{
+					Name: "这是一个店铺2",
+					URL:  "https://ada.heyalgo.io/shop2",
+				},
+			},
+		},
+	}
+
+	im, err := c.LoadImageMap(false)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = md.AppendCommodity(c, im, mddata)
+	if err != nil {
+		return nil, err
+	}
+
 	// mddata.BinaryData["sample001.jpg"] = buf
 
 	mddata.StrData = md.GetMarkdownString(km)
 
-	// fmt.Print(str)
+	// fmt.Print(mddata.StrData)
 
 	return mddata, nil
 }
@@ -79,6 +117,8 @@ func startClient(cfg *adacore.Config) error {
 }
 
 func main() {
+	adacore.InitTemplates()
+
 	cfg, err := adacore.LoadConfig("./config.yaml")
 	if err != nil {
 		fmt.Printf("startServ LoadConfig %v", err)

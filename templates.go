@@ -10,3 +10,5 @@ const templateadaline = "YGBgIGFkYS5saW5lCnt7IC5ZYW1sIH19CmBgYAo="
 const templateadapie = "YGBgIGFkYS5waWUKe3sgLllhbWwgfX0KYGBgCg=="
 
 const templateadatreemap = "YGBgIGFkYS50cmVlbWFwCnt7IC5ZYW1sIH19CmBgYAo="
+
+const templatecommodity = "YGBgIGFkYS5jb21tb2RpdHkKe3sgLllhbWwgfX0KYGBgCg=="
