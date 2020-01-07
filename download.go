@@ -2,6 +2,7 @@ package adacore
 
 import (
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 )
@@ -26,4 +27,21 @@ func DownloadFile(fn string, url string) error {
 	_, err = io.Copy(out, resp.Body)
 
 	return err
+}
+
+// DownloadBuff - download buffer
+func DownloadBuff(url string) ([]byte, error) {
+	// Get the data
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
 }
