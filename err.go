@@ -10,4 +10,7 @@ var (
 
 	// ErrNilImageMap - ImageMap is nil
 	ErrNilImageMap = errors.New("ImageMap is nil")
+
+	// ErrInvalidImageFileType - invalid image file type
+	ErrInvalidImageFileType = errors.New("invalid image file type")
 )
