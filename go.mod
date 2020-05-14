@@ -10,8 +10,8 @@ require (
 	github.com/zhs007/ankadb v0.3.33
 	github.com/zhs007/chatbot v0.3.3
 	go.uber.org/zap v1.15.0
-	golang.org/x/image v0.0.0-20191214001246-9130b4cfad52 // indirect
-	golang.org/x/net v0.0.0-20200506145744-7e3656a0809f
+	golang.org/x/image v0.0.0-20200430140353-33d19683fad8 // indirect
+	golang.org/x/net v0.0.0-20200513185701-a91f0712d120
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.22.0
 	gopkg.in/yaml.v2 v2.3.0
