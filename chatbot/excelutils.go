@@ -9,7 +9,7 @@ import (
 	"unicode"
 
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
-	chatbotpb "github.com/zhs007/chatbot/proto"
+	chatbotpb "github.com/zhs007/chatbot/pb"
 )
 
 // ExcelCellType - excel cell type

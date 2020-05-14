@@ -1,5 +1,6 @@
 syntax = "proto3";
 package adarender;
+option go_package = "github.com/zhs007/adacore/adarenderpb";
 
 // MarkdownData - markdown data
 message MarkdownData {

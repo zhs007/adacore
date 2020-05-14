@@ -11,7 +11,7 @@ import (
 	"github.com/zhs007/adacore/adarenderclient"
 	adarender "github.com/zhs007/adacore/adarenderpb"
 	adacorebase "github.com/zhs007/adacore/base"
-	adacorepb "github.com/zhs007/adacore/proto"
+	adacorepb "github.com/zhs007/adacore/adacorepb"
 )
 
 // Serv - AdaCore Service

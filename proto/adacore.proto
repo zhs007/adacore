@@ -1,5 +1,6 @@
 syntax = "proto3";
 package adacorepb;
+option go_package = "github.com/zhs007/adacore/adacorepb";
 
 // MarkdownData - markdown data
 message MarkdownData{
