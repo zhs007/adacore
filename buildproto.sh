@@ -1,3 +1,3 @@
-protoc -I adarenderpb/ adarenderpb/adarender.proto --go_out=plugins=grpc:adarenderpb
-protoc -I proto/ proto/adacore.proto --go_out=plugins=grpc:proto
-protoc -I proto/ proto/chatbot.proto --go_out=plugins=grpc:proto
+export PATH="$PATH:$(go env GOPATH)/bin"
+protoc --proto_path=proto/ --go_out=plugins=grpc:adacorepb --go_opt=paths=source_relative proto/*.proto
+protoc --proto_path=adarenderproto/ --go_out=plugins=grpc:adarenderpb --go_opt=paths=source_relative adarenderproto/*.proto

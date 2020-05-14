@@ -11,7 +11,7 @@ import (
 	"io/ioutil"
 
 	"github.com/zhs007/adacore"
-	adacorepb "github.com/zhs007/adacore/proto"
+	adacorepb "github.com/zhs007/adacore/adacorepb"
 )
 
 func genMarkdown() string {

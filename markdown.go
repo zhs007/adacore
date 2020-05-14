@@ -8,7 +8,7 @@ import (
 	"gopkg.in/yaml.v2"
 
 	adacorebase "github.com/zhs007/adacore/base"
-	adacorepb "github.com/zhs007/adacore/proto"
+	adacorepb "github.com/zhs007/adacore/adacorepb"
 )
 
 // Dataset - dataset

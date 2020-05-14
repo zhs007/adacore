@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/golang/protobuf/proto"
-	adacorepb "github.com/zhs007/adacore/proto"
+	adacorepb "github.com/zhs007/adacore/adacorepb"
 	chatbot "github.com/zhs007/chatbot"
 	chatbotbase "github.com/zhs007/chatbot/base"
-	chatbotpb "github.com/zhs007/chatbot/proto"
+	chatbotpb "github.com/zhs007/chatbot/pb"
 	"go.uber.org/zap"
 )
 

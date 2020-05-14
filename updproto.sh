@@ -1,0 +1,1 @@
+cp ../adarender/proto/*.proto ./adarenderproto/
