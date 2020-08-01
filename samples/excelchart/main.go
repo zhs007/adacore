@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/zhs007/adacore"
@@ -45,6 +46,37 @@ type Dataset struct {
 	GW        []float64
 }
 
+// RateOfChg - rate of change
+type RateOfChg struct {
+	Data      []string  `yaml:"data"`
+	GroupNums []float32 `yaml:"groupnums"`
+	BrandNums []float32 `yaml:"brandnums"`
+	PlayNums  []float32 `yaml:"playnums"`
+	Users     []float32 `yaml:"users"`
+	Amount    []float32 `yaml:"amount"`
+	Won       []float32 `yaml:"won"`
+	GW        []float32 `yaml:"gw"`
+}
+
+// EnvPer - env per
+type EnvPer struct {
+	Env []string
+	Val []float64
+}
+
+func addAmount(ep *EnvPer, env string, amount float64) {
+	for i, v := range ep.Env {
+		if v == env {
+			ep.Val[i] = ep.Val[i] + amount
+
+			return
+		}
+	}
+
+	ep.Env = append(ep.Env, env)
+	ep.Val = append(ep.Val, amount)
+}
+
 func loadSheet(f *excelize.File, sheetname string) ([]*dayData, error) {
 	// sheetname := f.GetSheetName(index)
 	arr, err := f.GetRows(sheetname)
@@ -55,10 +87,10 @@ func loadSheet(f *excelize.File, sheetname string) ([]*dayData, error) {
 	lst := []*dayData{}
 	for y := 1; y < len(arr); y++ {
 		cdd := &dayData{
-			data:  arr[y][2],
+			data:  strings.TrimSpace(arr[y][2]),
 			group: arr[y][3],
 			brand: arr[y][4],
-			env:   arr[y][13],
+			env:   strings.TrimSpace(arr[y][13]),
 		}
 
 		pn, err := strconv.Atoi(arr[y][8])
@@ -119,10 +151,15 @@ func excelChart(fn string) ([]*dayStats, []*dayData, error) {
 		}
 
 		cs := &dayStats{
-			data: clst[0].data,
+			data:      clst[0].data,
+			brandNums: len(clst),
 		}
 
 		for _, v1 := range clst {
+			if v1.env == "mt" {
+				continue
+			}
+
 			cs.playNums = cs.playNums + v1.playNums
 			cs.users = cs.users + v1.users
 			cs.amount = cs.amount + v1.amount
@@ -137,6 +174,18 @@ func excelChart(fn string) ([]*dayStats, []*dayData, error) {
 	return lststats, lst, nil
 }
 
+func analyzeEnvPer(lst []*dayData, date string) (*EnvPer, error) {
+	ep := &EnvPer{}
+
+	for _, v := range lst {
+		if v.data == date {
+			addAmount(ep, v.env, v.amount)
+		}
+	}
+
+	return ep, nil
+}
+
 func main() {
 	err := adacore.InitTemplates()
 	if err != nil {
@@ -145,16 +194,19 @@ func main() {
 		return
 	}
 
-	lsts, _, err := excelChart("./excelchart.xlsx")
+	lsts, lst, err := excelChart("./excelchart.xlsx")
 	if err != nil {
 		fmt.Printf("excelChart err %v", err)
 	}
+
+	ep, err := analyzeEnvPer(lst, "2020-02-07")
 
 	sort.Slice(lsts, func(i, j int) bool {
 		return lsts[i].data < lsts[j].data
 	})
 
 	ds := &Dataset{}
+	roc := &RateOfChg{}
 	for _, v := range lsts {
 		ds.Data = append(ds.Data, v.data)
 		ds.GroupNums = append(ds.GroupNums, v.groupNums)
@@ -166,9 +218,18 @@ func main() {
 		ds.GW = append(ds.GW, v.gw)
 	}
 
+	roc.Data = ds.Data[1:]
+	roc.BrandNums = adacore.NewRateOfChgInt(ds.BrandNums)
+	roc.PlayNums = adacore.NewRateOfChgInt(ds.PlayNums)
+	roc.Users = adacore.NewRateOfChgInt(ds.Users)
+	roc.Amount = adacore.NewRateOfChgFloat64(ds.Amount)
+	roc.Won = adacore.NewRateOfChgFloat64(ds.Won)
+	roc.GW = adacore.NewRateOfChgFloat64(ds.GW)
+
 	md := adacore.NewMakrdown("Ada Core")
 
 	md.AppendDataset("ds001", ds)
+	md.AppendDataset("ds002", roc)
 
 	md.AppendChartBar(&adacore.ChartBar{
 		ID:          "bar001",
@@ -183,6 +244,40 @@ func main() {
 			adacore.ChartBasicData{
 				Name: "amount",
 				Data: "amount",
+			},
+		},
+	})
+
+	md.AppendChartBar(&adacore.ChartBar{
+		ID:          "bar005",
+		DatasetName: "ds001",
+		Title:       "users bar",
+		LegendData:  []string{"uesrs"},
+		XType:       "category",
+		XData:       "data",
+		XShowAll:    true,
+		YType:       "value",
+		YData: []adacore.ChartBasicData{
+			adacore.ChartBasicData{
+				Name: "users",
+				Data: "users",
+			},
+		},
+	})
+
+	md.AppendChartBar(&adacore.ChartBar{
+		ID:          "bar006",
+		DatasetName: "ds001",
+		Title:       "users bar",
+		LegendData:  []string{"playnums"},
+		XType:       "category",
+		XData:       "data",
+		XShowAll:    true,
+		YType:       "value",
+		YData: []adacore.ChartBasicData{
+			adacore.ChartBasicData{
+				Name: "playnums",
+				Data: "playnums",
 			},
 		},
 	})
@@ -203,6 +298,62 @@ func main() {
 			},
 		},
 	})
+
+	md.AppendChartBar(&adacore.ChartBar{
+		ID:          "bar003",
+		DatasetName: "ds002",
+		Title:       "per bar",
+		LegendData:  []string{"brandnums", "playnums", "users", "amount", "gw"},
+		XType:       "category",
+		XData:       "data",
+		XShowAll:    true,
+		YType:       "value",
+		YData: []adacore.ChartBasicData{
+			adacore.ChartBasicData{
+				Name: "brandnums",
+				Data: "brandnums",
+			},
+			adacore.ChartBasicData{
+				Name: "playnums",
+				Data: "playnums",
+			},
+			adacore.ChartBasicData{
+				Name: "users",
+				Data: "users",
+			},
+			adacore.ChartBasicData{
+				Name: "amount",
+				Data: "amount",
+			},
+			adacore.ChartBasicData{
+				Name: "gw",
+				Data: "gw",
+			},
+		},
+	})
+
+	_, err = md.AppendDataset("envperds", ep)
+	if err != nil {
+		fmt.Printf("AppendDataset error %v", err)
+
+		return
+	}
+
+	_, err = md.AppendChartPie(&adacore.ChartPie{
+		ID:          "pie001",
+		DatasetName: "envperds",
+		Title:       "Pie",
+		SubText:     "test pie chart",
+		A:           "pie name",
+		BVal:        "env",
+		CVal:        "val",
+		Sort:        adacore.ChartSortReverse,
+	})
+	if err != nil {
+		fmt.Printf("AppendChartPie error %v", err)
+
+		return
+	}
 
 	err = ioutil.WriteFile("./output.md", []byte(md.GetMarkdownString(nil)), 0644)
 	if err != nil {

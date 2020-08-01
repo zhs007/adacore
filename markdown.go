@@ -27,11 +27,11 @@ type Dataset struct {
 // 	Height      int    `yaml:"height"`
 // }
 
-// ChartBasicData - chart basic data
-type ChartBasicData struct {
-	Name string `yaml:"name"`
-	Data string `yaml:"data"`
-}
+// // ChartBasicData - chart basic data
+// type ChartBasicData struct {
+// 	Name string `yaml:"name"`
+// 	Data string `yaml:"data"`
+// }
 
 // ChartTreeMapData - chart treemap data
 type ChartTreeMapData struct {
@@ -83,22 +83,6 @@ const (
 	// ChartSortReverse - reverse sort
 	ChartSortReverse string = "reverse"
 )
-
-// ChartBar - chart bar infomation
-type ChartBar struct {
-	ID          string           `yaml:"id"`
-	DatasetName string           `yaml:"datasetname"`
-	Title       string           `yaml:"title"`
-	SubText     string           `yaml:"subtext"`
-	Width       int              `yaml:"width"`
-	Height      int              `yaml:"height"`
-	LegendData  []string         `yaml:"legenddata"`
-	XType       string           `yaml:"xtype"`
-	XData       string           `yaml:"xdata"`
-	XShowAll    bool             `yaml:"xshowall"`
-	YType       string           `yaml:"ytype"`
-	YData       []ChartBasicData `yaml:"ydata"`
-}
 
 // ChartTreeMap - chart treemap infomation
 type ChartTreeMap struct {
@@ -414,28 +398,6 @@ func (md *Markdown) AppendChartLine(obj interface{}) (
 	var b bytes.Buffer
 
 	err = tempLine.Execute(&b, baseObj{
-		Yaml: string(d),
-	})
-	if err != nil {
-		return "", err
-	}
-
-	md.str += b.String()
-
-	return md.str, nil
-}
-
-// AppendChartBar - append chart bar, the obj should be an object that can be encoded by yaml
-func (md *Markdown) AppendChartBar(bar *ChartBar) (
-	string, error) {
-
-	d, err := yaml.Marshal(bar)
-	if err != nil {
-		return "", err
-	}
-
-	var b bytes.Buffer
-	err = tempBar.Execute(&b, baseObj{
 		Yaml: string(d),
 	})
 	if err != nil {
