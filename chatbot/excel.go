@@ -8,7 +8,7 @@ import (
 	adacore "github.com/zhs007/adacore"
 	chatbot "github.com/zhs007/chatbot"
 	chatbotbase "github.com/zhs007/chatbot/base"
-	chatbotpb "github.com/zhs007/chatbot/pb"
+	chatbotpb "github.com/zhs007/chatbot/chatbotpb"
 	"go.uber.org/zap"
 )
 

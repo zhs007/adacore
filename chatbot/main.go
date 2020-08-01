@@ -95,17 +95,17 @@ func StartChatBot(ctx context.Context, adacorecfgfn string, chatbotcfgfn string)
 		zap.String("version", adacorebase.VERSION),
 		zap.String("chatbot.version", chatbotbase.VERSION))
 
-	err = basicchatbot.InitBasicChatBot()
+	chatbotcfg, err := chatbot.LoadConfig(chatbotcfgfn)
 	if err != nil {
-		adacorebase.Warn("StartChatBot:InitBasicChatBot",
+		adacorebase.Warn("StartChatBot:LoadConfig",
 			zap.Error(err))
 
 		return err
 	}
 
-	chatbotcfg, err := chatbot.LoadConfig(chatbotcfgfn)
+	err = basicchatbot.InitBasicChatBot(*chatbotcfg)
 	if err != nil {
-		adacorebase.Warn("StartChatBot:LoadConfig",
+		adacorebase.Warn("StartChatBot:InitBasicChatBot",
 			zap.Error(err))
 
 		return err

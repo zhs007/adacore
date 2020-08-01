@@ -9,7 +9,7 @@ import (
 	adarender "github.com/zhs007/adacore/adarenderpb"
 	adacorebase "github.com/zhs007/adacore/base"
 	chatbot "github.com/zhs007/chatbot"
-	chatbotpb "github.com/zhs007/chatbot/pb"
+	chatbotpb "github.com/zhs007/chatbot/chatbotpb"
 	"go.uber.org/zap"
 )
 
