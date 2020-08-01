@@ -139,8 +139,6 @@ func genReport() (*adacorepb.MarkdownData, error) {
 		DatasetName: "pieds",
 		Title:       "Bar",
 		SubText:     "test bar chart",
-		Width:       1280,
-		Height:      800,
 		LegendData:  []string{"val1"},
 		XType:       "category",
 		XData:       "namedata",
