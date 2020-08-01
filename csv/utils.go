@@ -10,8 +10,17 @@ import (
 // FuncGetCellString - getCellString(i int, member string) (string, error)
 type FuncGetCellString func(i int, member string) (string, error)
 
+// formatString - https://www.cnblogs.com/xiaomiganfan/p/4073454.html
 func formatString(str string) string {
-	if strings.Index(str, ",") >= 0 {
+	ap := false
+
+	if strings.Index(str, "\"") >= 0 || strings.Index(str, ",") >= 0 {
+		ap = true
+	}
+
+	str = strings.Replace(str, "\"", "\"\"", -1)
+
+	if ap {
 		return adacorebase.AppendString("\"", str, "\"")
 	}
 
