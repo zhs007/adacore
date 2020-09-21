@@ -1,6 +1,6 @@
-FROM golang:1.12
+# https://github.com/zhs007/adacore
 
-MAINTAINER zerro "zerrozhao@gmail.com"
+FROM golang:1
 
 ENV GOPROXY https://goproxy.io
 
